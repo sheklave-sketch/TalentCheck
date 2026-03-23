@@ -1,0 +1,218 @@
+Product Requirements Document (PRD)
+Product Name (Working Title): TalentCheck Ethiopia
+Brand Positioning Statement
+"For forward-thinking Ethiopian organizations that want to hire based on skill, not connections, TalentCheck provides scientifically validated, localized hiring assessments that reduce bias and improve performance."
+Brand Personality
+Professional
+Data-driven
+Ethical
+Modern
+Trustworthy
+Messaging Pillars
+Hire by Skill, Not CV
+Reduce Bias
+Save 60% Hiring Time
+Scientifically Validated
+Built for Ethiopia
+Authority Strategy
+Publish:
+Hiring benchmark reports
+Bias in hiring research
+Salary & skill gap data
+Industry hiring trends
+TalentCheck will become the hiring data authority in Ethiopia.
+1. Introduction
+Problem
+Hiring in Ethiopia is:
+CV-driven and referral-heavy
+Highly biased (school, background, connections)
+Time-consuming for HR teams
+Poor at predicting real job performance
+Difficult to scale for high-volume roles
+There is no strong local, standardized pre-employment testing platform adapted for:
+Ethiopian education system
+Local language needs
+Ethiopian labor market realities
+Solution
+A SaaS-based pre-employment testing platform that enables employers to:
+Screen candidates objectively
+Reduce bias
+Test job-relevant skills
+Conduct remote proctored assessments
+Rank candidates automatically
+2. Vision
+To become Ethiopia’s most trusted hiring assessment platform that helps organizations hire based on skills, not CVs.
+3. Target Market
+Primary Customers (B2B)
+1. Banks & Financial Institutions
+Large applicant volumes
+Compliance-driven hiring
+Need integrity & cognitive testing
+2. Telcos (Ethio Telecom, Safaricom Ethiopia)
+Mass recruitment
+Technical & customer service roles
+3. NGOs & INGOs
+Transparent hiring requirements
+Standardized recruitment processes
+4. Large Corporates & FMCGs
+Sales & operations roles
+Graduate programs
+5. BPO & Call Centers
+English proficiency testing
+Communication skills
+6. Tech Startups
+Developer testing
+Product & data roles
+4. Core Value Proposition
+For Employers:
+Reduce time-to-hire by 50%
+Improve quality-of-hire
+Eliminate manual CV screening
+Reduce bias and favoritism
+Get ranked candidate lists instantly
+For Candidates:
+Fair opportunity
+Skill-based evaluation
+Clear feedback
+5. Product Scope (MVP → Phase 2 → Phase 3)
+Phase 1: MVP 
+5.1 Core Features
+A. Assessment Builder
+Select from the test library
+Combine multiple tests
+Set time limits
+Set scoring weights
+Custom company logo
+B. Test Library (Initial)
+1. Cognitive Ability Test
+Logical reasoning
+Numerical reasoning
+Verbal reasoning
+2. English Proficiency Test
+Grammar
+Reading comprehension
+Business communication
+3. Customer Service Simulation
+Scenario-based multiple choice
+4. Basic Computer Skills
+MS Word
+Excel fundamentals
+Email usage
+5. Integrity & Work Ethics Test
+Situational judgment
+6. Junior Developer Test (Basic)
+Multiple choice technical questions
+C. Candidate Experience
+Email/SMS invitation
+Mobile-friendly test interface
+Timer-based exams
+Auto-submit
+Basic anti-cheating controls:
+No tab switching (detect)
+Webcam snapshot (optional)
+IP tracking
+D. Scoring & Ranking
+Auto scoring
+Percentile ranking
+Downloadable PDF reports
+Dashboard view
+E. Employer Dashboard
+Create assessments
+Track candidates
+View results
+Export data (Excel)
+Phase 2: Expansion 
+Amharic language support
+Afaan Oromo support
+Custom test creation (company-defined)
+Video interview questions
+AI scoring for open-ended responses
+Psychometric validation reporting
+API for ATS integration
+Phase 3: Advanced
+Full AI-powered cheating detection
+Personality profiling
+Talent benchmarking database
+Industry-specific testing bundles
+Government recruitment solutions
+Campus hiring modules
+6. User Personas
+1. HR Manager – Bank
+Needs:
+Filter 5,000 applicants quickly
+Ensure fairness
+Produce compliance reports
+Pain:
+Manual CV screening takes weeks
+2. Startup Founder
+Needs:
+Hire fast
+Ensure skill competence
+Pain:
+No HR team
+3. NGO Recruiter
+Needs:
+Transparent scoring
+Documented process
+Pain:
+Donor compliance
+7. Business Model
+SaaS Subscription Model
+Tier 1: Starter
+1 active assessment
+10 candidates/month
+Basic tests
+Price: ETB-based monthly subscription
+Tier 2: Growth
+10 assessments
+500 candidates/month
+Advanced analytics
+Tier 3: Enterprise
+Unlimited candidates
+Custom tests
+Dedicated support
+API access
+Alternative Pricing Model
+Per candidate pricing
+Bulk annual contracts
+Pay-per-test model for small firms
+8. Revenue Streams
+Subscription fees
+Enterprise contracts
+Custom test development
+Psychometric consulting
+Data benchmarking reports
+Government tenders
+9. Competitive Landscape (Ethiopia)
+Direct Competition
+None strong, local digital psychometric platforms are minimal
+Indirect
+Manual exams
+HR consultancies
+Google Forms testing
+International tools (expensive & not localized)
+10. Key Differentiators
+Localized content
+Affordable pricing (ETB-based)
+Mobile-first
+Language localization
+Designed for the Ethiopian education context
+Anti-cheating adapted for low-bandwidth
+11. Regulatory Considerations
+Ethiopian Data Protection compliance
+Candidate data privacy policy
+Consent-based data storage
+Hosting location compliance (if required)
+12. Risks & Mitigation
+Risk
+Mitigation
+Employers resist change
+Offer pilot programs
+Low digital literacy
+Simple UX
+Cheating
+Gradual AI proctoring
+Copycat competitors
+Strong brand early
+Trust issues
+Partner with reputable institutions

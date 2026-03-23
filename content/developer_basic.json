@@ -1,0 +1,111 @@
+{
+  "key": "developer_basic",
+  "label": "Junior Developer Test (Basic)",
+  "description": "Multiple choice technical questions — programming fundamentals",
+  "questions": [
+    {
+      "id": "dev_001",
+      "type": "mcq",
+      "category": "python",
+      "text": "What is the output of: print(type([1, 2, 3]))?",
+      "options": [
+        {"key": "A", "text": "<class 'tuple'>"},
+        {"key": "B", "text": "<class 'dict'>"},
+        {"key": "C", "text": "<class 'list'>"},
+        {"key": "D", "text": "<class 'array'>"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "dev_002",
+      "type": "mcq",
+      "category": "concepts",
+      "text": "What does API stand for?",
+      "options": [
+        {"key": "A", "text": "Application Programming Interface"},
+        {"key": "B", "text": "Automated Process Integration"},
+        {"key": "C", "text": "Application Protocol Instruction"},
+        {"key": "D", "text": "Advanced Programming Index"}
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "dev_003",
+      "type": "mcq",
+      "category": "web",
+      "text": "Which HTTP status code indicates 'Not Found'?",
+      "options": [
+        {"key": "A", "text": "200"},
+        {"key": "B", "text": "301"},
+        {"key": "C", "text": "404"},
+        {"key": "D", "text": "500"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "dev_004",
+      "type": "mcq",
+      "category": "database",
+      "text": "Which SQL statement is used to retrieve data from a database?",
+      "options": [
+        {"key": "A", "text": "GET"},
+        {"key": "B", "text": "FETCH"},
+        {"key": "C", "text": "SELECT"},
+        {"key": "D", "text": "READ"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "dev_005",
+      "type": "mcq",
+      "category": "concepts",
+      "text": "What is the purpose of version control (e.g., Git)?",
+      "options": [
+        {"key": "A", "text": "To speed up code execution"},
+        {"key": "B", "text": "To track changes in code over time and enable collaboration"},
+        {"key": "C", "text": "To compress files"},
+        {"key": "D", "text": "To deploy applications to servers"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "dev_006",
+      "type": "mcq",
+      "category": "javascript",
+      "text": "In JavaScript, which keyword declares a variable that cannot be reassigned?",
+      "options": [
+        {"key": "A", "text": "var"},
+        {"key": "B", "text": "let"},
+        {"key": "C", "text": "const"},
+        {"key": "D", "text": "static"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "dev_007",
+      "type": "mcq",
+      "category": "concepts",
+      "text": "What does 'responsive design' mean in web development?",
+      "options": [
+        {"key": "A", "text": "The website loads quickly"},
+        {"key": "B", "text": "The website adjusts its layout for different screen sizes"},
+        {"key": "C", "text": "The website responds to user comments"},
+        {"key": "D", "text": "The website has a fast API response time"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "dev_008",
+      "type": "mcq",
+      "category": "python",
+      "text": "What will this Python code print? x = [1,2,3]; print(x[-1])",
+      "options": [
+        {"key": "A", "text": "1"},
+        {"key": "B", "text": "-1"},
+        {"key": "C", "text": "3"},
+        {"key": "D", "text": "Error"}
+      ],
+      "correct_answer": "C"
+    }
+  ]
+}

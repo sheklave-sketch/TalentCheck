@@ -1,0 +1,85 @@
+{
+  "key": "integrity",
+  "label": "Integrity & Work Ethics",
+  "description": "Situational judgment test",
+  "questions": [
+    {
+      "id": "int_001",
+      "type": "mcq",
+      "category": "situational",
+      "text": "You notice a colleague submitting a falsified expense report. What do you do?",
+      "options": [
+        {"key": "A", "text": "Ignore it — it is not your concern"},
+        {"key": "B", "text": "Tell other colleagues about it"},
+        {"key": "C", "text": "Report it to a supervisor through the appropriate channel"},
+        {"key": "D", "text": "Confront your colleague aggressively in public"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "int_002",
+      "type": "mcq",
+      "category": "situational",
+      "text": "Your manager asks you to record a transaction inaccurately to meet monthly targets. You should:",
+      "options": [
+        {"key": "A", "text": "Do it — your manager told you to"},
+        {"key": "B", "text": "Refuse and explain your concern professionally, escalate if pressed"},
+        {"key": "C", "text": "Do it this once and report it later"},
+        {"key": "D", "text": "Resign immediately"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "int_003",
+      "type": "mcq",
+      "category": "situational",
+      "text": "You accidentally sent a confidential client document to the wrong email. You should:",
+      "options": [
+        {"key": "A", "text": "Delete the sent email and hope no one notices"},
+        {"key": "B", "text": "Immediately notify your supervisor and the client, and follow the data breach protocol"},
+        {"key": "C", "text": "Wait to see if the recipient contacts you"},
+        {"key": "D", "text": "Ask a colleague to handle it"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "int_004",
+      "type": "mcq",
+      "category": "attitude",
+      "text": "A colleague takes credit for your work in a team meeting. The best response is to:",
+      "options": [
+        {"key": "A", "text": "Publicly embarrass them in the meeting"},
+        {"key": "B", "text": "Say nothing and let it pass"},
+        {"key": "C", "text": "Calmly and professionally clarify your contribution at the appropriate moment"},
+        {"key": "D", "text": "Complain to everyone except the person involved"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "int_005",
+      "type": "mcq",
+      "category": "situational",
+      "text": "You are offered a gift by a vendor whose contract you are reviewing. You should:",
+      "options": [
+        {"key": "A", "text": "Accept it — it's just a gesture of goodwill"},
+        {"key": "B", "text": "Accept it but disclose it to your manager"},
+        {"key": "C", "text": "Decline and report the offer according to your organization's conflict-of-interest policy"},
+        {"key": "D", "text": "Accept and keep it private"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "int_006",
+      "type": "mcq",
+      "category": "attitude",
+      "text": "You realize you made a mistake that affected a key deliverable. What do you do?",
+      "options": [
+        {"key": "A", "text": "Hide it and hope it resolves itself"},
+        {"key": "B", "text": "Blame external factors"},
+        {"key": "C", "text": "Acknowledge the mistake, notify the relevant people, and propose a corrective action"},
+        {"key": "D", "text": "Wait for someone else to notice"}
+      ],
+      "correct_answer": "C"
+    }
+  ]
+}

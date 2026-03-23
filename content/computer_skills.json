@@ -1,0 +1,98 @@
+{
+  "key": "computer_skills",
+  "label": "Basic Computer Skills",
+  "description": "MS Word, Excel fundamentals, email usage",
+  "questions": [
+    {
+      "id": "comp_001",
+      "type": "mcq",
+      "category": "excel",
+      "text": "In Excel, which formula correctly calculates the sum of cells A1 through A10?",
+      "options": [
+        {"key": "A", "text": "=ADD(A1:A10)"},
+        {"key": "B", "text": "=SUM(A1:A10)"},
+        {"key": "C", "text": "=TOTAL(A1,A10)"},
+        {"key": "D", "text": "=PLUS(A1-A10)"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "comp_002",
+      "type": "mcq",
+      "category": "excel",
+      "text": "Which Excel function returns the highest value in a range?",
+      "options": [
+        {"key": "A", "text": "LARGE()"},
+        {"key": "B", "text": "HIGH()"},
+        {"key": "C", "text": "MAX()"},
+        {"key": "D", "text": "TOP()"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "comp_003",
+      "type": "mcq",
+      "category": "word",
+      "text": "In Microsoft Word, to apply the same formatting to multiple sections, you should use:",
+      "options": [
+        {"key": "A", "text": "Copy-Paste"},
+        {"key": "B", "text": "Format Painter"},
+        {"key": "C", "text": "Bold tool"},
+        {"key": "D", "text": "Undo function"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "comp_004",
+      "type": "mcq",
+      "category": "email",
+      "text": "What is the correct use of 'BCC' in an email?",
+      "options": [
+        {"key": "A", "text": "Send a copy to recipients who can see all other recipients"},
+        {"key": "B", "text": "Send a copy to recipients who cannot see other recipients"},
+        {"key": "C", "text": "Forward the email automatically"},
+        {"key": "D", "text": "Mark the email as urgent"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "comp_005",
+      "type": "mcq",
+      "category": "excel",
+      "text": "To freeze the top row in Excel (so it stays visible while scrolling), you go to:",
+      "options": [
+        {"key": "A", "text": "Home > Freeze"},
+        {"key": "B", "text": "Data > Freeze Panes"},
+        {"key": "C", "text": "View > Freeze Panes > Freeze Top Row"},
+        {"key": "D", "text": "Insert > Lock Row"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "comp_006",
+      "type": "mcq",
+      "category": "general",
+      "text": "What does 'Ctrl + Z' do in most applications?",
+      "options": [
+        {"key": "A", "text": "Redo the last action"},
+        {"key": "B", "text": "Undo the last action"},
+        {"key": "C", "text": "Save the file"},
+        {"key": "D", "text": "Close the window"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "comp_007",
+      "type": "mcq",
+      "category": "word",
+      "text": "In Word, which feature allows you to see changes made by different reviewers?",
+      "options": [
+        {"key": "A", "text": "Spell Check"},
+        {"key": "B", "text": "Track Changes"},
+        {"key": "C", "text": "Compare Documents"},
+        {"key": "D", "text": "Comments only"}
+      ],
+      "correct_answer": "B"
+    }
+  ]
+}

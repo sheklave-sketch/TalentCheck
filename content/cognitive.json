@@ -1,0 +1,137 @@
+{
+  "key": "cognitive",
+  "label": "Cognitive Ability Test",
+  "description": "Logical reasoning, numerical reasoning, verbal reasoning",
+  "questions": [
+    {
+      "id": "cog_001",
+      "type": "mcq",
+      "category": "logical",
+      "text": "If all managers are leaders, and some leaders are experienced, which of the following must be true?",
+      "options": [
+        {"key": "A", "text": "All managers are experienced"},
+        {"key": "B", "text": "Some managers may be experienced"},
+        {"key": "C", "text": "No managers are experienced"},
+        {"key": "D", "text": "All experienced people are managers"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "cog_002",
+      "type": "mcq",
+      "category": "numerical",
+      "text": "A product was bought for 1,200 ETB and sold for 1,560 ETB. What is the profit percentage?",
+      "options": [
+        {"key": "A", "text": "25%"},
+        {"key": "B", "text": "30%"},
+        {"key": "C", "text": "32%"},
+        {"key": "D", "text": "35%"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "cog_003",
+      "type": "mcq",
+      "category": "numerical",
+      "text": "A bank teller processes 120 transactions in 8 hours. At this rate, how many transactions will be processed in 5 hours?",
+      "options": [
+        {"key": "A", "text": "70"},
+        {"key": "B", "text": "75"},
+        {"key": "C", "text": "80"},
+        {"key": "D", "text": "85"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "cog_004",
+      "type": "mcq",
+      "category": "logical",
+      "text": "Which number comes next in the series: 3, 7, 15, 31, ___?",
+      "options": [
+        {"key": "A", "text": "47"},
+        {"key": "B", "text": "55"},
+        {"key": "C", "text": "63"},
+        {"key": "D", "text": "71"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "cog_005",
+      "type": "mcq",
+      "category": "verbal",
+      "text": "Choose the word most opposite in meaning to DILIGENT:",
+      "options": [
+        {"key": "A", "text": "Careful"},
+        {"key": "B", "text": "Lazy"},
+        {"key": "C", "text": "Honest"},
+        {"key": "D", "text": "Intelligent"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "cog_006",
+      "type": "mcq",
+      "category": "numerical",
+      "text": "If 15% of a salary is 4,500 ETB, what is the full salary?",
+      "options": [
+        {"key": "A", "text": "28,000 ETB"},
+        {"key": "B", "text": "30,000 ETB"},
+        {"key": "C", "text": "32,000 ETB"},
+        {"key": "D", "text": "25,000 ETB"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "cog_007",
+      "type": "mcq",
+      "category": "logical",
+      "text": "If it takes 6 people 4 days to complete a task, how many days will it take 8 people to complete the same task?",
+      "options": [
+        {"key": "A", "text": "2"},
+        {"key": "B", "text": "3"},
+        {"key": "C", "text": "4"},
+        {"key": "D", "text": "5"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "cog_008",
+      "type": "mcq",
+      "category": "verbal",
+      "text": "BOOK is to LIBRARY as PAINTING is to ___?",
+      "options": [
+        {"key": "A", "text": "Artist"},
+        {"key": "B", "text": "Canvas"},
+        {"key": "C", "text": "Gallery"},
+        {"key": "D", "text": "Museum"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "cog_009",
+      "type": "mcq",
+      "category": "logical",
+      "text": "A company's revenue grew from 2.4M to 3.6M ETB. What is the percentage growth?",
+      "options": [
+        {"key": "A", "text": "40%"},
+        {"key": "B", "text": "50%"},
+        {"key": "C", "text": "60%"},
+        {"key": "D", "text": "33%"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "cog_010",
+      "type": "mcq",
+      "category": "verbal",
+      "text": "Which word best completes: 'Her explanation was so _____ that everyone immediately understood.'",
+      "options": [
+        {"key": "A", "text": "ambiguous"},
+        {"key": "B", "text": "lucid"},
+        {"key": "C", "text": "verbose"},
+        {"key": "D", "text": "vague"}
+      ],
+      "correct_answer": "B"
+    }
+  ]
+}

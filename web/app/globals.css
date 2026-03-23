@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-dark: #0A0E1A;
+    --brand-amber: #F5A623;
+    --brand-teal: #4ECDC4;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-syne);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-syne);
+  }
+  .font-body {
+    font-family: var(--font-dm-sans);
+  }
+  .font-mono {
+    font-family: var(--font-dm-mono);
+  }
+}

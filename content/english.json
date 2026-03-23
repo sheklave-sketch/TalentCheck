@@ -1,0 +1,111 @@
+{
+  "key": "english",
+  "label": "English Proficiency Test",
+  "description": "Grammar, reading comprehension, business communication",
+  "questions": [
+    {
+      "id": "eng_001",
+      "type": "mcq",
+      "category": "grammar",
+      "text": "Choose the grammatically correct sentence:",
+      "options": [
+        {"key": "A", "text": "Neither the manager nor the employees was present."},
+        {"key": "B", "text": "Neither the manager nor the employees were present."},
+        {"key": "C", "text": "Neither the manager nor the employees is present."},
+        {"key": "D", "text": "Neither the manager nor the employees are was present."}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "eng_002",
+      "type": "mcq",
+      "category": "grammar",
+      "text": "Select the correct form: 'The report ___ submitted by Friday.'",
+      "options": [
+        {"key": "A", "text": "must be"},
+        {"key": "B", "text": "must been"},
+        {"key": "C", "text": "must being"},
+        {"key": "D", "text": "must have"}
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "eng_003",
+      "type": "mcq",
+      "category": "vocabulary",
+      "text": "In a business email, 'Please revert at your earliest convenience' means:",
+      "options": [
+        {"key": "A", "text": "Please reverse the decision"},
+        {"key": "B", "text": "Please reply as soon as possible"},
+        {"key": "C", "text": "Please reconsider your position"},
+        {"key": "D", "text": "Please return to the office"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "eng_004",
+      "type": "mcq",
+      "category": "reading",
+      "text": "Read: 'Despite the project's initial delays, the team delivered results that exceeded client expectations.' What does this suggest about the team?",
+      "options": [
+        {"key": "A", "text": "They failed to meet the deadline"},
+        {"key": "B", "text": "They performed poorly under pressure"},
+        {"key": "C", "text": "They overcame obstacles and performed well"},
+        {"key": "D", "text": "The client was disappointed"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "eng_005",
+      "type": "mcq",
+      "category": "writing",
+      "text": "Which opening is most professional for a formal business email?",
+      "options": [
+        {"key": "A", "text": "Hey, I wanted to follow up on..."},
+        {"key": "B", "text": "Dear Mr. Tesfaye, I am writing to follow up on..."},
+        {"key": "C", "text": "Hi there! Just checking in about..."},
+        {"key": "D", "text": "To who it may concern, following up..."}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "eng_006",
+      "type": "mcq",
+      "category": "grammar",
+      "text": "Identify the error: 'The data clearly shows that our sales have grew by 20%.'",
+      "options": [
+        {"key": "A", "text": "clearly shows"},
+        {"key": "B", "text": "our sales"},
+        {"key": "C", "text": "have grew"},
+        {"key": "D", "text": "by 20%"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "eng_007",
+      "type": "mcq",
+      "category": "vocabulary",
+      "text": "The word 'remuneration' most closely means:",
+      "options": [
+        {"key": "A", "text": "Punishment"},
+        {"key": "B", "text": "Compensation or payment"},
+        {"key": "C", "text": "Recognition award"},
+        {"key": "D", "text": "Termination"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "eng_008",
+      "type": "mcq",
+      "category": "reading",
+      "text": "The word 'streamline' in a business context means to:",
+      "options": [
+        {"key": "A", "text": "Make a process more complex"},
+        {"key": "B", "text": "Remove all employees"},
+        {"key": "C", "text": "Make a process more efficient"},
+        {"key": "D", "text": "Add more steps to a process"}
+      ],
+      "correct_answer": "C"
+    }
+  ]
+}

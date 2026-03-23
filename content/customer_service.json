@@ -1,0 +1,85 @@
+{
+  "key": "customer_service",
+  "label": "Customer Service Simulation",
+  "description": "Scenario-based multiple choice situations",
+  "questions": [
+    {
+      "id": "cs_001",
+      "type": "mcq",
+      "category": "scenario",
+      "text": "An angry customer calls saying their transaction failed but their account was debited. What is your FIRST action?",
+      "options": [
+        {"key": "A", "text": "Tell them to call back tomorrow when a manager is available"},
+        {"key": "B", "text": "Apologize, assure them you will resolve it, and ask for their account number to investigate"},
+        {"key": "C", "text": "Immediately refund the amount without checking"},
+        {"key": "D", "text": "Ask them to come to the branch in person"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "cs_002",
+      "type": "mcq",
+      "category": "scenario",
+      "text": "A customer is shouting at you in the branch. Other customers are watching. What do you do?",
+      "options": [
+        {"key": "A", "text": "Shout back to assert yourself"},
+        {"key": "B", "text": "Walk away and ignore them"},
+        {"key": "C", "text": "Stay calm, lower your voice, and invite them to a private area to discuss the issue"},
+        {"key": "D", "text": "Call security immediately"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "cs_003",
+      "type": "mcq",
+      "category": "scenario",
+      "text": "A customer asks you a question you do not know the answer to. You should:",
+      "options": [
+        {"key": "A", "text": "Make up a plausible answer"},
+        {"key": "B", "text": "Tell them the question is not your department"},
+        {"key": "C", "text": "Acknowledge you're unsure, and commit to finding the correct answer"},
+        {"key": "D", "text": "Redirect them to another branch"}
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "cs_004",
+      "type": "mcq",
+      "category": "scenario",
+      "text": "A long-term customer requests a service your organization doesn't offer. What is the best response?",
+      "options": [
+        {"key": "A", "text": "Simply say no and end the conversation"},
+        {"key": "B", "text": "Apologize, explain the limitation, and offer the closest alternative you can provide"},
+        {"key": "C", "text": "Promise to add the service soon even if you can't"},
+        {"key": "D", "text": "Suggest they go to a competitor"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "cs_005",
+      "type": "mcq",
+      "category": "attitude",
+      "text": "Which of the following best describes good customer service?",
+      "options": [
+        {"key": "A", "text": "Closing issues as fast as possible, regardless of resolution quality"},
+        {"key": "B", "text": "Making the customer feel heard, respected, and helped"},
+        {"key": "C", "text": "Following scripts exactly, even when they don't fit the situation"},
+        {"key": "D", "text": "Referring all difficult customers to supervisors"}
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "cs_006",
+      "type": "mcq",
+      "category": "scenario",
+      "text": "A customer complains that they received incorrect information from a colleague. What do you do?",
+      "options": [
+        {"key": "A", "text": "Blame your colleague and distance yourself"},
+        {"key": "B", "text": "Tell the customer their complaint is invalid"},
+        {"key": "C", "text": "Apologize on behalf of the organization, clarify the correct information, and escalate if needed"},
+        {"key": "D", "text": "Ask the customer to file a written complaint"}
+      ],
+      "correct_answer": "C"
+    }
+  ]
+}
