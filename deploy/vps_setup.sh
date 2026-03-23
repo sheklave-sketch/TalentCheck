@@ -25,17 +25,16 @@ python3 -m venv /root/talentcheck/venv
 echo "Dependencies installed."
 
 # ─── 3. Write .env ─────────────────────────────────────────────────────────
-# EDIT DATABASE_URL with your Supabase postgres password before running
 cat > /root/talentcheck/.env << 'ENVEOF'
-DATABASE_URL=postgresql+asyncpg://postgres.ysrzmvsrvtovmiqtokqu:REPLACE_WITH_DB_PASSWORD@aws-0-eu-central-1.pooler.supabase.com:5432/postgres
+DATABASE_URL=postgresql://postgres.getucjflokixtpcbpvmi:REDACTED_DB_PASSWORD@aws-0-us-west-1.pooler.supabase.com:5432/postgres
 SECRET_KEY=REDACTED_SECRET_KEY
 ALGORITHM=HS256
-SUPABASE_URL=https://ysrzmvsrvtovmiqtokqu.supabase.co
-SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzcnptdnNydnRvdm1pcXRva3F1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MTUwMTQ4NywiZXhwIjoyMDg3MDc3NDg3fQ.zUF-lzsa4SHjZLJ1DJ_1R6C0r1GkpTDMs6pHbk_6Q08
+SUPABASE_URL=https://getucjflokixtpcbpvmi.supabase.co
+SUPABASE_SERVICE_KEY=REDACTED_SUPABASE_SERVICE_KEY
 FRONTEND_URL=https://talentcheck.vercel.app
 DEBUG=false
 ENVEOF
-echo ".env written (update DATABASE_URL with real password)"
+echo ".env written."
 
 # ─── 4. systemd service ────────────────────────────────────────────────────
 cat > /etc/systemd/system/talentcheck-api.service << 'SVCEOF'
@@ -91,5 +90,4 @@ echo "=== Setup complete ==="
 echo "API:  http://31.97.47.190/talentcheck/health"
 echo "Docs: http://31.97.47.190/talentcheck/docs"
 echo ""
-echo "IMPORTANT: Edit /root/talentcheck/.env and replace REPLACE_WITH_DB_PASSWORD"
-echo "Then: systemctl restart talentcheck-api"
+echo "All done. No manual steps required."
