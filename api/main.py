@@ -25,7 +25,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://talentcheck.et"],
+    allow_origins=["http://localhost:3000", "https://talentcheck.vercel.app", "https://talentcheck-*.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
