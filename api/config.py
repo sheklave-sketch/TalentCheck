@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     SUPABASE_SERVICE_KEY: str = ""
 
     FRONTEND_URL: str = "http://localhost:3000"
+    BOT_SECRET: str = ""
+    TC_BOT_TOKEN: str = ""
     DEBUG: bool = False
 
     class Config:

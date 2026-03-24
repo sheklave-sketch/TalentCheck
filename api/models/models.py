@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 from sqlalchemy import (
-    String, Integer, Float, Boolean, DateTime, Text, JSON,
+    String, Integer, BigInteger, Float, Boolean, DateTime, Text, JSON,
     ForeignKey, Enum as SAEnum
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -72,6 +72,7 @@ class User(Base):
     hashed_password: Mapped[str] = mapped_column(String(200), nullable=False)
     full_name: Mapped[str] = mapped_column(String(200), nullable=False)
     role: Mapped[str] = mapped_column(String(20), default="member")  # admin, member
+    telegram_id: Mapped[int | None] = mapped_column(BigInteger)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
@@ -105,9 +106,11 @@ class Candidate(Base):
 
     id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
     assessment_id: Mapped[str] = mapped_column(ForeignKey("tc_assessments.id"), nullable=False)
-    email: Mapped[str] = mapped_column(String(200), nullable=False)
+    email: Mapped[str | None] = mapped_column(String(200))
     phone: Mapped[str | None] = mapped_column(String(30))
     full_name: Mapped[str] = mapped_column(String(200), nullable=False)
+    telegram_username: Mapped[str | None] = mapped_column(String(100))
+    invited_via: Mapped[str] = mapped_column(String(20), default="email")  # email, telegram, sms
     invite_token: Mapped[str] = mapped_column(String(100), unique=True, default=gen_uuid)
     status: Mapped[CandidateStatus] = mapped_column(SAEnum(CandidateStatus, name="tc_candidatestatus"), default=CandidateStatus.invited)
     invited_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
@@ -172,3 +175,29 @@ class Result(Base):
     scored_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
     candidate: Mapped["Candidate"] = relationship(back_populates="result")
+
+
+class TelegramLink(Base):
+    __tablename__ = "tc_telegram_links"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
+    telegram_id: Mapped[int] = mapped_column(BigInteger, unique=True, nullable=False)
+    telegram_username: Mapped[str | None] = mapped_column(String(100))
+    user_id: Mapped[str | None] = mapped_column(ForeignKey("tc_users.id"))
+    candidate_id: Mapped[str | None] = mapped_column(ForeignKey("tc_candidates.id"))
+    link_code: Mapped[str | None] = mapped_column(String(20))
+    linked_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+class BotSession(Base):
+    __tablename__ = "tc_bot_sessions"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
+    telegram_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    candidate_id: Mapped[str] = mapped_column(ForeignKey("tc_candidates.id"), nullable=False)
+    session_id: Mapped[str] = mapped_column(ForeignKey("tc_test_sessions.id"), nullable=False)
+    current_test_index: Mapped[int] = mapped_column(Integer, default=0)
+    current_question_index: Mapped[int] = mapped_column(Integer, default=0)
+    answers: Mapped[list] = mapped_column(JSON, default=list)
+    started_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    state: Mapped[str] = mapped_column(String(20), default="active")  # active, submitted, expired
