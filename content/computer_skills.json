@@ -3,96 +3,45 @@
   "label": "Basic Computer Skills",
   "description": "MS Word, Excel fundamentals, email usage",
   "questions": [
-    {
-      "id": "comp_001",
-      "type": "mcq",
-      "category": "excel",
-      "text": "In Excel, which formula correctly calculates the sum of cells A1 through A10?",
-      "options": [
-        {"key": "A", "text": "=ADD(A1:A10)"},
-        {"key": "B", "text": "=SUM(A1:A10)"},
-        {"key": "C", "text": "=TOTAL(A1,A10)"},
-        {"key": "D", "text": "=PLUS(A1-A10)"}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "comp_002",
-      "type": "mcq",
-      "category": "excel",
-      "text": "Which Excel function returns the highest value in a range?",
-      "options": [
-        {"key": "A", "text": "LARGE()"},
-        {"key": "B", "text": "HIGH()"},
-        {"key": "C", "text": "MAX()"},
-        {"key": "D", "text": "TOP()"}
-      ],
-      "correct_answer": "C"
-    },
-    {
-      "id": "comp_003",
-      "type": "mcq",
-      "category": "word",
-      "text": "In Microsoft Word, to apply the same formatting to multiple sections, you should use:",
-      "options": [
-        {"key": "A", "text": "Copy-Paste"},
-        {"key": "B", "text": "Format Painter"},
-        {"key": "C", "text": "Bold tool"},
-        {"key": "D", "text": "Undo function"}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "comp_004",
-      "type": "mcq",
-      "category": "email",
-      "text": "What is the correct use of 'BCC' in an email?",
-      "options": [
-        {"key": "A", "text": "Send a copy to recipients who can see all other recipients"},
-        {"key": "B", "text": "Send a copy to recipients who cannot see other recipients"},
-        {"key": "C", "text": "Forward the email automatically"},
-        {"key": "D", "text": "Mark the email as urgent"}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "comp_005",
-      "type": "mcq",
-      "category": "excel",
-      "text": "To freeze the top row in Excel (so it stays visible while scrolling), you go to:",
-      "options": [
-        {"key": "A", "text": "Home > Freeze"},
-        {"key": "B", "text": "Data > Freeze Panes"},
-        {"key": "C", "text": "View > Freeze Panes > Freeze Top Row"},
-        {"key": "D", "text": "Insert > Lock Row"}
-      ],
-      "correct_answer": "C"
-    },
-    {
-      "id": "comp_006",
-      "type": "mcq",
-      "category": "general",
-      "text": "What does 'Ctrl + Z' do in most applications?",
-      "options": [
-        {"key": "A", "text": "Redo the last action"},
-        {"key": "B", "text": "Undo the last action"},
-        {"key": "C", "text": "Save the file"},
-        {"key": "D", "text": "Close the window"}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "comp_007",
-      "type": "mcq",
-      "category": "word",
-      "text": "In Word, which feature allows you to see changes made by different reviewers?",
-      "options": [
-        {"key": "A", "text": "Spell Check"},
-        {"key": "B", "text": "Track Changes"},
-        {"key": "C", "text": "Compare Documents"},
-        {"key": "D", "text": "Comments only"}
-      ],
-      "correct_answer": "B"
-    }
+    {"id": "comp_001", "type": "mcq", "category": "excel", "text": "Which function in Excel is used to add up a range of cells?", "options": [{"key": "A", "text": "COUNT"}, {"key": "B", "text": "SUM"}, {"key": "C", "text": "AVERAGE"}, {"key": "D", "text": "MAX"}], "correct_answer": "B"},
+    {"id": "comp_002", "type": "mcq", "category": "excel", "text": "What does the AVERAGE function calculate?", "options": [{"key": "A", "text": "The total of all values"}, {"key": "B", "text": "The highest value in a range"}, {"key": "C", "text": "The arithmetic mean of a range of values"}, {"key": "D", "text": "The number of cells that contain data"}], "correct_answer": "C"},
+    {"id": "comp_003", "type": "mcq", "category": "excel", "text": "In Excel, what does the VLOOKUP function do?", "options": [{"key": "A", "text": "Counts visible cells only"}, {"key": "B", "text": "Searches for a value in the first column of a table and returns a value from another column in the same row"}, {"key": "C", "text": "Looks up values horizontally across a row"}, {"key": "D", "text": "Validates data entry in a cell"}], "correct_answer": "B"},
+    {"id": "comp_004", "type": "mcq", "category": "excel", "text": "What is the correct syntax for an IF function in Excel?", "options": [{"key": "A", "text": "=IF(value, then, else)"}, {"key": "B", "text": "=IF(logical_test, value_if_true, value_if_false)"}, {"key": "C", "text": "=IF(condition, result)"}, {"key": "D", "text": "=IF(true_value, false_value, test)"}], "correct_answer": "B"},
+    {"id": "comp_005", "type": "mcq", "category": "excel", "text": "What is the purpose of a Pivot Table in Excel?", "options": [{"key": "A", "text": "To rotate the spreadsheet 90 degrees"}, {"key": "B", "text": "To create a backup copy of data"}, {"key": "C", "text": "To summarize, analyze, explore, and present large amounts of data"}, {"key": "D", "text": "To lock cells so they cannot be edited"}], "correct_answer": "C"},
+    {"id": "comp_006", "type": "mcq", "category": "excel", "text": "How do you freeze the top row in Excel so it remains visible while scrolling?", "options": [{"key": "A", "text": "View > Freeze Panes > Freeze Top Row"}, {"key": "B", "text": "Home > Lock Row > Top"}, {"key": "C", "text": "Insert > Freeze > Row 1"}, {"key": "D", "text": "Format > Cells > Protection > Freeze"}], "correct_answer": "A"},
+    {"id": "comp_007", "type": "mcq", "category": "excel", "text": "What does Conditional Formatting allow you to do in Excel?", "options": [{"key": "A", "text": "Apply formulas only when certain conditions are met"}, {"key": "B", "text": "Automatically change the formatting of cells based on their values or specific rules"}, {"key": "C", "text": "Restrict data entry to specific formats"}, {"key": "D", "text": "Format cells only when the spreadsheet is printed"}], "correct_answer": "B"},
+    {"id": "comp_008", "type": "mcq", "category": "excel", "text": "In the VLOOKUP function =VLOOKUP(A2, D2:F10, 3, FALSE), what does the FALSE argument mean?", "options": [{"key": "A", "text": "The function will return FALSE if no match is found"}, {"key": "B", "text": "The lookup column is sorted in descending order"}, {"key": "C", "text": "An exact match is required"}, {"key": "D", "text": "The function should search from bottom to top"}], "correct_answer": "C"},
+    {"id": "comp_009", "type": "mcq", "category": "excel", "text": "Which chart type is best suited for showing the proportion of parts to a whole?", "options": [{"key": "A", "text": "Line chart"}, {"key": "B", "text": "Bar chart"}, {"key": "C", "text": "Pie chart"}, {"key": "D", "text": "Scatter plot"}], "correct_answer": "C"},
+    {"id": "comp_010", "type": "mcq", "category": "excel", "text": "What keyboard shortcut is used to apply the Filter feature to a data range in Excel?", "options": [{"key": "A", "text": "Ctrl + F"}, {"key": "B", "text": "Ctrl + Shift + L"}, {"key": "C", "text": "Ctrl + T"}, {"key": "D", "text": "Alt + F"}], "correct_answer": "B"},
+    {"id": "comp_011", "type": "mcq", "category": "word", "text": "Which keyboard shortcut makes selected text bold in Microsoft Word?", "options": [{"key": "A", "text": "Ctrl + I"}, {"key": "B", "text": "Ctrl + U"}, {"key": "C", "text": "Ctrl + B"}, {"key": "D", "text": "Ctrl + D"}], "correct_answer": "C"},
+    {"id": "comp_012", "type": "mcq", "category": "word", "text": "What is the purpose of Track Changes in Microsoft Word?", "options": [{"key": "A", "text": "To monitor how long you spend editing a document"}, {"key": "B", "text": "To record insertions, deletions, and formatting changes made to a document"}, {"key": "C", "text": "To automatically save versions of the document"}, {"key": "D", "text": "To track who has opened the document"}], "correct_answer": "B"},
+    {"id": "comp_013", "type": "mcq", "category": "word", "text": "How do you insert a header or footer in a Word document?", "options": [{"key": "A", "text": "Home > Header & Footer"}, {"key": "B", "text": "Insert > Header & Footer"}, {"key": "C", "text": "Layout > Page Setup > Header"}, {"key": "D", "text": "View > Header & Footer"}], "correct_answer": "B"},
+    {"id": "comp_014", "type": "mcq", "category": "word", "text": "What is Mail Merge used for in Microsoft Word?", "options": [{"key": "A", "text": "Merging two Word documents into one"}, {"key": "B", "text": "Sending emails directly from Word"}, {"key": "C", "text": "Creating personalized letters, labels, or emails by combining a template with a data source"}, {"key": "D", "text": "Combining multiple email attachments into a single document"}], "correct_answer": "C"},
+    {"id": "comp_015", "type": "mcq", "category": "word", "text": "In Word, what are Styles primarily used for?", "options": [{"key": "A", "text": "Adding decorative borders to a page"}, {"key": "B", "text": "Applying consistent formatting to headings, paragraphs, and other text elements across a document"}, {"key": "C", "text": "Changing the color theme of the application"}, {"key": "D", "text": "Inserting pre-designed templates"}], "correct_answer": "B"},
+    {"id": "comp_016", "type": "mcq", "category": "word", "text": "Which tab in Word allows you to change page orientation from Portrait to Landscape?", "options": [{"key": "A", "text": "Home"}, {"key": "B", "text": "Insert"}, {"key": "C", "text": "Layout (or Page Layout)"}, {"key": "D", "text": "View"}], "correct_answer": "C"},
+    {"id": "comp_017", "type": "mcq", "category": "word", "text": "How can you insert a table in Microsoft Word?", "options": [{"key": "A", "text": "Home > Table"}, {"key": "B", "text": "Insert > Table"}, {"key": "C", "text": "Layout > Insert Table"}, {"key": "D", "text": "References > Table"}], "correct_answer": "B"},
+    {"id": "comp_018", "type": "mcq", "category": "word", "text": "What does the Format Painter tool do in Word?", "options": [{"key": "A", "text": "Changes the background color of the page"}, {"key": "B", "text": "Copies formatting from one piece of text and applies it to another"}, {"key": "C", "text": "Paints a border around selected text"}, {"key": "D", "text": "Inserts clip art into the document"}], "correct_answer": "B"},
+    {"id": "comp_019", "type": "mcq", "category": "word", "text": "Which shortcut selects all text in a Word document?", "options": [{"key": "A", "text": "Ctrl + S"}, {"key": "B", "text": "Ctrl + A"}, {"key": "C", "text": "Ctrl + E"}, {"key": "D", "text": "Ctrl + Shift + A"}], "correct_answer": "B"},
+    {"id": "comp_020", "type": "mcq", "category": "word", "text": "What happens when you press Ctrl + Z in Word?", "options": [{"key": "A", "text": "Zooms in on the document"}, {"key": "B", "text": "Closes the document"}, {"key": "C", "text": "Undoes the last action"}, {"key": "D", "text": "Opens the Find and Replace dialog"}], "correct_answer": "C"},
+    {"id": "comp_021", "type": "mcq", "category": "email", "text": "What is the difference between CC and BCC in an email?", "options": [{"key": "A", "text": "CC sends a copy; BCC sends the original"}, {"key": "B", "text": "CC recipients are visible to all; BCC recipients are hidden from other recipients"}, {"key": "C", "text": "CC is for internal emails; BCC is for external emails"}, {"key": "D", "text": "There is no difference; they function identically"}], "correct_answer": "B"},
+    {"id": "comp_022", "type": "mcq", "category": "email", "text": "When should you use 'Reply All' instead of 'Reply'?", "options": [{"key": "A", "text": "Always, to make sure everyone is informed"}, {"key": "B", "text": "Only when your response is relevant to all recipients in the conversation"}, {"key": "C", "text": "Never, as it is considered bad email etiquette"}, {"key": "D", "text": "Only when replying to your supervisor"}], "correct_answer": "B"},
+    {"id": "comp_023", "type": "mcq", "category": "email", "text": "What is the maximum recommended file size for email attachments in most professional environments?", "options": [{"key": "A", "text": "500 KB"}, {"key": "B", "text": "5 MB"}, {"key": "C", "text": "10-25 MB"}, {"key": "D", "text": "100 MB"}], "correct_answer": "C"},
+    {"id": "comp_024", "type": "mcq", "category": "email", "text": "Which of the following is the most professional email greeting for a formal business communication?", "options": [{"key": "A", "text": "Hey there!"}, {"key": "B", "text": "Dear Mr./Ms. [Last Name],"}, {"key": "C", "text": "Yo,"}, {"key": "D", "text": "To whom it may concern (always)"}], "correct_answer": "B"},
+    {"id": "comp_025", "type": "mcq", "category": "email", "text": "What is an email signature?", "options": [{"key": "A", "text": "A digital certificate that encrypts your email"}, {"key": "B", "text": "A block of text automatically appended to the end of emails containing contact information and other details"}, {"key": "C", "text": "A handwritten signature scanned and attached to every email"}, {"key": "D", "text": "The password used to log into your email account"}], "correct_answer": "B"},
+    {"id": "comp_026", "type": "mcq", "category": "email", "text": "What is the best practice when you receive a suspicious email with an attachment from an unknown sender?", "options": [{"key": "A", "text": "Open the attachment to see what it contains"}, {"key": "B", "text": "Forward it to all colleagues as a warning"}, {"key": "C", "text": "Do not open the attachment; report it as spam or phishing and delete it"}, {"key": "D", "text": "Reply to the sender asking for more information"}], "correct_answer": "C"},
+    {"id": "comp_027", "type": "mcq", "category": "email", "text": "What are email folders and labels primarily used for?", "options": [{"key": "A", "text": "To encrypt emails for security"}, {"key": "B", "text": "To organize and categorize emails for easier retrieval"}, {"key": "C", "text": "To compress emails and save storage space"}, {"key": "D", "text": "To automatically delete old emails"}], "correct_answer": "B"},
+    {"id": "comp_028", "type": "mcq", "category": "email", "text": "When composing a professional email, what should the subject line contain?", "options": [{"key": "A", "text": "Your full name and contact details"}, {"key": "B", "text": "A clear, concise description of the email's purpose"}, {"key": "C", "text": "The word 'URGENT' to ensure it gets read"}, {"key": "D", "text": "It should be left blank for formal emails"}], "correct_answer": "B"},
+    {"id": "comp_029", "type": "mcq", "category": "email", "text": "What does the 'Forwarding' feature in email allow you to do?", "options": [{"key": "A", "text": "Send a received email to a different recipient"}, {"key": "B", "text": "Schedule an email to be sent at a future time"}, {"key": "C", "text": "Move an email to a different folder"}, {"key": "D", "text": "Permanently delete an email"}], "correct_answer": "A"},
+    {"id": "comp_030", "type": "mcq", "category": "email", "text": "If you need to send a large file (over 25 MB) to a colleague via email, what is the best approach?", "options": [{"key": "A", "text": "Split the file into multiple smaller emails"}, {"key": "B", "text": "Upload the file to a cloud storage service and share the link"}, {"key": "C", "text": "Compress the file into a ZIP, which always makes it small enough"}, {"key": "D", "text": "Print the file and deliver it physically"}], "correct_answer": "B"},
+    {"id": "comp_031", "type": "mcq", "category": "general", "text": "What does the keyboard shortcut Ctrl + C do on most computers?", "options": [{"key": "A", "text": "Cuts the selected item"}, {"key": "B", "text": "Copies the selected item to the clipboard"}, {"key": "C", "text": "Closes the current window"}, {"key": "D", "text": "Creates a new file"}], "correct_answer": "B"},
+    {"id": "comp_032", "type": "mcq", "category": "general", "text": "What is the purpose of a file extension (e.g., .docx, .pdf, .xlsx)?", "options": [{"key": "A", "text": "To increase the file size"}, {"key": "B", "text": "To indicate the file type and which application should open it"}, {"key": "C", "text": "To encrypt the file contents"}, {"key": "D", "text": "To make the file compatible with all operating systems"}], "correct_answer": "B"},
+    {"id": "comp_033", "type": "mcq", "category": "general", "text": "What is cloud storage?", "options": [{"key": "A", "text": "A type of USB flash drive"}, {"key": "B", "text": "Storing files on remote servers accessed via the internet, such as Google Drive or OneDrive"}, {"key": "C", "text": "A weather forecasting application"}, {"key": "D", "text": "An internal hard drive partition"}], "correct_answer": "B"},
+    {"id": "comp_034", "type": "mcq", "category": "general", "text": "Which of the following is the strongest password?", "options": [{"key": "A", "text": "password123"}, {"key": "B", "text": "John1990"}, {"key": "C", "text": "Tr@ff!c_L1ght$92"}, {"key": "D", "text": "abcdefgh"}], "correct_answer": "C"},
+    {"id": "comp_035", "type": "mcq", "category": "general", "text": "What does 'phishing' refer to in computer security?", "options": [{"key": "A", "text": "A method of compressing files"}, {"key": "B", "text": "A fraudulent attempt to obtain sensitive information by disguising as a trustworthy source"}, {"key": "C", "text": "A technique for speeding up internet connections"}, {"key": "D", "text": "A type of antivirus software"}], "correct_answer": "B"},
+    {"id": "comp_036", "type": "mcq", "category": "general", "text": "What keyboard shortcut is used to print a document in most applications?", "options": [{"key": "A", "text": "Ctrl + D"}, {"key": "B", "text": "Ctrl + P"}, {"key": "C", "text": "Ctrl + R"}, {"key": "D", "text": "Ctrl + W"}], "correct_answer": "B"},
+    {"id": "comp_037", "type": "mcq", "category": "general", "text": "What is the function of the Recycle Bin (Windows) or Trash (Mac)?", "options": [{"key": "A", "text": "It permanently deletes files immediately"}, {"key": "B", "text": "It temporarily stores deleted files so they can be recovered before permanent deletion"}, {"key": "C", "text": "It compresses files to save disk space"}, {"key": "D", "text": "It scans files for viruses"}], "correct_answer": "B"},
+    {"id": "comp_038", "type": "mcq", "category": "general", "text": "What does the keyboard shortcut Alt + Tab do on Windows?", "options": [{"key": "A", "text": "Opens a new browser tab"}, {"key": "B", "text": "Switches between open applications or windows"}, {"key": "C", "text": "Opens the Task Manager"}, {"key": "D", "text": "Closes the current application"}], "correct_answer": "B"},
+    {"id": "comp_039", "type": "mcq", "category": "general", "text": "What does PDF stand for?", "options": [{"key": "A", "text": "Personal Document Format"}, {"key": "B", "text": "Portable Document Format"}, {"key": "C", "text": "Printable Data File"}, {"key": "D", "text": "Protected Digital Format"}], "correct_answer": "B"},
+    {"id": "comp_040", "type": "mcq", "category": "general", "text": "What is two-factor authentication (2FA)?", "options": [{"key": "A", "text": "Using two different passwords for the same account"}, {"key": "B", "text": "A security method that requires two different forms of verification to access an account, such as a password and a code sent to your phone"}, {"key": "C", "text": "Logging into two accounts at the same time"}, {"key": "D", "text": "Having two people approve a login attempt"}], "correct_answer": "B"}
   ]
 }

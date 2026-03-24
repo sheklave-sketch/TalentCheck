@@ -3,109 +3,45 @@
   "label": "English Proficiency Test",
   "description": "Grammar, reading comprehension, business communication",
   "questions": [
-    {
-      "id": "eng_001",
-      "type": "mcq",
-      "category": "grammar",
-      "text": "Choose the grammatically correct sentence:",
-      "options": [
-        {"key": "A", "text": "Neither the manager nor the employees was present."},
-        {"key": "B", "text": "Neither the manager nor the employees were present."},
-        {"key": "C", "text": "Neither the manager nor the employees is present."},
-        {"key": "D", "text": "Neither the manager nor the employees are was present."}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "eng_002",
-      "type": "mcq",
-      "category": "grammar",
-      "text": "Select the correct form: 'The report ___ submitted by Friday.'",
-      "options": [
-        {"key": "A", "text": "must be"},
-        {"key": "B", "text": "must been"},
-        {"key": "C", "text": "must being"},
-        {"key": "D", "text": "must have"}
-      ],
-      "correct_answer": "A"
-    },
-    {
-      "id": "eng_003",
-      "type": "mcq",
-      "category": "vocabulary",
-      "text": "In a business email, 'Please revert at your earliest convenience' means:",
-      "options": [
-        {"key": "A", "text": "Please reverse the decision"},
-        {"key": "B", "text": "Please reply as soon as possible"},
-        {"key": "C", "text": "Please reconsider your position"},
-        {"key": "D", "text": "Please return to the office"}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "eng_004",
-      "type": "mcq",
-      "category": "reading",
-      "text": "Read: 'Despite the project's initial delays, the team delivered results that exceeded client expectations.' What does this suggest about the team?",
-      "options": [
-        {"key": "A", "text": "They failed to meet the deadline"},
-        {"key": "B", "text": "They performed poorly under pressure"},
-        {"key": "C", "text": "They overcame obstacles and performed well"},
-        {"key": "D", "text": "The client was disappointed"}
-      ],
-      "correct_answer": "C"
-    },
-    {
-      "id": "eng_005",
-      "type": "mcq",
-      "category": "writing",
-      "text": "Which opening is most professional for a formal business email?",
-      "options": [
-        {"key": "A", "text": "Hey, I wanted to follow up on..."},
-        {"key": "B", "text": "Dear Mr. Tesfaye, I am writing to follow up on..."},
-        {"key": "C", "text": "Hi there! Just checking in about..."},
-        {"key": "D", "text": "To who it may concern, following up..."}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "eng_006",
-      "type": "mcq",
-      "category": "grammar",
-      "text": "Identify the error: 'The data clearly shows that our sales have grew by 20%.'",
-      "options": [
-        {"key": "A", "text": "clearly shows"},
-        {"key": "B", "text": "our sales"},
-        {"key": "C", "text": "have grew"},
-        {"key": "D", "text": "by 20%"}
-      ],
-      "correct_answer": "C"
-    },
-    {
-      "id": "eng_007",
-      "type": "mcq",
-      "category": "vocabulary",
-      "text": "The word 'remuneration' most closely means:",
-      "options": [
-        {"key": "A", "text": "Punishment"},
-        {"key": "B", "text": "Compensation or payment"},
-        {"key": "C", "text": "Recognition award"},
-        {"key": "D", "text": "Termination"}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "eng_008",
-      "type": "mcq",
-      "category": "reading",
-      "text": "The word 'streamline' in a business context means to:",
-      "options": [
-        {"key": "A", "text": "Make a process more complex"},
-        {"key": "B", "text": "Remove all employees"},
-        {"key": "C", "text": "Make a process more efficient"},
-        {"key": "D", "text": "Add more steps to a process"}
-      ],
-      "correct_answer": "C"
-    }
+    {"id": "eng_001", "type": "mcq", "category": "grammar", "text": "Choose the correct sentence:", "options": [{"key": "A", "text": "The manager have approved the budget."}, {"key": "B", "text": "The manager has approved the budget."}, {"key": "C", "text": "The manager has approve the budget."}, {"key": "D", "text": "The manager have approve the budget."}], "correct_answer": "B"},
+    {"id": "eng_002", "type": "mcq", "category": "grammar", "text": "Select the sentence with correct subject-verb agreement:", "options": [{"key": "A", "text": "Each of the employees are responsible for their own tasks."}, {"key": "B", "text": "Each of the employees is responsible for his or her own tasks."}, {"key": "C", "text": "Each of the employees are responsible for his or her own tasks."}, {"key": "D", "text": "Each of the employees is responsible for their own task."}], "correct_answer": "B"},
+    {"id": "eng_003", "type": "mcq", "category": "grammar", "text": "Identify the error: \"The company's annual report, along with the financial statements, were submitted to the board yesterday.\"", "options": [{"key": "A", "text": "\"company's\" should be \"companies\""}, {"key": "B", "text": "\"along with\" should be \"and\""}, {"key": "C", "text": "\"were\" should be \"was\""}, {"key": "D", "text": "\"submitted\" should be \"submitting\""}], "correct_answer": "C"},
+    {"id": "eng_004", "type": "mcq", "category": "grammar", "text": "Complete the sentence: \"If the shipment _____ on time, we would not have lost the client.\"", "options": [{"key": "A", "text": "arrived"}, {"key": "B", "text": "had arrived"}, {"key": "C", "text": "has arrived"}, {"key": "D", "text": "would arrive"}], "correct_answer": "B"},
+    {"id": "eng_005", "type": "mcq", "category": "grammar", "text": "Which sentence uses the correct tense?", "options": [{"key": "A", "text": "By the time we reach Hawassa, the conference will have already started."}, {"key": "B", "text": "By the time we reach Hawassa, the conference will already start."}, {"key": "C", "text": "By the time we reach Hawassa, the conference already started."}, {"key": "D", "text": "By the time we reach Hawassa, the conference has already started."}], "correct_answer": "A"},
+    {"id": "eng_006", "type": "mcq", "category": "grammar", "text": "Choose the correct word: \"The CEO spoke _____ about the company's growth in the Ethiopian market.\"", "options": [{"key": "A", "text": "enthusiastic"}, {"key": "B", "text": "enthusiastically"}, {"key": "C", "text": "enthusiasm"}, {"key": "D", "text": "enthusiastical"}], "correct_answer": "B"},
+    {"id": "eng_007", "type": "mcq", "category": "grammar", "text": "Identify the sentence with correct punctuation:", "options": [{"key": "A", "text": "The meeting which was scheduled for Monday has been postponed."}, {"key": "B", "text": "The meeting, which was scheduled for Monday, has been postponed."}, {"key": "C", "text": "The meeting which was scheduled for Monday, has been postponed."}, {"key": "D", "text": "The meeting, which was scheduled for Monday has been postponed."}], "correct_answer": "B"},
+    {"id": "eng_008", "type": "mcq", "category": "grammar", "text": "Choose the correct form: \"Neither the director nor the managers _____ available for the press conference.\"", "options": [{"key": "A", "text": "is"}, {"key": "B", "text": "was"}, {"key": "C", "text": "were"}, {"key": "D", "text": "has been"}], "correct_answer": "C"},
+    {"id": "eng_009", "type": "mcq", "category": "grammar", "text": "Select the correct relative pronoun: \"The investor _____ proposal was accepted will arrive in Addis Ababa next week.\"", "options": [{"key": "A", "text": "who"}, {"key": "B", "text": "whom"}, {"key": "C", "text": "whose"}, {"key": "D", "text": "which"}], "correct_answer": "C"},
+    {"id": "eng_010", "type": "mcq", "category": "grammar", "text": "Identify the error: \"The data shows that exports has increased by 15% compared to last fiscal year.\"", "options": [{"key": "A", "text": "\"data shows\" should be \"data show\""}, {"key": "B", "text": "\"has increased\" should be \"have increased\""}, {"key": "C", "text": "\"compared to\" should be \"compared with\""}, {"key": "D", "text": "\"fiscal year\" should be \"fiscal years\""}], "correct_answer": "B"},
+    {"id": "eng_011", "type": "mcq", "category": "vocabulary", "text": "What does the word \"remuneration\" mean in a business context?", "options": [{"key": "A", "text": "Termination of employment"}, {"key": "B", "text": "Payment or compensation for services"}, {"key": "C", "text": "A formal warning letter"}, {"key": "D", "text": "Transfer to another department"}], "correct_answer": "B"},
+    {"id": "eng_012", "type": "mcq", "category": "vocabulary", "text": "Choose the word that best completes the sentence: \"The bank decided to _____ the loan application due to insufficient collateral.\"", "options": [{"key": "A", "text": "approve"}, {"key": "B", "text": "decline"}, {"key": "C", "text": "defer"}, {"key": "D", "text": "amend"}], "correct_answer": "B"},
+    {"id": "eng_013", "type": "mcq", "category": "vocabulary", "text": "The word \"procurement\" most closely means:", "options": [{"key": "A", "text": "The process of selling goods abroad"}, {"key": "B", "text": "The act of obtaining goods or services"}, {"key": "C", "text": "A method of employee training"}, {"key": "D", "text": "The closing of a business deal"}], "correct_answer": "B"},
+    {"id": "eng_014", "type": "mcq", "category": "vocabulary", "text": "Which word is the best synonym for \"feasible\"?", "options": [{"key": "A", "text": "Impossible"}, {"key": "B", "text": "Practical"}, {"key": "C", "text": "Expensive"}, {"key": "D", "text": "Temporary"}], "correct_answer": "B"},
+    {"id": "eng_015", "type": "mcq", "category": "vocabulary", "text": "\"The company's stakeholders expressed concern about the _____ of the new policy.\" Choose the best word:", "options": [{"key": "A", "text": "implications"}, {"key": "B", "text": "applications"}, {"key": "C", "text": "complications"}, {"key": "D", "text": "duplications"}], "correct_answer": "A"},
+    {"id": "eng_016", "type": "mcq", "category": "vocabulary", "text": "What does \"due diligence\" refer to in a business context?", "options": [{"key": "A", "text": "Meeting a deadline on time"}, {"key": "B", "text": "A thorough investigation before signing a deal"}, {"key": "C", "text": "Paying outstanding debts promptly"}, {"key": "D", "text": "Following workplace safety rules"}], "correct_answer": "B"},
+    {"id": "eng_017", "type": "mcq", "category": "vocabulary", "text": "Choose the correct word: \"The audit revealed several _____ in the accounting records.\"", "options": [{"key": "A", "text": "discrepancies"}, {"key": "B", "text": "discoveries"}, {"key": "C", "text": "disciplines"}, {"key": "D", "text": "discretions"}], "correct_answer": "A"},
+    {"id": "eng_018", "type": "mcq", "category": "vocabulary", "text": "The phrase \"to expedite a process\" means to:", "options": [{"key": "A", "text": "Delay it intentionally"}, {"key": "B", "text": "Cancel it permanently"}, {"key": "C", "text": "Speed it up"}, {"key": "D", "text": "Review it carefully"}], "correct_answer": "C"},
+    {"id": "eng_019", "type": "mcq", "category": "vocabulary", "text": "Which word means \"a formal expression of disapproval\"?", "options": [{"key": "A", "text": "Commendation"}, {"key": "B", "text": "Censure"}, {"key": "C", "text": "Consensus"}, {"key": "D", "text": "Concession"}], "correct_answer": "B"},
+    {"id": "eng_020", "type": "mcq", "category": "vocabulary", "text": "\"The NGO's mandate is to _____ poverty in rural Ethiopia.\" Choose the best word:", "options": [{"key": "A", "text": "aggregate"}, {"key": "B", "text": "alleviate"}, {"key": "C", "text": "allocate"}, {"key": "D", "text": "alternate"}], "correct_answer": "B"},
+    {"id": "eng_021", "type": "mcq", "category": "reading", "text": "Read the passage: \"Commercial Bank of Ethiopia recently announced a new digital banking platform aimed at expanding financial inclusion across rural areas. The platform allows customers to open accounts, transfer funds, and apply for microloans using basic mobile phones. Bank officials expect the service to reach 5 million new customers within two years.\"\n\nWhat is the primary goal of the new platform?", "options": [{"key": "A", "text": "To replace all physical bank branches"}, {"key": "B", "text": "To make banking accessible to more people in rural areas"}, {"key": "C", "text": "To offer investment services to wealthy clients"}, {"key": "D", "text": "To compete with international banks"}], "correct_answer": "B"},
+    {"id": "eng_022", "type": "mcq", "category": "reading", "text": "Based on the same passage about CBE's digital platform, which of the following can be inferred?", "options": [{"key": "A", "text": "Smartphones are required to use the service."}, {"key": "B", "text": "The platform is already serving 5 million customers."}, {"key": "C", "text": "Many rural residents currently lack access to banking."}, {"key": "D", "text": "The bank plans to close its urban branches."}], "correct_answer": "C"},
+    {"id": "eng_023", "type": "mcq", "category": "reading", "text": "Read the memo: \"To: All Staff. Subject: Updated Leave Policy. Effective April 1, employees must submit leave requests at least 10 working days in advance. Emergency leave may still be taken with same-day notification to your direct supervisor. Unused annual leave cannot be carried over to the next fiscal year. HR will send individual leave balances by March 15.\"\n\nAccording to the memo, what happens to unused annual leave?", "options": [{"key": "A", "text": "It is converted to cash"}, {"key": "B", "text": "It rolls over to the next year"}, {"key": "C", "text": "It is forfeited at year-end"}, {"key": "D", "text": "It is donated to other employees"}], "correct_answer": "C"},
+    {"id": "eng_024", "type": "mcq", "category": "reading", "text": "Based on the leave policy memo, which statement is TRUE?", "options": [{"key": "A", "text": "Emergency leave requires 10 days' notice."}, {"key": "B", "text": "The policy takes effect immediately."}, {"key": "C", "text": "Employees will receive their leave balance information before the policy starts."}, {"key": "D", "text": "Leave requests must be approved by HR directly."}], "correct_answer": "C"},
+    {"id": "eng_025", "type": "mcq", "category": "reading", "text": "Read the passage: \"Ethiopia's industrial parks have attracted over 80 international manufacturing firms since 2016, primarily in textiles and apparel. While the parks have created approximately 80,000 jobs, critics argue that wages remain below the cost of living in surrounding areas. Proponents counter that the parks provide essential skills training and long-term economic benefits that extend beyond direct employment.\"\n\nWhat is the main criticism of industrial parks mentioned in the passage?", "options": [{"key": "A", "text": "They have not attracted enough companies."}, {"key": "B", "text": "Worker wages are insufficient for basic needs."}, {"key": "C", "text": "They only produce textiles."}, {"key": "D", "text": "They employ too few workers."}], "correct_answer": "B"},
+    {"id": "eng_026", "type": "mcq", "category": "reading", "text": "Based on the industrial parks passage, what argument do supporters make?", "options": [{"key": "A", "text": "Wages will double within a year."}, {"key": "B", "text": "The parks offer training and broader economic gains."}, {"key": "C", "text": "Critics have no valid concerns."}, {"key": "D", "text": "More parks should be built immediately."}], "correct_answer": "B"},
+    {"id": "eng_027", "type": "mcq", "category": "reading", "text": "Read the email: \"Dear Mr. Tadesse, Thank you for your interest in our consulting services. After reviewing your requirements, we believe our firm can deliver the market analysis report within six weeks. Our fee for this scope of work is USD 12,000, payable in two instalments. Please find the detailed proposal attached. We look forward to your confirmation so we may begin immediately. Best regards, Sarah Chen.\"\n\nWhat is the purpose of this email?", "options": [{"key": "A", "text": "To request a job interview"}, {"key": "B", "text": "To present a service proposal and seek approval"}, {"key": "C", "text": "To complain about a delayed report"}, {"key": "D", "text": "To negotiate a lower price"}], "correct_answer": "B"},
+    {"id": "eng_028", "type": "mcq", "category": "reading", "text": "Based on the email from Sarah Chen, how will the payment be structured?", "options": [{"key": "A", "text": "Full payment upfront"}, {"key": "B", "text": "Monthly payments over six weeks"}, {"key": "C", "text": "Two separate payments"}, {"key": "D", "text": "Payment upon completion only"}], "correct_answer": "C"},
+    {"id": "eng_029", "type": "mcq", "category": "reading", "text": "Read the notice: \"The Ethiopian Investment Commission hereby informs all foreign investors that the revised investment proclamation requires re-registration of existing licenses by December 31. Failure to comply will result in suspension of operating permits. Investors may submit documents online through the Commission's portal or in person at regional offices.\"\n\nWhat is the consequence of not re-registering by the deadline?", "options": [{"key": "A", "text": "A monetary fine"}, {"key": "B", "text": "Loss of operating permits"}, {"key": "C", "text": "Forced relocation"}, {"key": "D", "text": "Increased tax rates"}], "correct_answer": "B"},
+    {"id": "eng_030", "type": "mcq", "category": "reading", "text": "Based on the investment commission notice, how many ways can investors submit their documents?", "options": [{"key": "A", "text": "One — online only"}, {"key": "B", "text": "Two — online or in person"}, {"key": "C", "text": "Three — online, in person, or by mail"}, {"key": "D", "text": "The notice does not specify"}], "correct_answer": "B"},
+    {"id": "eng_031", "type": "mcq", "category": "writing", "text": "Which is the most appropriate opening for a formal business letter to someone you have not met?", "options": [{"key": "A", "text": "Hey there,"}, {"key": "B", "text": "Dear Sir/Madam,"}, {"key": "C", "text": "Hi friend,"}, {"key": "D", "text": "To whom it concerns,"}], "correct_answer": "B"},
+    {"id": "eng_032", "type": "mcq", "category": "writing", "text": "Which closing is most appropriate for a professional email to a client?", "options": [{"key": "A", "text": "Cheers!"}, {"key": "B", "text": "Love,"}, {"key": "C", "text": "Kind regards,"}, {"key": "D", "text": "Later,"}], "correct_answer": "C"},
+    {"id": "eng_033", "type": "mcq", "category": "writing", "text": "You need to inform a colleague that a meeting has been rescheduled. Which is the most professional phrasing?", "options": [{"key": "A", "text": "FYI the meeting got moved. Deal with it."}, {"key": "B", "text": "Please be advised that the project review meeting has been rescheduled to Thursday at 2:00 PM."}, {"key": "C", "text": "The meeting is Thursday now I think maybe 2 PM."}, {"key": "D", "text": "Meeting changed. Thursday. Be there."}], "correct_answer": "B"},
+    {"id": "eng_034", "type": "mcq", "category": "writing", "text": "What should the subject line of a professional email do?", "options": [{"key": "A", "text": "Be as long and detailed as possible"}, {"key": "B", "text": "Clearly summarize the email's purpose in a few words"}, {"key": "C", "text": "Use all capital letters for emphasis"}, {"key": "D", "text": "Include greetings like \"Hello\""}], "correct_answer": "B"},
+    {"id": "eng_035", "type": "mcq", "category": "writing", "text": "Which sentence is most appropriate in a formal report?", "options": [{"key": "A", "text": "The project totally failed because nobody cared."}, {"key": "B", "text": "The project did not achieve its objectives due to insufficient stakeholder engagement."}, {"key": "C", "text": "The project was a disaster and everyone knows it."}, {"key": "D", "text": "Basically the project flopped big time."}], "correct_answer": "B"},
+    {"id": "eng_036", "type": "mcq", "category": "writing", "text": "When writing a business proposal, which tone is most appropriate?", "options": [{"key": "A", "text": "Casual and humorous"}, {"key": "B", "text": "Aggressive and demanding"}, {"key": "C", "text": "Professional, clear, and persuasive"}, {"key": "D", "text": "Emotional and personal"}], "correct_answer": "C"},
+    {"id": "eng_037", "type": "mcq", "category": "writing", "text": "You are writing a follow-up email after a job interview at an Addis Ababa firm. Which is the best opening line?", "options": [{"key": "A", "text": "I'm writing to ask why you haven't responded yet."}, {"key": "B", "text": "Thank you for taking the time to meet with me yesterday to discuss the Marketing Manager position."}, {"key": "C", "text": "So when do I start?"}, {"key": "D", "text": "Just checking in about the job thing."}], "correct_answer": "B"},
+    {"id": "eng_038", "type": "mcq", "category": "writing", "text": "Which of the following is an example of the passive voice used appropriately in business writing?", "options": [{"key": "A", "text": "We made a mistake in the report."}, {"key": "B", "text": "The report was reviewed and approved by the finance department."}, {"key": "C", "text": "Someone lost the client files."}, {"key": "D", "text": "I will finish the presentation tomorrow."}], "correct_answer": "B"},
+    {"id": "eng_039", "type": "mcq", "category": "writing", "text": "Which transition word best shows contrast between two ideas?", "options": [{"key": "A", "text": "Furthermore"}, {"key": "B", "text": "However"}, {"key": "C", "text": "Therefore"}, {"key": "D", "text": "Similarly"}], "correct_answer": "B"},
+    {"id": "eng_040", "type": "mcq", "category": "writing", "text": "A colleague sends you an email with the message: \"Pls send me d file ASAP!!!\" You need to forward this request to your director. Which is the best way to rephrase it?", "options": [{"key": "A", "text": "Pls send me d file ASAP!!!"}, {"key": "B", "text": "Could you please send the file at your earliest convenience?"}, {"key": "C", "text": "Send file now."}, {"key": "D", "text": "I need that file like yesterday."}], "correct_answer": "B"}
   ]
 }

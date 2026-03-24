@@ -3,135 +3,45 @@
   "label": "Cognitive Ability Test",
   "description": "Logical reasoning, numerical reasoning, verbal reasoning",
   "questions": [
-    {
-      "id": "cog_001",
-      "type": "mcq",
-      "category": "logical",
-      "text": "If all managers are leaders, and some leaders are experienced, which of the following must be true?",
-      "options": [
-        {"key": "A", "text": "All managers are experienced"},
-        {"key": "B", "text": "Some managers may be experienced"},
-        {"key": "C", "text": "No managers are experienced"},
-        {"key": "D", "text": "All experienced people are managers"}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "cog_002",
-      "type": "mcq",
-      "category": "numerical",
-      "text": "A product was bought for 1,200 ETB and sold for 1,560 ETB. What is the profit percentage?",
-      "options": [
-        {"key": "A", "text": "25%"},
-        {"key": "B", "text": "30%"},
-        {"key": "C", "text": "32%"},
-        {"key": "D", "text": "35%"}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "cog_003",
-      "type": "mcq",
-      "category": "numerical",
-      "text": "A bank teller processes 120 transactions in 8 hours. At this rate, how many transactions will be processed in 5 hours?",
-      "options": [
-        {"key": "A", "text": "70"},
-        {"key": "B", "text": "75"},
-        {"key": "C", "text": "80"},
-        {"key": "D", "text": "85"}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "cog_004",
-      "type": "mcq",
-      "category": "logical",
-      "text": "Which number comes next in the series: 3, 7, 15, 31, ___?",
-      "options": [
-        {"key": "A", "text": "47"},
-        {"key": "B", "text": "55"},
-        {"key": "C", "text": "63"},
-        {"key": "D", "text": "71"}
-      ],
-      "correct_answer": "C"
-    },
-    {
-      "id": "cog_005",
-      "type": "mcq",
-      "category": "verbal",
-      "text": "Choose the word most opposite in meaning to DILIGENT:",
-      "options": [
-        {"key": "A", "text": "Careful"},
-        {"key": "B", "text": "Lazy"},
-        {"key": "C", "text": "Honest"},
-        {"key": "D", "text": "Intelligent"}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "cog_006",
-      "type": "mcq",
-      "category": "numerical",
-      "text": "If 15% of a salary is 4,500 ETB, what is the full salary?",
-      "options": [
-        {"key": "A", "text": "28,000 ETB"},
-        {"key": "B", "text": "30,000 ETB"},
-        {"key": "C", "text": "32,000 ETB"},
-        {"key": "D", "text": "25,000 ETB"}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "cog_007",
-      "type": "mcq",
-      "category": "logical",
-      "text": "If it takes 6 people 4 days to complete a task, how many days will it take 8 people to complete the same task?",
-      "options": [
-        {"key": "A", "text": "2"},
-        {"key": "B", "text": "3"},
-        {"key": "C", "text": "4"},
-        {"key": "D", "text": "5"}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "cog_008",
-      "type": "mcq",
-      "category": "verbal",
-      "text": "BOOK is to LIBRARY as PAINTING is to ___?",
-      "options": [
-        {"key": "A", "text": "Artist"},
-        {"key": "B", "text": "Canvas"},
-        {"key": "C", "text": "Gallery"},
-        {"key": "D", "text": "Museum"}
-      ],
-      "correct_answer": "C"
-    },
-    {
-      "id": "cog_009",
-      "type": "mcq",
-      "category": "logical",
-      "text": "A company's revenue grew from 2.4M to 3.6M ETB. What is the percentage growth?",
-      "options": [
-        {"key": "A", "text": "40%"},
-        {"key": "B", "text": "50%"},
-        {"key": "C", "text": "60%"},
-        {"key": "D", "text": "33%"}
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": "cog_010",
-      "type": "mcq",
-      "category": "verbal",
-      "text": "Which word best completes: 'Her explanation was so _____ that everyone immediately understood.'",
-      "options": [
-        {"key": "A", "text": "ambiguous"},
-        {"key": "B", "text": "lucid"},
-        {"key": "C", "text": "verbose"},
-        {"key": "D", "text": "vague"}
-      ],
-      "correct_answer": "B"
-    }
+    {"id": "cog_001", "type": "mcq", "category": "logical", "text": "What comes next in the series: 2, 6, 18, 54, ?", "options": [{"key": "A", "text": "108"}, {"key": "B", "text": "162"}, {"key": "C", "text": "148"}, {"key": "D", "text": "180"}], "correct_answer": "B"},
+    {"id": "cog_002", "type": "mcq", "category": "logical", "text": "All managers in the Addis Ababa office speak English. Kebede is a manager in the Addis Ababa office. Which conclusion follows?", "options": [{"key": "A", "text": "Kebede speaks Amharic"}, {"key": "B", "text": "Kebede speaks English"}, {"key": "C", "text": "All English speakers are managers"}, {"key": "D", "text": "Kebede is the only manager"}], "correct_answer": "B"},
+    {"id": "cog_003", "type": "mcq", "category": "numerical", "text": "A shop in Merkato buys an item for 800 ETB and sells it for 1,000 ETB. What is the profit percentage?", "options": [{"key": "A", "text": "20%"}, {"key": "B", "text": "25%"}, {"key": "C", "text": "30%"}, {"key": "D", "text": "15%"}], "correct_answer": "B"},
+    {"id": "cog_004", "type": "mcq", "category": "verbal", "text": "Choose the word most similar in meaning to 'DILIGENT':", "options": [{"key": "A", "text": "Lazy"}, {"key": "B", "text": "Hardworking"}, {"key": "C", "text": "Intelligent"}, {"key": "D", "text": "Generous"}], "correct_answer": "B"},
+    {"id": "cog_005", "type": "mcq", "category": "logical", "text": "If APPLE is coded as ELPPA, how is MANGO coded?", "options": [{"key": "A", "text": "OGNAM"}, {"key": "B", "text": "GONMA"}, {"key": "C", "text": "NAMGO"}, {"key": "D", "text": "OGANM"}], "correct_answer": "A"},
+    {"id": "cog_006", "type": "mcq", "category": "numerical", "text": "An employee earns 15,000 ETB per month. If she receives a 12% raise, what is her new monthly salary?", "options": [{"key": "A", "text": "16,200 ETB"}, {"key": "B", "text": "16,800 ETB"}, {"key": "C", "text": "17,000 ETB"}, {"key": "D", "text": "15,800 ETB"}], "correct_answer": "B"},
+    {"id": "cog_007", "type": "mcq", "category": "verbal", "text": "Choose the word that is OPPOSITE in meaning to 'ABUNDANT':", "options": [{"key": "A", "text": "Plentiful"}, {"key": "B", "text": "Scarce"}, {"key": "C", "text": "Sufficient"}, {"key": "D", "text": "Excessive"}], "correct_answer": "B"},
+    {"id": "cog_008", "type": "mcq", "category": "logical", "text": "Find the next number in the series: 5, 11, 23, 47, ?", "options": [{"key": "A", "text": "89"}, {"key": "B", "text": "95"}, {"key": "C", "text": "94"}, {"key": "D", "text": "91"}], "correct_answer": "B"},
+    {"id": "cog_009", "type": "mcq", "category": "numerical", "text": "A company's revenue was 2,400,000 ETB in Q1 and 3,000,000 ETB in Q2. What is the percentage increase?", "options": [{"key": "A", "text": "20%"}, {"key": "B", "text": "25%"}, {"key": "C", "text": "30%"}, {"key": "D", "text": "15%"}], "correct_answer": "B"},
+    {"id": "cog_010", "type": "mcq", "category": "verbal", "text": "Complete the analogy: Book is to Reading as Fork is to ___", "options": [{"key": "A", "text": "Writing"}, {"key": "B", "text": "Cooking"}, {"key": "C", "text": "Eating"}, {"key": "D", "text": "Drawing"}], "correct_answer": "C"},
+    {"id": "cog_011", "type": "mcq", "category": "logical", "text": "In a row of students, Hana is 8th from the left and 12th from the right. How many students are in the row?", "options": [{"key": "A", "text": "18"}, {"key": "B", "text": "19"}, {"key": "C", "text": "20"}, {"key": "D", "text": "21"}], "correct_answer": "B"},
+    {"id": "cog_012", "type": "mcq", "category": "numerical", "text": "If 3 workers can complete a project in 14 days, how many days will it take 7 workers to complete the same project?", "options": [{"key": "A", "text": "5 days"}, {"key": "B", "text": "6 days"}, {"key": "C", "text": "7 days"}, {"key": "D", "text": "8 days"}], "correct_answer": "B"},
+    {"id": "cog_013", "type": "mcq", "category": "verbal", "text": "Which word does NOT belong in the group?", "options": [{"key": "A", "text": "Whisper"}, {"key": "B", "text": "Shout"}, {"key": "C", "text": "Listen"}, {"key": "D", "text": "Murmur"}], "correct_answer": "C"},
+    {"id": "cog_014", "type": "mcq", "category": "logical", "text": "If all roses are flowers, and some flowers fade quickly, which statement MUST be true?", "options": [{"key": "A", "text": "All roses fade quickly"}, {"key": "B", "text": "Some roses fade quickly"}, {"key": "C", "text": "No roses fade quickly"}, {"key": "D", "text": "None of the above must be true"}], "correct_answer": "D"},
+    {"id": "cog_015", "type": "mcq", "category": "numerical", "text": "A warehouse in Dire Dawa stores 4,500 kg of goods. If 15% is damaged during transport, how many kilograms arrive undamaged?", "options": [{"key": "A", "text": "3,825 kg"}, {"key": "B", "text": "3,925 kg"}, {"key": "C", "text": "4,125 kg"}, {"key": "D", "text": "3,750 kg"}], "correct_answer": "A"},
+    {"id": "cog_016", "type": "mcq", "category": "verbal", "text": "Choose the word most similar in meaning to 'INEVITABLE':", "options": [{"key": "A", "text": "Avoidable"}, {"key": "B", "text": "Uncertain"}, {"key": "C", "text": "Unavoidable"}, {"key": "D", "text": "Unlikely"}], "correct_answer": "C"},
+    {"id": "cog_017", "type": "mcq", "category": "logical", "text": "What comes next in the pattern: AZ, BY, CX, DW, ?", "options": [{"key": "A", "text": "EU"}, {"key": "B", "text": "EV"}, {"key": "C", "text": "FV"}, {"key": "D", "text": "EW"}], "correct_answer": "B"},
+    {"id": "cog_018", "type": "mcq", "category": "numerical", "text": "The ratio of male to female employees in a Hawassa factory is 3:5. If there are 120 employees total, how many are female?", "options": [{"key": "A", "text": "45"}, {"key": "B", "text": "60"}, {"key": "C", "text": "72"}, {"key": "D", "text": "75"}], "correct_answer": "D"},
+    {"id": "cog_019", "type": "mcq", "category": "verbal", "text": "Select the sentence that is grammatically correct:", "options": [{"key": "A", "text": "Each of the employees have submitted their reports."}, {"key": "B", "text": "Each of the employees has submitted his or her report."}, {"key": "C", "text": "Each of the employees have submitted his or her report."}, {"key": "D", "text": "Each of the employee has submitted their reports."}], "correct_answer": "B"},
+    {"id": "cog_020", "type": "mcq", "category": "logical", "text": "Statements: No pen is a pencil. All pencils are erasers. Conclusion: Some erasers are not pens. Is this conclusion valid?", "options": [{"key": "A", "text": "Yes, the conclusion is valid"}, {"key": "B", "text": "No, the conclusion is invalid"}, {"key": "C", "text": "Cannot be determined"}, {"key": "D", "text": "Only if all erasers are pencils"}], "correct_answer": "A"},
+    {"id": "cog_021", "type": "mcq", "category": "numerical", "text": "A bank in Ethiopia offers 7% simple interest per year. If you deposit 50,000 ETB, how much interest do you earn after 3 years?", "options": [{"key": "A", "text": "10,500 ETB"}, {"key": "B", "text": "11,500 ETB"}, {"key": "C", "text": "3,500 ETB"}, {"key": "D", "text": "15,000 ETB"}], "correct_answer": "A"},
+    {"id": "cog_022", "type": "mcq", "category": "verbal", "text": "What does the word 'PRAGMATIC' most closely mean?", "options": [{"key": "A", "text": "Theoretical"}, {"key": "B", "text": "Practical"}, {"key": "C", "text": "Pessimistic"}, {"key": "D", "text": "Idealistic"}], "correct_answer": "B"},
+    {"id": "cog_023", "type": "mcq", "category": "logical", "text": "Find the missing number: 4, 9, 25, 49, 121, ?", "options": [{"key": "A", "text": "144"}, {"key": "B", "text": "169"}, {"key": "C", "text": "196"}, {"key": "D", "text": "225"}], "correct_answer": "B"},
+    {"id": "cog_024", "type": "mcq", "category": "numerical", "text": "A company spends 35% of its 200,000 ETB monthly budget on salaries, 25% on rent, and 15% on utilities. How much remains for other expenses?", "options": [{"key": "A", "text": "40,000 ETB"}, {"key": "B", "text": "50,000 ETB"}, {"key": "C", "text": "55,000 ETB"}, {"key": "D", "text": "45,000 ETB"}], "correct_answer": "B"},
+    {"id": "cog_025", "type": "mcq", "category": "verbal", "text": "Complete the analogy: Doctor is to Patient as Teacher is to ___", "options": [{"key": "A", "text": "School"}, {"key": "B", "text": "Student"}, {"key": "C", "text": "Lesson"}, {"key": "D", "text": "Classroom"}], "correct_answer": "B"},
+    {"id": "cog_026", "type": "mcq", "category": "logical", "text": "Abebe is taller than Dawit. Dawit is taller than Chala. Fikru is shorter than Chala. Who is the shortest?", "options": [{"key": "A", "text": "Abebe"}, {"key": "B", "text": "Dawit"}, {"key": "C", "text": "Chala"}, {"key": "D", "text": "Fikru"}], "correct_answer": "D"},
+    {"id": "cog_027", "type": "mcq", "category": "numerical", "text": "A trader buys 50 quintals of teff at 7,000 ETB per quintal and sells at 8,200 ETB per quintal. What is the total profit?", "options": [{"key": "A", "text": "50,000 ETB"}, {"key": "B", "text": "55,000 ETB"}, {"key": "C", "text": "60,000 ETB"}, {"key": "D", "text": "65,000 ETB"}], "correct_answer": "C"},
+    {"id": "cog_028", "type": "mcq", "category": "verbal", "text": "Choose the word OPPOSITE in meaning to 'TRANSPARENT':", "options": [{"key": "A", "text": "Clear"}, {"key": "B", "text": "Opaque"}, {"key": "C", "text": "Visible"}, {"key": "D", "text": "Obvious"}], "correct_answer": "B"},
+    {"id": "cog_029", "type": "mcq", "category": "logical", "text": "If Monday is two days after the day before yesterday, what day is today?", "options": [{"key": "A", "text": "Sunday"}, {"key": "B", "text": "Monday"}, {"key": "C", "text": "Tuesday"}, {"key": "D", "text": "Wednesday"}], "correct_answer": "D"},
+    {"id": "cog_030", "type": "mcq", "category": "numerical", "text": "A pipe fills a tank in 6 hours and another empties it in 9 hours. If both are open, how long to fill the tank?", "options": [{"key": "A", "text": "15 hours"}, {"key": "B", "text": "18 hours"}, {"key": "C", "text": "12 hours"}, {"key": "D", "text": "21 hours"}], "correct_answer": "B"},
+    {"id": "cog_031", "type": "mcq", "category": "verbal", "text": "Read the statement: 'Despite the heavy rains, the construction team completed the project on schedule.' What can be inferred?", "options": [{"key": "A", "text": "The rains caused no delays at all"}, {"key": "B", "text": "The team overcame the challenge posed by heavy rains"}, {"key": "C", "text": "The rains helped the construction process"}, {"key": "D", "text": "The project deadline was extended"}], "correct_answer": "B"},
+    {"id": "cog_032", "type": "mcq", "category": "logical", "text": "Which number does not belong in the series: 2, 5, 10, 17, 28, 37?", "options": [{"key": "A", "text": "10"}, {"key": "B", "text": "17"}, {"key": "C", "text": "28"}, {"key": "D", "text": "37"}], "correct_answer": "C"},
+    {"id": "cog_033", "type": "mcq", "category": "numerical", "text": "An NGO in Bahir Dar distributed supplies to 240 families. If this represents 60% of all families in the area, how many families are there in total?", "options": [{"key": "A", "text": "380"}, {"key": "B", "text": "400"}, {"key": "C", "text": "420"}, {"key": "D", "text": "360"}], "correct_answer": "B"},
+    {"id": "cog_034", "type": "mcq", "category": "verbal", "text": "Which word best completes the sentence: 'The manager's decision was met with ___ from the team, as everyone disagreed.'", "options": [{"key": "A", "text": "Applause"}, {"key": "B", "text": "Indifference"}, {"key": "C", "text": "Dissent"}, {"key": "D", "text": "Approval"}], "correct_answer": "C"},
+    {"id": "cog_035", "type": "mcq", "category": "logical", "text": "A clock shows 3:15. What is the angle between the hour and minute hands?", "options": [{"key": "A", "text": "0 degrees"}, {"key": "B", "text": "7.5 degrees"}, {"key": "C", "text": "15 degrees"}, {"key": "D", "text": "22.5 degrees"}], "correct_answer": "B"},
+    {"id": "cog_036", "type": "mcq", "category": "numerical", "text": "A car travels from Addis Ababa to Adama (100 km) at 80 km/h and returns at 50 km/h. What is the average speed for the round trip?", "options": [{"key": "A", "text": "65.0 km/h"}, {"key": "B", "text": "61.5 km/h"}, {"key": "C", "text": "60.0 km/h"}, {"key": "D", "text": "63.5 km/h"}], "correct_answer": "B"},
+    {"id": "cog_037", "type": "mcq", "category": "verbal", "text": "Choose the word most similar in meaning to 'METICULOUS':", "options": [{"key": "A", "text": "Careless"}, {"key": "B", "text": "Thorough"}, {"key": "C", "text": "Quick"}, {"key": "D", "text": "Ambitious"}], "correct_answer": "B"},
+    {"id": "cog_038", "type": "mcq", "category": "logical", "text": "In a certain code, CLOUD is written as DMPVE. How is STORM written in the same code?", "options": [{"key": "A", "text": "TUSNO"}, {"key": "B", "text": "TUPSN"}, {"key": "C", "text": "TUPSO"}, {"key": "D", "text": "TURSN"}], "correct_answer": "C"},
+    {"id": "cog_039", "type": "mcq", "category": "numerical", "text": "A telecom company's subscribers grew from 200,000 to 350,000 in one year. In the second year, subscribers grew by 40%. How many subscribers are there after two years?", "options": [{"key": "A", "text": "450,000"}, {"key": "B", "text": "480,000"}, {"key": "C", "text": "490,000"}, {"key": "D", "text": "500,000"}], "correct_answer": "C"},
+    {"id": "cog_040", "type": "mcq", "category": "verbal", "text": "Read the passage: 'The new policy requires all employees to complete training within 30 days. Failure to comply will result in suspension of access privileges.' What is the consequence of not completing training?", "options": [{"key": "A", "text": "Termination of employment"}, {"key": "B", "text": "A warning letter"}, {"key": "C", "text": "Suspension of access privileges"}, {"key": "D", "text": "Reduction in salary"}], "correct_answer": "C"}
   ]
 }
