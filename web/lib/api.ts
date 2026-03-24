@@ -1,7 +1,6 @@
 import axios from "axios";
 
-// All API calls go through Vercel's own /api/ proxy route — no CORS, no direct VPS access needed
-const API_BASE = "";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://tc.srv867871.hstgr.cloud";
 
 export const api = axios.create({
   baseURL: API_BASE,
