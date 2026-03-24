@@ -3,11 +3,7 @@ services:
     build: .
     restart: always
     env_file: .env
-    dns:
-      - 8.8.8.8
-      - 1.1.1.1
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    network_mode: host
     labels:
       - traefik.enable=true
       - traefik.http.routers.talentcheck.rule=Host(`tc.srv867871.hstgr.cloud`)
@@ -15,11 +11,3 @@ services:
       - traefik.http.routers.talentcheck.entrypoints=web,websecure
       - traefik.http.routers.talentcheck.tls.certresolver=mytlschallenge
       - traefik.http.services.talentcheck.loadbalancer.server.port=8001
-    networks:
-      - traefik_net
-      - default
-
-networks:
-  traefik_net:
-    external: true
-    name: root_default
