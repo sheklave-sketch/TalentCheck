@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://tc.srv867871.hstgr.cloud";
+// Browser calls Vercel /api/* proxy which relays to VPS — no CORS, no Traefik needed
+const API_BASE = "";
 
 export const api = axios.create({
   baseURL: API_BASE,

@@ -10,4 +10,4 @@ services:
       - traefik.http.routers.talentcheck.tls=true
       - traefik.http.routers.talentcheck.entrypoints=web,websecure
       - traefik.http.routers.talentcheck.tls.certresolver=mytlschallenge
-      - traefik.http.services.talentcheck.loadbalancer.server.port=8001
+      - traefik.http.services.talentcheck.loadbalancer.server.url=http://172.17.0.1:8001
