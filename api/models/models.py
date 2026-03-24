@@ -48,12 +48,12 @@ class SessionStatus(str, enum.Enum):
 # ─── Models ───────────────────────────────────────────────────────────────────
 
 class Organization(Base):
-    __tablename__ = "organizations"
+    __tablename__ = "tc_organizations"
 
     id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
     name: Mapped[str] = mapped_column(String(200), nullable=False)
     logo_url: Mapped[str | None] = mapped_column(String(500))
-    plan: Mapped[PlanTier] = mapped_column(SAEnum(PlanTier), default=PlanTier.starter)
+    plan: Mapped[PlanTier] = mapped_column(SAEnum(PlanTier, name="tc_plantier"), default=PlanTier.starter)
     monthly_candidate_limit: Mapped[int] = mapped_column(Integer, default=10)
     candidates_used_this_month: Mapped[int] = mapped_column(Integer, default=0)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
@@ -64,10 +64,10 @@ class Organization(Base):
 
 
 class User(Base):
-    __tablename__ = "users"
+    __tablename__ = "tc_users"
 
     id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
-    org_id: Mapped[str] = mapped_column(ForeignKey("organizations.id"), nullable=False)
+    org_id: Mapped[str] = mapped_column(ForeignKey("tc_organizations.id"), nullable=False)
     email: Mapped[str] = mapped_column(String(200), unique=True, nullable=False)
     hashed_password: Mapped[str] = mapped_column(String(200), nullable=False)
     full_name: Mapped[str] = mapped_column(String(200), nullable=False)
@@ -79,14 +79,14 @@ class User(Base):
 
 
 class Assessment(Base):
-    __tablename__ = "assessments"
+    __tablename__ = "tc_assessments"
 
     id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
-    org_id: Mapped[str] = mapped_column(ForeignKey("organizations.id"), nullable=False)
-    created_by: Mapped[str] = mapped_column(ForeignKey("users.id"), nullable=False)
+    org_id: Mapped[str] = mapped_column(ForeignKey("tc_organizations.id"), nullable=False)
+    created_by: Mapped[str] = mapped_column(ForeignKey("tc_users.id"), nullable=False)
     title: Mapped[str] = mapped_column(String(300), nullable=False)
     description: Mapped[str | None] = mapped_column(Text)
-    status: Mapped[AssessmentStatus] = mapped_column(SAEnum(AssessmentStatus), default=AssessmentStatus.draft)
+    status: Mapped[AssessmentStatus] = mapped_column(SAEnum(AssessmentStatus, name="tc_assessmentstatus"), default=AssessmentStatus.draft)
 
     # Config: list of {test_key, weight, time_limit_minutes}
     test_config: Mapped[list] = mapped_column(JSON, default=list)
@@ -101,15 +101,15 @@ class Assessment(Base):
 
 
 class Candidate(Base):
-    __tablename__ = "candidates"
+    __tablename__ = "tc_candidates"
 
     id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
-    assessment_id: Mapped[str] = mapped_column(ForeignKey("assessments.id"), nullable=False)
+    assessment_id: Mapped[str] = mapped_column(ForeignKey("tc_assessments.id"), nullable=False)
     email: Mapped[str] = mapped_column(String(200), nullable=False)
     phone: Mapped[str | None] = mapped_column(String(30))
     full_name: Mapped[str] = mapped_column(String(200), nullable=False)
     invite_token: Mapped[str] = mapped_column(String(100), unique=True, default=gen_uuid)
-    status: Mapped[CandidateStatus] = mapped_column(SAEnum(CandidateStatus), default=CandidateStatus.invited)
+    status: Mapped[CandidateStatus] = mapped_column(SAEnum(CandidateStatus, name="tc_candidatestatus"), default=CandidateStatus.invited)
     invited_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     expires_at: Mapped[datetime | None] = mapped_column(DateTime)
 
@@ -119,12 +119,12 @@ class Candidate(Base):
 
 
 class TestSession(Base):
-    __tablename__ = "test_sessions"
+    __tablename__ = "tc_test_sessions"
 
     id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
-    candidate_id: Mapped[str] = mapped_column(ForeignKey("candidates.id"), unique=True, nullable=False)
-    assessment_id: Mapped[str] = mapped_column(ForeignKey("assessments.id"), nullable=False)
-    status: Mapped[SessionStatus] = mapped_column(SAEnum(SessionStatus), default=SessionStatus.pending)
+    candidate_id: Mapped[str] = mapped_column(ForeignKey("tc_candidates.id"), unique=True, nullable=False)
+    assessment_id: Mapped[str] = mapped_column(ForeignKey("tc_assessments.id"), nullable=False)
+    status: Mapped[SessionStatus] = mapped_column(SAEnum(SessionStatus, name="tc_sessionstatus"), default=SessionStatus.pending)
 
     started_at: Mapped[datetime | None] = mapped_column(DateTime)
     submitted_at: Mapped[datetime | None] = mapped_column(DateTime)
@@ -141,10 +141,10 @@ class TestSession(Base):
 
 
 class Response(Base):
-    __tablename__ = "responses"
+    __tablename__ = "tc_responses"
 
     id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
-    session_id: Mapped[str] = mapped_column(ForeignKey("test_sessions.id"), nullable=False)
+    session_id: Mapped[str] = mapped_column(ForeignKey("tc_test_sessions.id"), nullable=False)
     test_key: Mapped[str] = mapped_column(String(50), nullable=False)   # e.g. "cognitive"
     question_id: Mapped[str] = mapped_column(String(100), nullable=False)
     answer: Mapped[str | None] = mapped_column(String(500))  # selected option key
@@ -156,11 +156,11 @@ class Response(Base):
 
 
 class Result(Base):
-    __tablename__ = "results"
+    __tablename__ = "tc_results"
 
     id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
-    candidate_id: Mapped[str] = mapped_column(ForeignKey("candidates.id"), unique=True, nullable=False)
-    assessment_id: Mapped[str] = mapped_column(ForeignKey("assessments.id"), nullable=False)
+    candidate_id: Mapped[str] = mapped_column(ForeignKey("tc_candidates.id"), unique=True, nullable=False)
+    assessment_id: Mapped[str] = mapped_column(ForeignKey("tc_assessments.id"), nullable=False)
 
     scores_by_test: Mapped[dict] = mapped_column(JSON, default=dict)   # {test_key: {raw, pct, label}}
     total_score: Mapped[float] = mapped_column(Float, default=0.0)
