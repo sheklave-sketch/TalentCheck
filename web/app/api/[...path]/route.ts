@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 const API_BACKEND = process.env.API_BACKEND_URL || "http://31.97.47.190:8001";
 
-export async function handler(req: NextRequest, { params }: { params: { path: string[] } }) {
+async function proxyRequest(req: NextRequest, { params }: { params: { path: string[] } }) {
   const path = params.path.join("/");
-  const url = `${API_BACKEND}/api/${path}`;
+  const url = `${API_BACKEND}/api/${path}${req.nextUrl.search}`;
 
   const headers: Record<string, string> = {
     "Content-Type": req.headers.get("content-type") || "application/json",
@@ -24,10 +24,8 @@ export async function handler(req: NextRequest, { params }: { params: { path: st
 
   try {
     const response = await fetch(url, fetchOptions);
-
     const contentType = response.headers.get("content-type") || "";
 
-    // Binary responses (PDF, Excel)
     if (
       contentType.includes("application/pdf") ||
       contentType.includes("spreadsheetml") ||
@@ -48,16 +46,13 @@ export async function handler(req: NextRequest, { params }: { params: { path: st
       status: response.status,
       headers: { "Content-Type": contentType },
     });
-  } catch (error) {
-    return NextResponse.json(
-      { detail: "Backend unavailable" },
-      { status: 502 }
-    );
+  } catch {
+    return NextResponse.json({ detail: "Backend unavailable" }, { status: 502 });
   }
 }
 
-export const GET = handler;
-export const POST = handler;
-export const PATCH = handler;
-export const PUT = handler;
-export const DELETE = handler;
+export const GET = proxyRequest;
+export const POST = proxyRequest;
+export const PATCH = proxyRequest;
+export const PUT = proxyRequest;
+export const DELETE = proxyRequest;
