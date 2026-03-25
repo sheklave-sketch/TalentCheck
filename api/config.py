@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     BOT_SECRET: str = ""
     TC_BOT_TOKEN: str = ""
     DEBUG: bool = False
+    API_BASE_URL: str = ""  # bot-only, ignored by API
 
     class Config:
         env_file = ".env"
