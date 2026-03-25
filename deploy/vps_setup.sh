@@ -14,7 +14,7 @@ if [ -d "talentcheck" ]; then
   cd talentcheck && git pull origin main
 else
   echo "Cloning repo..."
-  git clone https://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@github.com/sheklave-sketch/TalentCheck.git talentcheck
+  git clone https://github.com/sheklave-sketch/TalentCheck.git talentcheck
   cd talentcheck
 fi
 
