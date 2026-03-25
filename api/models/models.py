@@ -185,7 +185,7 @@ class TelegramLink(Base):
     telegram_username: Mapped[str | None] = mapped_column(String(100))
     user_id: Mapped[str | None] = mapped_column(ForeignKey("tc_users.id"))
     candidate_id: Mapped[str | None] = mapped_column(ForeignKey("tc_candidates.id"))
-    link_code: Mapped[str | None] = mapped_column(String(20))
+    link_code: Mapped[str | None] = mapped_column(String(200))
     linked_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
 
