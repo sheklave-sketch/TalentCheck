@@ -54,15 +54,6 @@ async def _candidate_reg_step(update: Update, context: ContextTypes.DEFAULT_TYPE
             await update.message.reply_text("Please enter a valid name (at least 2 characters).")
             return True
         context.user_data["reg_name"] = text
-        context.user_data["reg_step"] = "email"
-        await update.message.reply_text(messages.CANDIDATE_REG_EMAIL)
-        return True
-
-    elif step == "email":
-        if not EMAIL_RE.match(text):
-            await update.message.reply_text("Please enter a valid email address.")
-            return True
-        context.user_data["reg_email"] = text.lower()
         context.user_data["reg_step"] = "phone"
         phone_keyboard = ReplyKeyboardMarkup(
             [[KeyboardButton("Share Phone Number", request_contact=True)]],
@@ -86,9 +77,8 @@ async def _candidate_reg_step(update: Update, context: ContextTypes.DEFAULT_TYPE
         context.user_data["reg_phone"] = clean_phone
         context.user_data["reg_step"] = "confirm"
 
-        msg = messages.CANDIDATE_REG_CONFIRM.format(
+        msg = messages.CANDIDATE_REG_CONFIRM_NO_EMAIL.format(
             full_name=context.user_data["reg_name"],
-            email=context.user_data["reg_email"],
             phone=context.user_data["reg_phone"],
         )
         await update.message.reply_text(msg, reply_markup=ReplyKeyboardRemove())
@@ -119,9 +109,8 @@ async def contact_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     context.user_data["reg_phone"] = phone
     context.user_data["reg_step"] = "confirm"
 
-    msg = messages.CANDIDATE_REG_CONFIRM.format(
+    msg = messages.CANDIDATE_REG_CONFIRM_NO_EMAIL.format(
         full_name=context.user_data["reg_name"],
-        email=context.user_data["reg_email"],
         phone=context.user_data["reg_phone"],
     )
     await update.message.reply_text(
@@ -154,8 +143,8 @@ async def candidate_reg_confirm_callback(update: Update, context: ContextTypes.D
 
     result = await api_post("/register-candidate", {
         "full_name": context.user_data["reg_name"],
-        "email": context.user_data["reg_email"],
-        "phone": context.user_data["reg_phone"],
+        "email": context.user_data.get("reg_email", ""),
+        "phone": context.user_data.get("reg_phone", ""),
         "telegram_id": telegram_id,
         "telegram_username": username,
     })

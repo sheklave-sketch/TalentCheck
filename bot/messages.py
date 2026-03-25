@@ -60,6 +60,12 @@ CANDIDATE_REG_CONFIRM = (
     "Phone: {phone}\n\n"
     "Is this correct?"
 )
+CANDIDATE_REG_CONFIRM_NO_EMAIL = (
+    "Please confirm your details:\n\n"
+    "Name: {full_name}\n"
+    "Phone: {phone}\n\n"
+    "Is this correct?"
+)
 CANDIDATE_REG_SUCCESS = (
     "Registration complete! Welcome to TalentCheck, {name}.\n\n"
     "You can now:\n"

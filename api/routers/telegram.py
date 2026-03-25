@@ -99,8 +99,8 @@ async def verify_bot_secret(x_bot_secret: str = Header()):
 
 class RegisterCandidateRequest(BaseModel):
     full_name: str
-    email: str
-    phone: str
+    email: str = ""
+    phone: str = ""
     telegram_id: int
     telegram_username: str | None = None
 
