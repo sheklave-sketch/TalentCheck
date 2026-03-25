@@ -24,12 +24,15 @@ def candidate_menu_keyboard() -> InlineKeyboardMarkup:
 
 # ─── Employer menu ──────────────────────────────────────────────────────────
 
-def employer_menu_keyboard() -> InlineKeyboardMarkup:
+def employer_menu_keyboard(telegram_id: int | None = None) -> InlineKeyboardMarkup:
+    dashboard_url = "https://talentcheck-tau.vercel.app"
+    if telegram_id:
+        dashboard_url = f"https://talentcheck-tau.vercel.app/?tg_id={telegram_id}"
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("Request Demo", callback_data="emenu|demo")],
         [InlineKeyboardButton("Invite Candidates", callback_data="emenu|invite")],
         [InlineKeyboardButton("View Results", callback_data="emenu|results")],
-        [InlineKeyboardButton("Open Web Dashboard", url="https://talentcheck-tau.vercel.app")],
+        [InlineKeyboardButton("Open Web Dashboard", url=dashboard_url)],
         [InlineKeyboardButton("Help", callback_data="emenu|help")],
     ])
 

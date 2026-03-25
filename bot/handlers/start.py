@@ -40,7 +40,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 name=link_data.get("full_name", ""),
                 org_name=link_data.get("org_name", "your organization"),
             )
-            await update.message.reply_text(msg, reply_markup=employer_menu_keyboard())
+            await update.message.reply_text(msg, reply_markup=employer_menu_keyboard(telegram_id))
             return
         elif role in ("candidate", "candidate_registered"):
             msg = messages.WELCOME_BACK_CANDIDATE.format(
@@ -69,7 +69,7 @@ async def menu_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     name=link_data.get("full_name", ""),
                     org_name=link_data.get("org_name", ""),
                 ),
-                reply_markup=employer_menu_keyboard(),
+                reply_markup=employer_menu_keyboard(telegram_id),
             )
         else:
             await update.message.reply_text(
@@ -145,7 +145,7 @@ async def menu_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     name=link_data.get("full_name", ""),
                     org_name=link_data.get("org_name", ""),
                 ),
-                reply_markup=employer_menu_keyboard(),
+                reply_markup=employer_menu_keyboard(telegram_id),
             )
         else:
             name = "there"
@@ -195,7 +195,7 @@ async def employer_menu_callback(update: Update, context: ContextTypes.DEFAULT_T
                 name=link_data.get("full_name", ""),
                 org_name=link_data.get("org_name", ""),
             ),
-            reply_markup=employer_menu_keyboard(),
+            reply_markup=employer_menu_keyboard(telegram_id),
         )
 
 

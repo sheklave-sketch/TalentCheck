@@ -117,3 +117,28 @@ async def me(current_user: User = Depends(get_current_user)):
         "role": current_user.role,
         "org_id": current_user.org_id,
     }
+
+
+class TelegramLoginRequest(BaseModel):
+    telegram_id: int
+
+
+@router.post("/telegram-login", response_model=TokenResponse)
+async def telegram_login(body: TelegramLoginRequest, db: AsyncSession = Depends(get_db)):
+    """Auto-login for users who open the web dashboard from the Telegram bot."""
+    # Find user by telegram_id
+    result = await db.execute(
+        select(User).where(User.telegram_id == body.telegram_id)
+    )
+    user = result.scalar_one_or_none()
+    if not user or not user.is_active:
+        raise HTTPException(status_code=404, detail="No account linked to this Telegram. Register first via /start.")
+
+    token = create_token(user.id, user.org_id)
+    return TokenResponse(
+        access_token=token,
+        user_id=user.id,
+        org_id=user.org_id,
+        full_name=user.full_name,
+        role=user.role,
+    )

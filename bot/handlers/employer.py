@@ -114,7 +114,7 @@ async def employer_reg_confirm_callback(update: Update, context: ContextTypes.DE
 
     await query.edit_message_text(
         messages.ONBOARDING_EMPLOYER.format(name=name, org_name=org_name),
-        reply_markup=employer_menu_keyboard(),
+        reply_markup=employer_menu_keyboard(telegram_id),
     )
 
 
@@ -205,6 +205,7 @@ async def demo_confirm_callback(update: Update, context: ContextTypes.DEFAULT_TY
     """Handle demo|yes or demo|no confirmation."""
     query = update.callback_query
     await query.answer()
+    telegram_id = query.from_user.id
 
     _, choice = query.data.split("|", 1)
 
@@ -212,7 +213,7 @@ async def demo_confirm_callback(update: Update, context: ContextTypes.DEFAULT_TY
         _clear_demo(context)
         await query.edit_message_text(
             "Demo request cancelled.",
-            reply_markup=employer_menu_keyboard(),
+            reply_markup=employer_menu_keyboard(telegram_id),
         )
         return
 
@@ -232,13 +233,13 @@ async def demo_confirm_callback(update: Update, context: ContextTypes.DEFAULT_TY
     if result.get("error"):
         await query.edit_message_text(
             f"Failed to submit: {result.get('detail')}",
-            reply_markup=employer_menu_keyboard(),
+            reply_markup=employer_menu_keyboard(telegram_id),
         )
         return
 
     await query.edit_message_text(
         messages.DEMO_SUBMITTED,
-        reply_markup=employer_menu_keyboard(),
+        reply_markup=employer_menu_keyboard(telegram_id),
     )
 
 
@@ -315,7 +316,7 @@ async def invite_message_handler(update: Update, context: ContextTypes.DEFAULT_T
         if result.get("error"):
             await update.message.reply_text(
                 messages.INVITE_FAILED.format(detail=result.get("detail", "Unknown error")),
-                reply_markup=employer_menu_keyboard(),
+                reply_markup=employer_menu_keyboard(telegram_id),
             )
             return True
 
@@ -327,7 +328,7 @@ async def invite_message_handler(update: Update, context: ContextTypes.DEFAULT_T
 
         await update.message.reply_text(
             messages.INVITE_SUCCESS.format(count=result.get("count", 0), links=links_text),
-            reply_markup=employer_menu_keyboard(),
+            reply_markup=employer_menu_keyboard(telegram_id),
         )
         return True
 
@@ -350,14 +351,14 @@ async def results_list_action(query: CallbackQuery, context: ContextTypes.DEFAUL
     except Exception:
         await query.edit_message_text(
             "Failed to load assessments. Try again later.",
-            reply_markup=employer_menu_keyboard(),
+            reply_markup=employer_menu_keyboard(telegram_id),
         )
         return
 
     if data.get("error"):
         await query.edit_message_text(
             f"Error: {data.get('detail', 'Not linked to employer account.')}",
-            reply_markup=employer_menu_keyboard(),
+            reply_markup=employer_menu_keyboard(telegram_id),
         )
         return
 
@@ -365,7 +366,7 @@ async def results_list_action(query: CallbackQuery, context: ContextTypes.DEFAUL
     if not assessments:
         await query.edit_message_text(
             messages.NO_ASSESSMENTS,
-            reply_markup=employer_menu_keyboard(),
+            reply_markup=employer_menu_keyboard(telegram_id),
         )
         return
 
@@ -399,7 +400,7 @@ async def employer_results_command(update: Update, context: ContextTypes.DEFAULT
     if not assessments:
         await update.message.reply_text(
             messages.NO_ASSESSMENTS,
-            reply_markup=employer_menu_keyboard(),
+            reply_markup=employer_menu_keyboard(telegram_id),
         )
         return
 
@@ -422,14 +423,14 @@ async def employer_result_detail_callback(update: Update, context: ContextTypes.
     except Exception:
         await query.edit_message_text(
             "Failed to load results.",
-            reply_markup=employer_menu_keyboard(),
+            reply_markup=employer_menu_keyboard(telegram_id),
         )
         return
 
     if data.get("error"):
         await query.edit_message_text(
             f"Error: {data.get('detail')}",
-            reply_markup=employer_menu_keyboard(),
+            reply_markup=employer_menu_keyboard(telegram_id),
         )
         return
 
