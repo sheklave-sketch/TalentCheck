@@ -894,19 +894,34 @@ async def check_link(
         user_result = await db.execute(select(User).where(User.id == link.user_id))
         user = user_result.scalar_one_or_none()
         if user:
+            org_result = await db.execute(select(Organization).where(Organization.id == user.org_id))
+            org = org_result.scalar_one_or_none()
             return {
                 "linked": True,
                 "role": "employer",
                 "full_name": user.full_name,
                 "email": user.email,
                 "org_id": user.org_id,
+                "org_name": org.name if org else "",
             }
 
     if link.candidate_id:
-        return {"linked": True, "role": "candidate", "candidate_id": link.candidate_id}
+        cand_result = await db.execute(select(Candidate).where(Candidate.id == link.candidate_id))
+        cand = cand_result.scalar_one_or_none()
+        return {
+            "linked": True,
+            "role": "candidate",
+            "candidate_id": link.candidate_id,
+            "full_name": cand.full_name if cand else "",
+        }
 
-    # Has a link record but not fully linked
-    return {"linked": True, "role": "candidate_registered", "link_id": link.id}
+    # Has a link record but not fully linked — candidate registered via bot
+    return {
+        "linked": True,
+        "role": "candidate_registered",
+        "link_id": link.id,
+        "full_name": link.telegram_username or "",
+    }
 
 
 # ─── Generate Chapa payment link ─────────────────────────────────────────────
