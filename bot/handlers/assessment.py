@@ -1,17 +1,19 @@
 """Full assessment flow via inline keyboards."""
 import time
+import logging
 from telegram import Update
 from telegram.ext import ContextTypes
+
 from ..api_client import api_post
-from ..keyboards import answer_keyboard, continue_section_keyboard
+from ..keyboards import answer_keyboard, continue_section_keyboard, candidate_menu_keyboard
+from ..timer import format_time, schedule_deadline, cancel_deadline
+from .. import messages
 
-
-def _format_time(seconds: int) -> str:
-    m, s = divmod(seconds, 60)
-    return f"{m:02d}:{s:02d}"
+logger = logging.getLogger(__name__)
 
 
 def _sid_short(session_id: str) -> str:
+    """Shorten session ID for callback data (64-byte limit)."""
     return session_id[:8]
 
 
@@ -32,10 +34,12 @@ async def _send_question(
     total_q = len(test["questions"])
     test_label = test["test_key"].replace("_", " ").title()
 
-    text = (
-        f"📝 {test_label} — Question {qi + 1}/{total_q}\n"
-        f"⏱ {_format_time(remaining)} remaining\n\n"
-        f"{question['text']}"
+    text = messages.QUESTION_TEMPLATE.format(
+        test_label=test_label,
+        q_num=qi + 1,
+        q_total=total_q,
+        time_remaining=format_time(remaining),
+        question_text=question["text"],
     )
 
     kb = answer_keyboard(_sid_short(session_id), question["id"], question["options"])
@@ -85,12 +89,13 @@ async def begin_assessment_callback(update: Update, context: ContextTypes.DEFAUL
     }
     context.user_data["q_start_time"] = time.time()
 
-    # Schedule auto-submit
-    context.job_queue.run_once(
-        _auto_submit_job,
-        when=result["seconds_remaining"],
-        data={"session_id": result["session_id"], "bot_session_id": result["bot_session_id"], "chat_id": query.message.chat_id},
-        name=f"deadline_{result['session_id']}",
+    # Schedule auto-submit at deadline
+    schedule_deadline(
+        context,
+        session_id=result["session_id"],
+        bot_session_id=result["bot_session_id"],
+        chat_id=query.message.chat_id,
+        seconds=result["seconds_remaining"],
     )
 
     await _send_question(query, context, context.user_data["session"])
@@ -111,7 +116,7 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.edit_message_text("Session expired. Please use your invite link again.")
         return
 
-    # Calculate time taken
+    # Calculate time taken for this question
     q_start = context.user_data.get("q_start_time", time.time())
     time_taken = int(time.time() - q_start)
 
@@ -130,7 +135,8 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if result.get("error"):
         if "expired" in str(result.get("detail", "")).lower():
-            await query.edit_message_text("⏱ Time's up! Your assessment has been auto-submitted.")
+            await query.edit_message_text(messages.TIME_EXPIRED)
+            context.user_data.pop("session", None)
             return
         await query.edit_message_text(f"Error: {result.get('detail')}")
         return
@@ -142,11 +148,11 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     total_q = len(test["questions"])
 
     if qi < total_q:
-        # Next question in same test
+        # Next question in same test section
         session_data["current_question_index"] = qi
         context.user_data["q_start_time"] = time.time()
 
-        # Update progress on server
+        # Update progress on server (fire and forget)
         await api_post("/update-progress", {
             "bot_session_id": session_data["bot_session_id"],
             "current_test_index": ti,
@@ -155,7 +161,7 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         await _send_question(query, context, session_data)
     else:
-        # Test section complete
+        # Test section complete — check if more sections
         next_ti = ti + 1
         if next_ti < len(session_data["tests"]):
             # More sections remaining
@@ -170,13 +176,16 @@ async def answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             })
 
             next_test = session_data["tests"][next_ti]
-            test_label = next_test["test_key"].replace("_", " ").title()
-            remaining = _format_time(session_data["seconds_remaining"])
+            next_label = next_test["test_key"].replace("_", " ").title()
+            test_label = test["test_key"].replace("_", " ").title()
+            remaining = format_time(session_data["seconds_remaining"])
 
             await query.edit_message_text(
-                f"✅ {test['test_key'].replace('_', ' ').title()} — Complete!\n\n"
-                f"Next: {test_label}\n"
-                f"⏱ {remaining} remaining",
+                messages.SECTION_COMPLETE.format(
+                    test_label=test_label,
+                    next_label=next_label,
+                    time_remaining=remaining,
+                ),
                 reply_markup=continue_section_keyboard(_sid_short(session_data["session_id"])),
             )
         else:
@@ -200,10 +209,8 @@ async def next_section_callback(update: Update, context: ContextTypes.DEFAULT_TY
 
 async def _finalize_session(query, context, session_data):
     """Submit the session and show completion message."""
-    # Cancel the auto-submit job
-    jobs = context.job_queue.get_jobs_by_name(f"deadline_{session_data['session_id']}")
-    for job in jobs:
-        job.schedule_removal()
+    # Cancel the auto-submit deadline job
+    cancel_deadline(context, session_data["session_id"])
 
     result = await api_post("/submit-session", {
         "session_id": session_data["session_id"],
@@ -213,36 +220,22 @@ async def _finalize_session(query, context, session_data):
     context.user_data.pop("session", None)
 
     await query.edit_message_text(
-        "🎉 Assessment Complete!\n\n"
-        "Your responses have been submitted.\n"
-        "The hiring team will review your results and be in touch.\n\n"
-        "Thank you for using TalentCheck!"
-    )
-
-
-async def _auto_submit_job(context: ContextTypes.DEFAULT_TYPE):
-    """Auto-submit when server deadline expires."""
-    data = context.job.data
-    await api_post("/submit-session", {
-        "session_id": data["session_id"],
-        "bot_session_id": data.get("bot_session_id"),
-    })
-
-    await api_post("/proctor-event", {
-        "session_id": data["session_id"],
-        "type": "timer_expired",
-        "detail": "Auto-submitted by bot due to timer expiry",
-    })
-
-    await context.bot.send_message(
-        chat_id=data["chat_id"],
-        text="⏱ Time's up! Your assessment has been auto-submitted.\n\nThank you for using TalentCheck!",
+        messages.ASSESSMENT_COMPLETE,
+        reply_markup=candidate_menu_keyboard(),
     )
 
 
 async def cancel_assessment_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Handle cancel button."""
+    """Handle cancel button during assessment."""
     query = update.callback_query
     await query.answer()
+
+    session_data = context.user_data.get("session")
+    if session_data:
+        cancel_deadline(context, session_data["session_id"])
+
     context.user_data.pop("session", None)
-    await query.edit_message_text("Assessment cancelled. You can use your invite link again to start.")
+    await query.edit_message_text(
+        "Assessment cancelled. You can use your invite link again to start.",
+        reply_markup=candidate_menu_keyboard(),
+    )

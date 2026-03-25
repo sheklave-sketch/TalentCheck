@@ -201,3 +201,44 @@ class BotSession(Base):
     answers: Mapped[list] = mapped_column(JSON, default=list)
     started_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     state: Mapped[str] = mapped_column(String(20), default="active")  # active, submitted, expired
+
+
+class Certificate(Base):
+    __tablename__ = "tc_certificates"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
+    candidate_id: Mapped[str] = mapped_column(ForeignKey("tc_candidates.id"), nullable=False)
+    result_id: Mapped[str] = mapped_column(ForeignKey("tc_results.id"), nullable=False)
+    test_key: Mapped[str] = mapped_column(String(50), nullable=False)
+    certificate_number: Mapped[str] = mapped_column(String(30), unique=True, nullable=False)
+    candidate_name: Mapped[str] = mapped_column(String(200), nullable=False)
+    test_label: Mapped[str] = mapped_column(String(200), nullable=False)
+    score_percentage: Mapped[float] = mapped_column(Float, nullable=False)
+    performance_label: Mapped[str] = mapped_column(String(20), nullable=False)
+    issued_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    pdf_url: Mapped[str | None] = mapped_column(String(500))
+
+
+class TestPricing(Base):
+    __tablename__ = "tc_test_pricing"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
+    test_key: Mapped[str] = mapped_column(String(50), unique=True, nullable=False)
+    price_etb: Mapped[float] = mapped_column(Float, default=0.0)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class Payment(Base):
+    __tablename__ = "tc_payments"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
+    candidate_id: Mapped[str | None] = mapped_column(ForeignKey("tc_candidates.id"), nullable=True)
+    telegram_id: Mapped[int | None] = mapped_column(BigInteger)
+    test_key: Mapped[str] = mapped_column(String(50), nullable=False)
+    amount_etb: Mapped[float] = mapped_column(Float, nullable=False)
+    status: Mapped[str] = mapped_column(String(20), default="pending")  # pending, completed, failed
+    chapa_tx_ref: Mapped[str | None] = mapped_column(String(100), unique=True)
+    chapa_checkout_url: Mapped[str | None] = mapped_column(String(500))
+    paid_at: Mapped[datetime | None] = mapped_column(DateTime)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)

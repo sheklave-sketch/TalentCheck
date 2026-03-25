@@ -1,16 +1,27 @@
 """Free practice test flow — no auth, no timer."""
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+import logging
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from telegram.ext import ContextTypes
+
 from ..api_client import api_get
 from ..keyboards import practice_category_keyboard, practice_again_keyboard
+from .. import messages
+
+logger = logging.getLogger(__name__)
 
 
 async def practice_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle /practice command."""
     await update.message.reply_text(
-        "🧠 Practice Tests\n\n"
-        "Pick a category to try 5 sample questions.\n"
-        "No timer, no login — just practice!",
+        messages.PRACTICE_WELCOME,
+        reply_markup=practice_category_keyboard(),
+    )
+
+
+async def practice_action(query: CallbackQuery, context: ContextTypes.DEFAULT_TYPE):
+    """Handle practice selection from candidate menu."""
+    await query.edit_message_text(
+        messages.PRACTICE_WELCOME,
         reply_markup=practice_category_keyboard(),
     )
 
@@ -38,12 +49,7 @@ async def practice_category_callback(update: Update, context: ContextTypes.DEFAU
         "correct": 0,
     }
 
-    await query.edit_message_text(
-        f"📖 Practice: {label}\n"
-        f"5 sample questions — answers shown after each.\n\n"
-        f"Let's go!"
-    )
-
+    await query.edit_message_text(messages.PRACTICE_START.format(label=label))
     await _send_practice_question(query.message.chat_id, context)
 
 
@@ -85,9 +91,9 @@ async def practice_answer_callback(update: Update, context: ContextTypes.DEFAULT
 
     if is_correct:
         p["correct"] += 1
-        feedback = f"✅ Correct! The answer is {correct}."
+        feedback = messages.PRACTICE_CORRECT.format(correct=correct)
     else:
-        feedback = f"❌ Incorrect. The correct answer is {correct}."
+        feedback = messages.PRACTICE_INCORRECT.format(correct=correct)
 
     await query.edit_message_text(f"{q['text']}\n\nYour answer: {answer_key}\n{feedback}")
 
@@ -101,11 +107,7 @@ async def practice_answer_callback(update: Update, context: ContextTypes.DEFAULT
         pct = int((score / total) * 100)
         await context.bot.send_message(
             chat_id=query.message.chat_id,
-            text=(
-                f"📊 Practice Complete!\n\n"
-                f"You got {score}/{total} correct ({pct}%).\n\n"
-                f"Want to try another category?"
-            ),
+            text=messages.PRACTICE_COMPLETE.format(score=score, total=total, pct=pct),
             reply_markup=practice_again_keyboard(),
         )
 
@@ -116,7 +118,7 @@ async def practice_again_callback(update: Update, context: ContextTypes.DEFAULT_
     await query.answer()
     context.user_data.pop("practice", None)
     await query.edit_message_text(
-        "🧠 Practice Tests\n\nPick a category:",
+        messages.PRACTICE_WELCOME,
         reply_markup=practice_category_keyboard(),
     )
 
