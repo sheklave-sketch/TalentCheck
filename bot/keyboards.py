@@ -105,12 +105,12 @@ def payment_keyboard(payment_url: str, tx_ref: str) -> InlineKeyboardMarkup:
 # ─── Assessment ──────────────────────────────────────────────────────────────
 
 def answer_keyboard(session_id_short: str, question_id: str, options: list[dict]) -> InlineKeyboardMarkup:
-    """Build A/B/C/D answer buttons. Callback: ans|{sid}|{qid}|{key}"""
-    buttons = []
-    for opt in options:
-        cb = f"ans|{session_id_short}|{question_id}|{opt['key']}"
-        buttons.append([InlineKeyboardButton(f"{opt['key']}) {opt['text']}", callback_data=cb)])
-    return InlineKeyboardMarkup(buttons)
+    """Build short A/B/C/D answer buttons in a single row. Options text shown in message body."""
+    buttons = [
+        InlineKeyboardButton(opt["key"], callback_data=f"ans|{session_id_short}|{question_id}|{opt['key']}")
+        for opt in options
+    ]
+    return InlineKeyboardMarkup([buttons])
 
 
 def start_assessment_keyboard(invite_token: str) -> InlineKeyboardMarkup:

@@ -57,19 +57,26 @@ async def practice_category_callback(update: Update, context: ContextTypes.DEFAU
 
 
 async def _send_practice_question(chat_id: int, context: ContextTypes.DEFAULT_TYPE):
-    """Send the current practice question."""
+    """Send the current practice question with options in text and short A/B/C/D buttons."""
     p = context.user_data["practice"]
     q = p["questions"][p["current"]]
     total = len(p["questions"])
 
-    text = f"Question {p['current'] + 1}/{total}\n\n{q['text']}"
+    # Build options as text lines so they don't get cut off
+    options_text = "\n".join(f"{opt['key']}) {opt['text']}" for opt in q["options"])
+    text = f"Question {p['current'] + 1}/{total}\n\n{q['text']}\n\n{options_text}"
 
-    buttons = []
-    for opt in q["options"]:
-        cb = f"pans|{p['current']}|{opt['key']}"
-        buttons.append([InlineKeyboardButton(f"{opt['key']}) {opt['text']}", callback_data=cb)])
+    # Short A/B/C/D buttons in a single row
+    buttons = [
+        InlineKeyboardButton(opt["key"], callback_data=f"pans|{p['current']}|{opt['key']}")
+        for opt in q["options"]
+    ]
 
-    await context.bot.send_message(chat_id=chat_id, text=text, reply_markup=InlineKeyboardMarkup(buttons))
+    await context.bot.send_message(
+        chat_id=chat_id,
+        text=text,
+        reply_markup=InlineKeyboardMarkup([buttons]),
+    )
 
 
 async def practice_answer_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):

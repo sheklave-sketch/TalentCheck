@@ -34,12 +34,15 @@ async def _send_question(
     total_q = len(test["questions"])
     test_label = test["test_key"].replace("_", " ").title()
 
+    # Build options as readable text lines
+    options_text = "\n".join(f"{opt['key']}) {opt['text']}" for opt in question["options"])
+
     text = messages.QUESTION_TEMPLATE.format(
         test_label=test_label,
         q_num=qi + 1,
         q_total=total_q,
         time_remaining=format_time(remaining),
-        question_text=question["text"],
+        question_text=f"{question['text']}\n\n{options_text}",
     )
 
     kb = answer_keyboard(_sid_short(session_id), question["id"], question["options"])
