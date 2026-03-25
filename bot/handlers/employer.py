@@ -10,6 +10,8 @@ from ..keyboards import (
     employer_menu_keyboard,
     assessment_list_keyboard,
     employer_result_actions_keyboard,
+    error_recovery_keyboard,
+    back_to_menu_keyboard,
 )
 from .. import messages
 
@@ -111,7 +113,7 @@ async def employer_reg_confirm_callback(update: Update, context: ContextTypes.DE
     _clear_reg(context)
 
     await query.edit_message_text(
-        messages.EMPLOYER_REG_SUCCESS.format(name=name, org_name=org_name),
+        messages.ONBOARDING_EMPLOYER.format(name=name, org_name=org_name),
         reply_markup=employer_menu_keyboard(),
     )
 
@@ -380,18 +382,25 @@ async def employer_results_command(update: Update, context: ContextTypes.DEFAULT
     try:
         data = await api_get(f"/employer-assessments/{telegram_id}")
     except Exception:
-        await update.message.reply_text("Failed to load assessments. Try again later.")
+        await update.message.reply_text(
+            "Failed to load assessments. Please try again.",
+            reply_markup=back_to_menu_keyboard("employer"),
+        )
         return
 
     if data.get("error"):
         await update.message.reply_text(
-            f"Error: {data.get('detail', 'Not linked to employer account.')}"
+            f"Error: {data.get('detail', 'Not linked to employer account.')}",
+            reply_markup=back_to_menu_keyboard("employer"),
         )
         return
 
     assessments = data.get("assessments", [])
     if not assessments:
-        await update.message.reply_text(messages.NO_ASSESSMENTS)
+        await update.message.reply_text(
+            messages.NO_ASSESSMENTS,
+            reply_markup=employer_menu_keyboard(),
+        )
         return
 
     await update.message.reply_text(

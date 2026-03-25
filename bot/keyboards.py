@@ -34,6 +34,33 @@ def employer_menu_keyboard() -> InlineKeyboardMarkup:
     ])
 
 
+# ─── Back to menu ───────────────────────────────────────────────────────────
+
+def back_to_menu_keyboard(role: str = "candidate") -> InlineKeyboardMarkup:
+    """Single 'Back to Menu' button."""
+    cb = "emenu|back" if role == "employer" else "menu|back"
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("Back to Menu", callback_data=cb)],
+    ])
+
+
+def fallback_keyboard() -> InlineKeyboardMarkup:
+    """Shown when bot doesn't understand the input."""
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("Main Menu", callback_data="menu|back")],
+        [InlineKeyboardButton("Help", callback_data="menu|help")],
+    ])
+
+
+def error_recovery_keyboard(retry_callback: str, role: str = "candidate") -> InlineKeyboardMarkup:
+    """Retry + Back to Menu for error states."""
+    back_cb = "emenu|back" if role == "employer" else "menu|back"
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("Try Again", callback_data=retry_callback)],
+        [InlineKeyboardButton("Back to Menu", callback_data=back_cb)],
+    ])
+
+
 # ─── Confirmation ────────────────────────────────────────────────────────────
 
 def confirm_keyboard(prefix: str = "confirm") -> InlineKeyboardMarkup:
@@ -67,11 +94,12 @@ def test_action_keyboard(test_key: str) -> InlineKeyboardMarkup:
 # ─── Payment ─────────────────────────────────────────────────────────────────
 
 def payment_keyboard(payment_url: str, tx_ref: str) -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup([
-        [InlineKeyboardButton("Pay with Chapa", url=payment_url)],
-        [InlineKeyboardButton("Verify Payment", callback_data=f"verify_pay|{tx_ref}")],
-        [InlineKeyboardButton("Cancel", callback_data="menu|browse_tests")],
-    ])
+    buttons = []
+    if payment_url:
+        buttons.append([InlineKeyboardButton("Pay with Chapa", url=payment_url)])
+    buttons.append([InlineKeyboardButton("Verify Payment", callback_data=f"verify_pay|{tx_ref}")])
+    buttons.append([InlineKeyboardButton("Cancel", callback_data="menu|browse_tests")])
+    return InlineKeyboardMarkup(buttons)
 
 
 # ─── Assessment ──────────────────────────────────────────────────────────────
@@ -120,13 +148,14 @@ def practice_category_keyboard() -> InlineKeyboardMarkup:
         ("Developer (Junior)", "developer_basic"),
     ]
     buttons = [[InlineKeyboardButton(label, callback_data=f"practice|{key}")] for label, key in categories]
+    buttons.append([InlineKeyboardButton("Back to Menu", callback_data="menu|back")])
     return InlineKeyboardMarkup(buttons)
 
 
 def practice_again_keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("Pick Another Category", callback_data="practice_again")],
-        [InlineKeyboardButton("Done", callback_data="practice_done")],
+        [InlineKeyboardButton("Back to Menu", callback_data="menu|back")],
     ])
 
 

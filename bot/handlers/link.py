@@ -3,6 +3,8 @@ import secrets
 from telegram import Update
 from telegram.ext import ContextTypes
 from ..api_client import api_post
+from .. import messages
+from ..keyboards import back_to_menu_keyboard
 
 
 async def link_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -16,25 +18,10 @@ async def link_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "link_code": code,
     })
 
-    if isinstance(result, dict) and result.get("error"):
-        # If no pending link exists, create a general instruction
-        await update.message.reply_text(
-            "Link your Telegram to your TalentCheck account:\n\n"
-            f"Your code: {code}\n\n"
-            "Steps:\n"
-            "1. Log in to talentcheck-tau.vercel.app\n"
-            "2. Go to Settings > Integrations\n"
-            "3. Enter this code\n\n"
-            "Code expires in 10 minutes."
-        )
-    else:
-        await update.message.reply_text(
-            "Link your Telegram to your TalentCheck account:\n\n"
-            f"Your code: {code}\n\n"
-            "Go to Settings > Integrations on the web dashboard\n"
-            "and enter this code.\n\n"
-            "Code expires in 10 minutes."
-        )
+    await update.message.reply_text(
+        messages.LINK_SUCCESS.format(code=code),
+        reply_markup=back_to_menu_keyboard(),
+    )
 
     context.user_data["link_code"] = code
     context.user_data["link_telegram_id"] = telegram_id

@@ -1,5 +1,6 @@
 """TalentCheck Telegram Bot — Entry point with all handler registration."""
 import logging
+from telegram import BotCommand
 from telegram.ext import (
     Application,
     CommandHandler,
@@ -8,10 +9,13 @@ from telegram.ext import (
     filters,
 )
 from .config import BOT_TOKEN
+from . import messages
+from .keyboards import fallback_keyboard
 
 # Import handlers
 from .handlers.start import (
     start_command,
+    menu_command,
     role_callback,
     menu_callback,
     employer_menu_callback,
@@ -59,6 +63,21 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+async def post_init(application):
+    """Set bot commands visible in Telegram's menu button."""
+    commands = [
+        BotCommand("start", "Welcome & main menu"),
+        BotCommand("menu", "Open main menu"),
+        BotCommand("practice", "Free practice tests"),
+        BotCommand("browse", "Browse available tests"),
+        BotCommand("results", "View your test results"),
+        BotCommand("help", "Help & commands"),
+        BotCommand("cancel", "Cancel current operation"),
+    ]
+    await application.bot.set_my_commands(commands)
+    logger.info("Bot commands set successfully")
+
+
 async def text_message_router(update, context):
     """Route text messages to the correct conversation handler based on user_data state."""
     # Check registration flow first
@@ -79,10 +98,10 @@ async def text_message_router(update, context):
         if handled:
             return
 
-    # No active flow — show help hint
+    # No active flow — show helpful fallback
     await update.message.reply_text(
-        "I didn't understand that.\n\n"
-        "Use /start to begin, /help for available commands, or /cancel to reset."
+        messages.UNKNOWN_INPUT,
+        reply_markup=fallback_keyboard(),
     )
 
 
@@ -91,10 +110,11 @@ def main():
         logger.error("TC_BOT_TOKEN not set — cannot start bot")
         return
 
-    app = Application.builder().token(BOT_TOKEN).build()
+    app = Application.builder().token(BOT_TOKEN).post_init(post_init).build()
 
     # ─── Commands ────────────────────────────────────────────────────────
     app.add_handler(CommandHandler("start", start_command))
+    app.add_handler(CommandHandler("menu", menu_command))
     app.add_handler(CommandHandler("practice", practice_command))
     app.add_handler(CommandHandler("browse", browse_command))
     app.add_handler(CommandHandler("results", results_command))

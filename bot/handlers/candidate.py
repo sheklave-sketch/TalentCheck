@@ -14,6 +14,8 @@ from ..keyboards import (
     test_action_keyboard,
     payment_keyboard,
     result_actions_keyboard,
+    error_recovery_keyboard,
+    back_to_menu_keyboard,
 )
 from .. import messages
 
@@ -128,7 +130,7 @@ async def candidate_reg_confirm_callback(update: Update, context: ContextTypes.D
     _clear_reg(context)
 
     await query.edit_message_text(
-        messages.CANDIDATE_REG_SUCCESS.format(name=name),
+        messages.ONBOARDING_CANDIDATE.format(name=name),
         reply_markup=candidate_menu_keyboard(),
     )
 
@@ -147,12 +149,18 @@ async def browse_tests_action(query: CallbackQuery, context: ContextTypes.DEFAUL
     try:
         data = await api_get("/tests")
     except Exception:
-        await query.edit_message_text("Failed to load tests. Try again later.")
+        await query.edit_message_text(
+            "Failed to load tests. Please try again.",
+            reply_markup=error_recovery_keyboard("menu|browse_tests"),
+        )
         return
 
     tests = data.get("tests", [])
     if not tests:
-        await query.edit_message_text("No tests available at the moment.")
+        await query.edit_message_text(
+            "No tests available at the moment.",
+            reply_markup=back_to_menu_keyboard(),
+        )
         return
 
     await query.edit_message_text(
@@ -171,7 +179,10 @@ async def test_detail_callback(update: Update, context: ContextTypes.DEFAULT_TYP
     try:
         data = await api_get(f"/tests/{test_key}")
     except Exception:
-        await query.edit_message_text("Failed to load test details.")
+        await query.edit_message_text(
+            "Failed to load test details. Please try again.",
+            reply_markup=error_recovery_keyboard(f"test_detail|{test_key}"),
+        )
         return
 
     msg = messages.TEST_DETAIL.format(
@@ -206,7 +217,8 @@ async def pay_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not link_data.get("linked"):
         await query.edit_message_text(
             "You need to register first before purchasing a test.\n"
-            "Use /start to register."
+            "Use /start to register.",
+            reply_markup=back_to_menu_keyboard(),
         )
         return
 
@@ -230,7 +242,10 @@ async def pay_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     })
 
     if result.get("error"):
-        await query.edit_message_text(f"Payment error: {result.get('detail')}")
+        await query.edit_message_text(
+            f"Payment error: {result.get('detail')}",
+            reply_markup=error_recovery_keyboard(f"pay|{test_key}"),
+        )
         return
 
     context.user_data["pending_payment"] = {
@@ -286,7 +301,10 @@ async def results_action(query: CallbackQuery, context: ContextTypes.DEFAULT_TYP
     try:
         data = await api_get(f"/candidate-results/{telegram_id}")
     except Exception:
-        await query.edit_message_text("Failed to load results. Try again later.")
+        await query.edit_message_text(
+            "Failed to load results. Please try again.",
+            reply_markup=error_recovery_keyboard("menu|results"),
+        )
         return
 
     results = data.get("results", [])
@@ -395,6 +413,13 @@ async def certificate_callback(update: Update, context: ContextTypes.DEFAULT_TYP
         caption=f"TalentCheck Certificate - {data.get('candidate_name', '')}",
     )
 
+    # Show menu so user isn't stranded
+    await context.bot.send_message(
+        chat_id=query.message.chat_id,
+        text="What would you like to do next?",
+        reply_markup=candidate_menu_keyboard(),
+    )
+
 
 # ─── Results command ─────────────────────────────────────────────────────────
 
@@ -405,12 +430,18 @@ async def results_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         data = await api_get(f"/candidate-results/{telegram_id}")
     except Exception:
-        await update.message.reply_text("Failed to load results. Try again later.")
+        await update.message.reply_text(
+            "Failed to load results. Please try again.",
+            reply_markup=back_to_menu_keyboard(),
+        )
         return
 
     results = data.get("results", [])
     if not results:
-        await update.message.reply_text(messages.NO_RESULTS)
+        await update.message.reply_text(
+            messages.NO_RESULTS,
+            reply_markup=candidate_menu_keyboard(),
+        )
         return
 
     text = messages.RESULTS_HEADER
@@ -462,12 +493,18 @@ async def browse_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         data = await api_get("/tests")
     except Exception:
-        await update.message.reply_text("Failed to load tests. Try again later.")
+        await update.message.reply_text(
+            "Failed to load tests. Please try again.",
+            reply_markup=back_to_menu_keyboard(),
+        )
         return
 
     tests = data.get("tests", [])
     if not tests:
-        await update.message.reply_text("No tests available at the moment.")
+        await update.message.reply_text(
+            "No tests available at the moment.",
+            reply_markup=back_to_menu_keyboard(),
+        )
         return
 
     await update.message.reply_text(

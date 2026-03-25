@@ -2,11 +2,15 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 from .. import messages
+from ..keyboards import back_to_menu_keyboard, candidate_menu_keyboard
 
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle /help command."""
-    await update.message.reply_text(messages.HELP_TEXT)
+    await update.message.reply_text(
+        messages.HELP_TEXT,
+        reply_markup=back_to_menu_keyboard(),
+    )
 
 
 async def cancel_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -17,4 +21,7 @@ async def cancel_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
                            "pending_payment", "q_start_time", "chat_id")):
             context.user_data.pop(key, None)
 
-    await update.message.reply_text(messages.CANCEL_MESSAGE)
+    await update.message.reply_text(
+        messages.CANCEL_MESSAGE,
+        reply_markup=candidate_menu_keyboard(),
+    )

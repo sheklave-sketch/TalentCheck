@@ -1,4 +1,4 @@
-"""Handle /start, role selection, and deep links."""
+"""Handle /start, /menu, role selection, and deep links."""
 import logging
 from telegram import Update
 from telegram.ext import ContextTypes
@@ -9,6 +9,7 @@ from ..keyboards import (
     candidate_menu_keyboard,
     employer_menu_keyboard,
     start_assessment_keyboard,
+    back_to_menu_keyboard,
 )
 from .. import messages
 
@@ -52,6 +53,38 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(messages.WELCOME, reply_markup=role_selection_keyboard())
 
 
+async def menu_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Handle /menu — show the main menu for the user's role."""
+    telegram_id = update.effective_user.id
+    try:
+        link_data = await api_get(f"/check-link/{telegram_id}")
+    except Exception:
+        link_data = {"linked": False}
+
+    if link_data.get("linked"):
+        role = link_data.get("role")
+        if role == "employer":
+            await update.message.reply_text(
+                messages.WELCOME_BACK_EMPLOYER.format(
+                    name=link_data.get("full_name", ""),
+                    org_name=link_data.get("org_name", ""),
+                ),
+                reply_markup=employer_menu_keyboard(),
+            )
+        else:
+            await update.message.reply_text(
+                messages.WELCOME_BACK_CANDIDATE.format(
+                    name=link_data.get("full_name", "there"),
+                ),
+                reply_markup=candidate_menu_keyboard(),
+            )
+    else:
+        await update.message.reply_text(
+            messages.NOT_REGISTERED,
+            reply_markup=role_selection_keyboard(),
+        )
+
+
 async def role_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle role|candidate or role|employer callback."""
     query = update.callback_query
@@ -92,7 +125,10 @@ async def menu_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await results_action(query, context)
 
     elif action == "help":
-        await query.edit_message_text(messages.HELP_TEXT)
+        await query.edit_message_text(
+            messages.HELP_TEXT,
+            reply_markup=back_to_menu_keyboard("candidate"),
+        )
 
     elif action == "back":
         # Return to main candidate menu
@@ -112,8 +148,13 @@ async def menu_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 reply_markup=employer_menu_keyboard(),
             )
         else:
+            name = "there"
+            try:
+                name = link_data.get("full_name", "there") if role else "there"
+            except Exception:
+                pass
             await query.edit_message_text(
-                "What would you like to do?",
+                messages.WELCOME_BACK_CANDIDATE.format(name=name),
                 reply_markup=candidate_menu_keyboard(),
             )
 
@@ -138,7 +179,10 @@ async def employer_menu_callback(update: Update, context: ContextTypes.DEFAULT_T
         await results_list_action(query, context)
 
     elif action == "help":
-        await query.edit_message_text(messages.HELP_TEXT)
+        await query.edit_message_text(
+            messages.HELP_TEXT,
+            reply_markup=back_to_menu_keyboard("employer"),
+        )
 
     elif action == "back":
         telegram_id = query.from_user.id
@@ -160,11 +204,17 @@ async def _handle_invite_link(update: Update, context: ContextTypes.DEFAULT_TYPE
     try:
         data = await api_get(f"/candidate-by-token/{invite_token}")
     except Exception:
-        await update.message.reply_text("Invalid or expired invite link.")
+        await update.message.reply_text(
+            "Invalid or expired invite link.",
+            reply_markup=back_to_menu_keyboard(),
+        )
         return
 
     if isinstance(data, dict) and data.get("error"):
-        await update.message.reply_text(f"Error: {data.get('detail', 'Unknown error')}")
+        await update.message.reply_text(
+            f"Error: {data.get('detail', 'Unknown error')}",
+            reply_markup=back_to_menu_keyboard(),
+        )
         return
 
     tests_list = "\n".join(

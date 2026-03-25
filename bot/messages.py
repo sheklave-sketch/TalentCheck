@@ -6,7 +6,9 @@
 WELCOME = (
     "Welcome to TalentCheck Ethiopia!\n\n"
     "Hire by Skill, Not CV.\n\n"
-    "What brings you here today?"
+    "TalentCheck helps Ethiopian organizations assess candidates with "
+    "standardized, proctored tests — and helps job seekers prove their skills.\n\n"
+    "To get started, tell us who you are:"
 )
 
 WELCOME_BACK_CANDIDATE = (
@@ -18,6 +20,31 @@ WELCOME_BACK_EMPLOYER = (
     "Welcome back, {name}!\n\n"
     "Organization: {org_name}\n\n"
     "What would you like to do?"
+)
+
+
+# ─── Onboarding (post-registration) ────────────────────────────────────────
+
+ONBOARDING_CANDIDATE = (
+    "You're all set, {name}!\n\n"
+    "Here's what you can do:\n\n"
+    "  1. Practice Tests — Free sample questions to warm up\n"
+    "  2. Browse Tests — See available assessments and pricing\n"
+    "  3. My Results — Track scores and download certificates\n\n"
+    "We recommend starting with a free practice test.\n"
+    "Tap 'Practice Tests' below to begin!"
+)
+
+ONBOARDING_EMPLOYER = (
+    "You're all set, {name}!\n\n"
+    "Organization: {org_name}\n\n"
+    "Here's what you can do:\n\n"
+    "  1. Request Demo — Get a walkthrough from our team\n"
+    "  2. Invite Candidates — Send assessment links\n"
+    "  3. View Results — See scores and rankings\n"
+    "  4. Web Dashboard — Full management online\n\n"
+    "We recommend requesting a demo to see the full platform.\n"
+    "Tap 'Request Demo' below to get started!"
 )
 
 
@@ -105,7 +132,8 @@ PAYMENT_INITIATED = (
 PAYMENT_VERIFIED = (
     "Payment confirmed!\n\n"
     "Test: {test_label}\n"
-    "You can now start the test. Good luck!"
+    "You can now start the test. Good luck!\n\n"
+    "Use the menu below to continue."
 )
 
 PAYMENT_FAILED = (
@@ -143,6 +171,7 @@ ASSESSMENT_COMPLETE = (
     "Assessment Complete!\n\n"
     "Your responses have been submitted.\n"
     "The hiring team will review your results and be in touch.\n\n"
+    "You can check your results anytime from the menu.\n\n"
     "Thank you for using TalentCheck!"
 )
 
@@ -204,8 +233,9 @@ DEMO_CONFIRM = (
 )
 DEMO_SUBMITTED = (
     "Demo request submitted!\n\n"
-    "Our team will contact you within 24 hours.\n"
-    "Thank you for your interest in TalentCheck!"
+    "Our team will contact you within 24 hours.\n\n"
+    "In the meantime, you can invite candidates to assessments "
+    "or explore the web dashboard."
 )
 
 INVITE_ASSESSMENT_ID = (
@@ -224,7 +254,8 @@ INVITE_CANDIDATES_PROMPT = (
 INVITE_SUCCESS = (
     "Invitations sent!\n\n"
     "{count} candidate(s) invited.\n\n"
-    "Deep links:\n{links}"
+    "Deep links:\n{links}\n\n"
+    "Share these links with candidates. Track their progress via 'View Results'."
 )
 INVITE_FAILED = "Failed to invite candidates: {detail}"
 
@@ -268,11 +299,12 @@ PRACTICE_COMPLETE = (
 HELP_TEXT = (
     "TalentCheck Bot — Help\n\n"
     "Commands:\n"
-    "/start — Welcome message & registration\n"
-    "/practice — Free practice tests (5 questions, with answers)\n"
+    "/start — Welcome & main menu\n"
+    "/menu — Open main menu\n"
+    "/practice — Free practice tests\n"
     "/browse — Browse available tests\n"
     "/results — View your test results\n"
-    "/link — Link your Telegram to your web account\n"
+    "/link — Link Telegram to web account\n"
     "/help — This help message\n"
     "/cancel — Cancel current operation\n\n"
     "For Employers:\n"
@@ -283,4 +315,24 @@ HELP_TEXT = (
     "Questions? Visit talentcheck-tau.vercel.app"
 )
 
-CANCEL_MESSAGE = "Operation cancelled. Use /start to begin again."
+CANCEL_MESSAGE = "Operation cancelled.\n\nUse the menu below to continue."
+
+UNKNOWN_INPUT = (
+    "I'm not sure what you mean.\n\n"
+    "You can use the menu below, or try:\n"
+    "/menu — Open your main menu\n"
+    "/help — See all commands\n"
+    "/cancel — Cancel any active operation"
+)
+
+LINK_SUCCESS = (
+    "Link your Telegram to your TalentCheck account:\n\n"
+    "Your code: {code}\n\n"
+    "Steps:\n"
+    "1. Log in to talentcheck-tau.vercel.app\n"
+    "2. Go to Settings > Integrations\n"
+    "3. Enter this code\n\n"
+    "Code expires in 10 minutes."
+)
+
+NOT_REGISTERED = "You haven't registered yet.\n\nUse /start to create your account."

@@ -4,7 +4,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, Callbac
 from telegram.ext import ContextTypes
 
 from ..api_client import api_get
-from ..keyboards import practice_category_keyboard, practice_again_keyboard
+from ..keyboards import practice_category_keyboard, practice_again_keyboard, error_recovery_keyboard, candidate_menu_keyboard
 from .. import messages
 
 logger = logging.getLogger(__name__)
@@ -36,7 +36,10 @@ async def practice_category_callback(update: Update, context: ContextTypes.DEFAU
     try:
         data = await api_get(f"/practice-questions/{test_key}", {"count": 5})
     except Exception:
-        await query.edit_message_text("Failed to load practice questions. Try again later.")
+        await query.edit_message_text(
+            "Failed to load practice questions. Please try again.",
+            reply_markup=error_recovery_keyboard(f"practice|{test_key}"),
+        )
         return
 
     questions = data["questions"]
@@ -128,4 +131,7 @@ async def practice_done_callback(update: Update, context: ContextTypes.DEFAULT_T
     query = update.callback_query
     await query.answer()
     context.user_data.pop("practice", None)
-    await query.edit_message_text("Thanks for practicing! Use /practice anytime to try again.")
+    await query.edit_message_text(
+        "Thanks for practicing! Use /practice anytime to try again.",
+        reply_markup=candidate_menu_keyboard(),
+    )
