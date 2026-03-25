@@ -22,6 +22,7 @@ from .handlers.start import (
 )
 from .handlers.candidate import (
     registration_message_handler,
+    contact_handler,
     candidate_reg_confirm_callback,
     test_detail_callback,
     pay_callback,
@@ -76,6 +77,13 @@ async def post_init(application):
     ]
     await application.bot.set_my_commands(commands)
     logger.info("Bot commands set successfully")
+
+
+async def contact_message_router(update, context):
+    """Route contact (shared phone number) messages."""
+    handled = await contact_handler(update, context)
+    if not handled:
+        await update.message.reply_text("Thanks, but I wasn't expecting a phone number right now.")
 
 
 async def text_message_router(update, context):
@@ -163,6 +171,9 @@ def main():
     app.add_handler(CallbackQueryHandler(practice_answer_callback, pattern=r"^pans\|"))
     app.add_handler(CallbackQueryHandler(practice_again_callback, pattern=r"^practice_again$"))
     app.add_handler(CallbackQueryHandler(practice_done_callback, pattern=r"^practice_done$"))
+
+    # ─── Contact sharing (phone number) ────────────────────────────────
+    app.add_handler(MessageHandler(filters.CONTACT, contact_message_router))
 
     # ─── Text message router (must be last) ──────────────────────────────
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, text_message_router))

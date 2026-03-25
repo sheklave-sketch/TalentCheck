@@ -3,7 +3,7 @@ import base64
 import io
 import logging
 import re
-from telegram import Update, CallbackQuery
+from telegram import Update, CallbackQuery, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import ContextTypes
 
 from ..api_client import api_get, api_post
@@ -64,14 +64,23 @@ async def _candidate_reg_step(update: Update, context: ContextTypes.DEFAULT_TYPE
             return True
         context.user_data["reg_email"] = text.lower()
         context.user_data["reg_step"] = "phone"
-        await update.message.reply_text(messages.CANDIDATE_REG_PHONE)
+        phone_keyboard = ReplyKeyboardMarkup(
+            [[KeyboardButton("Share Phone Number", request_contact=True)]],
+            resize_keyboard=True,
+            one_time_keyboard=True,
+        )
+        await update.message.reply_text(
+            messages.CANDIDATE_REG_PHONE,
+            reply_markup=phone_keyboard,
+        )
         return True
 
     elif step == "phone":
+        # Fallback: user typed phone number instead of sharing contact
         clean_phone = text.replace(" ", "").replace("-", "")
         if not PHONE_RE.match(clean_phone):
             await update.message.reply_text(
-                "Please enter a valid phone number (e.g. +251911234567)."
+                "Please tap the button below to share your phone number.",
             )
             return True
         context.user_data["reg_phone"] = clean_phone
@@ -82,10 +91,48 @@ async def _candidate_reg_step(update: Update, context: ContextTypes.DEFAULT_TYPE
             email=context.user_data["reg_email"],
             phone=context.user_data["reg_phone"],
         )
-        await update.message.reply_text(msg, reply_markup=confirm_keyboard("creg"))
+        await update.message.reply_text(msg, reply_markup=ReplyKeyboardRemove())
+        await update.message.reply_text(
+            "Is this correct?",
+            reply_markup=confirm_keyboard("creg"),
+        )
         return True
 
     return False
+
+
+async def contact_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> bool:
+    """Handle shared contact during candidate registration phone step."""
+    if context.user_data.get("reg_flow") != "candidate":
+        return False
+    if context.user_data.get("reg_step") != "phone":
+        return False
+
+    contact = update.message.contact
+    if not contact:
+        return False
+
+    phone = contact.phone_number
+    if not phone.startswith("+"):
+        phone = f"+{phone}"
+
+    context.user_data["reg_phone"] = phone
+    context.user_data["reg_step"] = "confirm"
+
+    msg = messages.CANDIDATE_REG_CONFIRM.format(
+        full_name=context.user_data["reg_name"],
+        email=context.user_data["reg_email"],
+        phone=context.user_data["reg_phone"],
+    )
+    await update.message.reply_text(
+        msg,
+        reply_markup=ReplyKeyboardRemove(),
+    )
+    await update.message.reply_text(
+        "Is this correct?",
+        reply_markup=confirm_keyboard("creg"),
+    )
+    return True
 
 
 async def candidate_reg_confirm_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -114,7 +161,10 @@ async def candidate_reg_confirm_callback(update: Update, context: ContextTypes.D
     })
 
     if result.get("error"):
-        await query.edit_message_text(f"Registration failed: {result.get('detail', 'Unknown error')}")
+        await query.edit_message_text(
+            f"Registration failed: {result.get('detail', 'Unknown error')}",
+            reply_markup=back_to_menu_keyboard(),
+        )
         _clear_reg(context)
         return
 
