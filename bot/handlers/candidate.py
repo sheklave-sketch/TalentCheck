@@ -171,7 +171,7 @@ async def candidate_reg_confirm_callback(update: Update, context: ContextTypes.D
     if result.get("already_registered"):
         await query.edit_message_text(
             messages.CANDIDATE_ALREADY_REGISTERED,
-            reply_markup=candidate_menu_keyboard(),
+            reply_markup=candidate_menu_keyboard(update.effective_user.id if update and update.effective_user else None),
         )
         _clear_reg(context)
         return
@@ -181,7 +181,7 @@ async def candidate_reg_confirm_callback(update: Update, context: ContextTypes.D
 
     await query.edit_message_text(
         messages.ONBOARDING_CANDIDATE.format(name=name),
-        reply_markup=candidate_menu_keyboard(),
+        reply_markup=candidate_menu_keyboard(update.effective_user.id if update and update.effective_user else None),
     )
 
 
@@ -333,7 +333,7 @@ async def verify_payment_callback(update: Update, context: ContextTypes.DEFAULT_
 
         await query.edit_message_text(
             messages.PAYMENT_VERIFIED.format(test_label=test_label),
-            reply_markup=candidate_menu_keyboard(),
+            reply_markup=candidate_menu_keyboard(update.effective_user.id if update and update.effective_user else None),
         )
     else:
         await query.edit_message_text(
@@ -361,7 +361,7 @@ async def results_action(query: CallbackQuery, context: ContextTypes.DEFAULT_TYP
     if not results:
         await query.edit_message_text(
             messages.NO_RESULTS,
-            reply_markup=candidate_menu_keyboard(),
+            reply_markup=candidate_menu_keyboard(telegram_id),
         )
         return
 
@@ -405,7 +405,7 @@ async def results_action(query: CallbackQuery, context: ContextTypes.DEFAULT_TYP
             reply_markup=result_actions_keyboard(last_candidate_id, last_passed),
         )
     else:
-        await query.edit_message_text(text, reply_markup=candidate_menu_keyboard())
+        await query.edit_message_text(text, reply_markup=candidate_menu_keyboard(telegram_id))
 
 
 # ─── Certificate download ───────────────────────────────────────────────────
@@ -424,12 +424,12 @@ async def certificate_callback(update: Update, context: ContextTypes.DEFAULT_TYP
         if "400" in error_msg:
             await query.edit_message_text(
                 messages.CERTIFICATE_NOT_ELIGIBLE.format(score=0),
-                reply_markup=candidate_menu_keyboard(),
+                reply_markup=candidate_menu_keyboard(update.effective_user.id if update and update.effective_user else None),
             )
         else:
             await query.edit_message_text(
                 "Failed to generate certificate. Try again later.",
-                reply_markup=candidate_menu_keyboard(),
+                reply_markup=candidate_menu_keyboard(update.effective_user.id if update and update.effective_user else None),
             )
         return
 
@@ -439,12 +439,12 @@ async def certificate_callback(update: Update, context: ContextTypes.DEFAULT_TYP
             score = data.get("total_score", 0)
             await query.edit_message_text(
                 messages.CERTIFICATE_NOT_ELIGIBLE.format(score=score),
-                reply_markup=candidate_menu_keyboard(),
+                reply_markup=candidate_menu_keyboard(update.effective_user.id if update and update.effective_user else None),
             )
         else:
             await query.edit_message_text(
                 f"Error: {detail}",
-                reply_markup=candidate_menu_keyboard(),
+                reply_markup=candidate_menu_keyboard(update.effective_user.id if update and update.effective_user else None),
             )
         return
 
@@ -467,7 +467,7 @@ async def certificate_callback(update: Update, context: ContextTypes.DEFAULT_TYP
     await context.bot.send_message(
         chat_id=query.message.chat_id,
         text="What would you like to do next?",
-        reply_markup=candidate_menu_keyboard(),
+        reply_markup=candidate_menu_keyboard(update.effective_user.id if update and update.effective_user else None),
     )
 
 
@@ -490,7 +490,7 @@ async def results_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not results:
         await update.message.reply_text(
             messages.NO_RESULTS,
-            reply_markup=candidate_menu_keyboard(),
+            reply_markup=candidate_menu_keyboard(update.effective_user.id if update and update.effective_user else None),
         )
         return
 

@@ -224,7 +224,7 @@ async def _finalize_session(query, context, session_data):
 
     await query.edit_message_text(
         messages.ASSESSMENT_COMPLETE,
-        reply_markup=candidate_menu_keyboard(),
+        reply_markup=candidate_menu_keyboard(update.effective_user.id if update and update.effective_user else None),
     )
 
 
@@ -240,5 +240,5 @@ async def cancel_assessment_callback(update: Update, context: ContextTypes.DEFAU
     context.user_data.pop("session", None)
     await query.edit_message_text(
         "Assessment cancelled. You can use your invite link again to start.",
-        reply_markup=candidate_menu_keyboard(),
+        reply_markup=candidate_menu_keyboard(update.effective_user.id if update and update.effective_user else None),
     )

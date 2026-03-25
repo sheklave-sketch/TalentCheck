@@ -38,7 +38,14 @@ type TestItem = {
   price_etb: number;
 };
 
-type Tab = "results" | "certificates" | "tests";
+type PracticeQ = {
+  id: string;
+  text: string;
+  options: { key: string; text: string }[];
+  correct_answer: string;
+};
+
+type Tab = "results" | "certificates" | "tests" | "practice";
 
 function ScoreBadge({ label }: { label: string }) {
   const colors: Record<string, string> = {
@@ -63,16 +70,26 @@ export default function CandidateDashboard() {
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [tgId, setTgId] = useState<string | null>(null);
+  const [userName, setUserName] = useState("");
+
+  // Practice state
+  const [practiceKey, setPracticeKey] = useState<string | null>(null);
+  const [practiceLabel, setPracticeLabel] = useState("");
+  const [practiceQs, setPracticeQs] = useState<PracticeQ[]>([]);
+  const [practiceIdx, setPracticeIdx] = useState(0);
+  const [practiceAnswer, setPracticeAnswer] = useState<string | null>(null);
+  const [practiceRevealed, setPracticeRevealed] = useState(false);
+  const [practiceScore, setPracticeScore] = useState(0);
+  const [practiceDone, setPracticeDone] = useState(false);
+  const [practiceLoading, setPracticeLoading] = useState(false);
 
   useEffect(() => {
     const id = localStorage.getItem("tc_tg_id");
-    if (!id) {
-      router.replace("/login");
-      return;
-    }
+    if (!id) { router.replace("/login"); return; }
     setTgId(id);
 
     Promise.all([
+      api.get(`/api/my/profile/${id}`).then((r) => setUserName(r.data.full_name || r.data.username || "")).catch(() => {}),
       api.get(`/api/my/results/${id}`).then((r) => setResults(r.data.results || [])).catch(() => {}),
       api.get(`/api/my/certificates/${id}`).then((r) => setCerts(r.data.certificates || [])).catch(() => {}),
       api.get("/api/my/tests").then((r) => setTests(r.data.tests || [])).catch(() => {}),
@@ -88,11 +105,53 @@ export default function CandidateDashboard() {
     return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
   };
 
-  const tabs: { key: Tab; label: string; count: number }[] = [
-    { key: "results", label: "My Results", count: results.length },
+  const startPractice = async (testKey: string, label: string) => {
+    setPracticeLoading(true);
+    setPracticeKey(testKey);
+    setPracticeLabel(label);
+    try {
+      const res = await api.get(`/api/my/practice/${testKey}?count=5`);
+      setPracticeQs(res.data.questions);
+      setPracticeIdx(0);
+      setPracticeAnswer(null);
+      setPracticeRevealed(false);
+      setPracticeScore(0);
+      setPracticeDone(false);
+      setTab("practice");
+    } catch {
+      // fallback
+    } finally {
+      setPracticeLoading(false);
+    }
+  };
+
+  const submitPracticeAnswer = () => {
+    if (!practiceAnswer) return;
+    const q = practiceQs[practiceIdx];
+    if (practiceAnswer === q.correct_answer) {
+      setPracticeScore((s) => s + 1);
+    }
+    setPracticeRevealed(true);
+  };
+
+  const nextPracticeQuestion = () => {
+    if (practiceIdx + 1 >= practiceQs.length) {
+      setPracticeDone(true);
+    } else {
+      setPracticeIdx((i) => i + 1);
+      setPracticeAnswer(null);
+      setPracticeRevealed(false);
+    }
+  };
+
+  const tabs: { key: Tab; label: string; count?: number }[] = [
+    { key: "results", label: "Results", count: results.length },
     { key: "certificates", label: "Certificates", count: certs.length },
-    { key: "tests", label: "Browse Tests", count: tests.length },
+    { key: "tests", label: "Tests", count: tests.length },
   ];
+  if (practiceKey) {
+    tabs.push({ key: "practice", label: "Practice" });
+  }
 
   return (
     <div className="min-h-screen bg-brand-surface">
@@ -110,26 +169,28 @@ export default function CandidateDashboard() {
       </nav>
 
       <main className="max-w-4xl mx-auto px-6 py-8">
-        {/* Header */}
+        {/* Greeting */}
         <div className="mb-8">
-          <h1 className="font-display text-2xl font-800 text-brand-dark mb-1">My Dashboard</h1>
-          <p className="text-brand-muted text-sm">View your results, certificates, and available tests</p>
+          <h1 className="font-display text-2xl font-800 text-brand-dark mb-1">
+            {userName ? `Hi, ${userName.split(" ")[0]}` : "My Dashboard"}
+          </h1>
+          <p className="text-brand-muted text-sm">Your results, certificates, and practice tests</p>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 mb-8 bg-white border border-brand-border rounded-xl p-1 shadow-card">
+        <div className="flex gap-1 mb-8 bg-white border border-brand-border rounded-xl p-1 shadow-card overflow-x-auto">
           {tabs.map((t) => (
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
-              className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-600 transition-colors ${
+              className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-600 transition-colors whitespace-nowrap ${
                 tab === t.key
                   ? "bg-brand-amber text-white"
                   : "text-brand-muted hover:text-brand-dark hover:bg-brand-surface"
               }`}
             >
               {t.label}
-              {t.count > 0 && (
+              {t.count != null && t.count > 0 && (
                 <span className={`ml-1.5 text-xs ${tab === t.key ? "text-white/70" : "text-brand-muted/60"}`}>
                   ({t.count})
                 </span>
@@ -160,7 +221,6 @@ export default function CandidateDashboard() {
                         className="flex items-center gap-4 px-5 py-4 cursor-pointer hover:bg-brand-surface/50 transition-colors"
                         onClick={() => setExpanded(expanded === r.candidate_id ? null : r.candidate_id)}
                       >
-                        {/* Score circle */}
                         <div className={`w-12 h-12 rounded-full flex items-center justify-center font-mono font-700 text-sm flex-shrink-0 ${
                           r.passed ? "bg-emerald-50 text-emerald-700 border-2 border-emerald-200" : "bg-red-50 text-red-600 border-2 border-red-200"
                         }`}>
@@ -168,32 +228,29 @@ export default function CandidateDashboard() {
                         </div>
 
                         <div className="flex-1 min-w-0">
-                          <p className="text-brand-dark font-600 text-sm">{r.assessment_title}</p>
-                          <p className="text-brand-muted text-xs">{r.org_name}</p>
+                          <p className="text-brand-dark font-600 text-sm break-words">{r.assessment_title}</p>
+                          <p className="text-brand-muted text-xs break-words">{r.org_name}</p>
                         </div>
 
-                        <div className="text-right">
+                        <div className="text-right flex-shrink-0">
                           {r.passed ? (
                             <span className="text-xs px-2.5 py-1 rounded-full font-600 bg-emerald-50 text-emerald-700 border border-emerald-200">Passed</span>
                           ) : (
                             <span className="text-xs px-2.5 py-1 rounded-full font-600 bg-red-50 text-red-600 border border-red-200">Not passed</span>
                           )}
-                          {r.rank && (
-                            <p className="text-brand-muted text-xs mt-1">Rank #{r.rank}</p>
-                          )}
                         </div>
 
-                        <span className="text-brand-muted text-xs">{expanded === r.candidate_id ? "\u25B2" : "\u25BC"}</span>
+                        <span className="text-brand-muted text-xs flex-shrink-0">{expanded === r.candidate_id ? "\u25B2" : "\u25BC"}</span>
                       </div>
 
                       {expanded === r.candidate_id && r.scores_by_test && (
                         <div className="border-t border-brand-border px-5 py-4 bg-brand-surface/50">
-                          <div className="grid grid-cols-2 gap-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {Object.entries(r.scores_by_test).map(([key, data]) => (
                               <div key={key} className="bg-white rounded-lg p-3 border border-brand-border">
-                                <p className="text-brand-muted text-xs mb-1">{key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}</p>
+                                <p className="text-brand-muted text-xs mb-1 break-words">{key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}</p>
                                 <p className="font-mono text-brand-dark text-lg font-600">{data.percentage?.toFixed(0)}%</p>
-                                <div className="flex items-center gap-2 mt-1">
+                                <div className="flex items-center gap-2 mt-1 flex-wrap">
                                   <ScoreBadge label={data.label} />
                                   <span className="text-brand-muted text-xs">{data.raw_score}/{data.total_questions}</span>
                                 </div>
@@ -220,12 +277,12 @@ export default function CandidateDashboard() {
                 ) : (
                   certs.map((cert) => (
                     <div key={cert.id} className="bg-white border border-brand-border rounded-xl p-5 shadow-card">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <p className="text-brand-dark font-600">{cert.test_label}</p>
-                          <p className="text-brand-muted text-xs mt-0.5">#{cert.certificate_number}</p>
+                      <div className="flex items-start justify-between gap-3 mb-3">
+                        <div className="min-w-0">
+                          <p className="text-brand-dark font-600 break-words">{cert.test_label}</p>
+                          <p className="text-brand-muted text-xs mt-0.5 font-mono break-all">#{cert.certificate_number}</p>
                         </div>
-                        <span className={`text-xs px-2.5 py-1 rounded-full font-600 border ${
+                        <span className={`text-xs px-2.5 py-1 rounded-full font-600 border flex-shrink-0 ${
                           cert.performance_label === "Excellent" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
                           cert.performance_label === "Very Good" ? "bg-blue-50 text-blue-700 border-blue-200" :
                           "bg-amber-50 text-amber-700 border-amber-200"
@@ -234,7 +291,7 @@ export default function CandidateDashboard() {
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-4 mb-4">
+                      <div className="flex items-center gap-6 mb-4">
                         <div>
                           <p className="text-brand-muted text-xs">Score</p>
                           <p className="font-mono text-brand-dark font-700 text-xl">{cert.score_percentage.toFixed(0)}%</p>
@@ -250,7 +307,7 @@ export default function CandidateDashboard() {
                           href={`/verify/${cert.certificate_number}`}
                           className="flex-1 text-center bg-brand-surface border border-brand-border text-brand-dark text-sm font-600 py-2 rounded-lg hover:bg-brand-border transition-colors"
                         >
-                          View Certificate
+                          View
                         </Link>
                         <button
                           onClick={() => copyLink(cert.verify_url)}
@@ -265,32 +322,149 @@ export default function CandidateDashboard() {
               </div>
             )}
 
-            {/* ─── Tests Tab ─── */}
+            {/* ─── Tests Tab (Browse + Start Practice) ─── */}
             {tab === "tests" && (
               <div className="space-y-3">
                 {tests.map((test) => (
-                  <div key={test.key} className="bg-white border border-brand-border rounded-xl p-5 shadow-card hover:shadow-card-hover transition-shadow">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <p className="text-brand-dark font-600">{test.label}</p>
-                        <p className="text-brand-muted text-sm mt-0.5">{test.description}</p>
+                  <div key={test.key} className="bg-white border border-brand-border rounded-xl p-5 shadow-card">
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <div className="min-w-0">
+                        <p className="text-brand-dark font-600 break-words">{test.label}</p>
+                        <p className="text-brand-muted text-sm mt-0.5 break-words">{test.description}</p>
                       </div>
-                      <span className="text-brand-amber font-mono font-700 text-lg whitespace-nowrap ml-4">
+                      <span className="text-brand-amber font-mono font-700 text-lg whitespace-nowrap flex-shrink-0">
                         {test.price_etb} ETB
                       </span>
                     </div>
-                    <div className="flex gap-4 mt-3 pt-3 border-t border-brand-border">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-brand-muted text-xs">Questions:</span>
-                        <span className="text-brand-dark text-xs font-mono font-600">{test.question_count}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-brand-muted text-xs">Time:</span>
-                        <span className="text-brand-dark text-xs font-mono font-600">{test.time_limit_minutes} min</span>
-                      </div>
+                    <div className="flex items-center gap-4 mt-3 pt-3 border-t border-brand-border">
+                      <span className="text-brand-muted text-xs">
+                        {test.question_count} questions &middot; {test.time_limit_minutes} min
+                      </span>
+                      <div className="flex-1" />
+                      <button
+                        onClick={() => startPractice(test.key, test.label)}
+                        disabled={practiceLoading}
+                        className="bg-brand-teal text-white text-sm font-600 px-4 py-2 rounded-lg hover:bg-brand-teal/90 transition-colors disabled:opacity-50"
+                      >
+                        {practiceLoading ? "Loading..." : "Practice (Free)"}
+                      </button>
                     </div>
                   </div>
                 ))}
+              </div>
+            )}
+
+            {/* ─── Practice Tab ─── */}
+            {tab === "practice" && practiceQs.length > 0 && (
+              <div className="bg-white border border-brand-border rounded-2xl overflow-hidden shadow-card">
+                {/* Header */}
+                <div className="bg-brand-surface px-5 py-3 border-b border-brand-border flex items-center justify-between">
+                  <p className="text-brand-dark font-600 text-sm">{practiceLabel}</p>
+                  <p className="text-brand-muted text-xs font-mono">
+                    {practiceDone ? `${practiceScore}/${practiceQs.length} correct` : `${practiceIdx + 1} / ${practiceQs.length}`}
+                  </p>
+                </div>
+
+                <div className="p-5">
+                  {practiceDone ? (
+                    /* Done screen */
+                    <div className="text-center py-8">
+                      <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
+                        practiceScore >= 3 ? "bg-emerald-50 border-2 border-emerald-200" : "bg-amber-50 border-2 border-amber-200"
+                      }`}>
+                        <span className="font-mono font-700 text-xl">
+                          {Math.round((practiceScore / practiceQs.length) * 100)}%
+                        </span>
+                      </div>
+                      <p className="font-display text-xl font-700 text-brand-dark mb-1">
+                        {practiceScore}/{practiceQs.length} Correct
+                      </p>
+                      <p className="text-brand-muted text-sm mb-6">
+                        {practiceScore >= 4 ? "Excellent work!" : practiceScore >= 3 ? "Good job!" : "Keep practicing!"}
+                      </p>
+                      <div className="flex gap-3 justify-center">
+                        <button
+                          onClick={() => startPractice(practiceKey!, practiceLabel)}
+                          className="bg-brand-amber text-white text-sm font-600 px-5 py-2.5 rounded-lg hover:bg-brand-amber/90 transition-colors"
+                        >
+                          Try Again
+                        </button>
+                        <button
+                          onClick={() => { setPracticeKey(null); setTab("tests"); }}
+                          className="bg-brand-surface border border-brand-border text-brand-dark text-sm font-600 px-5 py-2.5 rounded-lg hover:bg-brand-border transition-colors"
+                        >
+                          Pick Another
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    /* Question */
+                    <>
+                      <p className="text-brand-dark font-display font-600 text-base leading-relaxed mb-6 break-words whitespace-pre-wrap">
+                        {practiceQs[practiceIdx].text}
+                      </p>
+
+                      <div className="space-y-2.5">
+                        {practiceQs[practiceIdx].options.map((opt) => {
+                          const isSelected = practiceAnswer === opt.key;
+                          const isCorrect = opt.key === practiceQs[practiceIdx].correct_answer;
+                          let optStyle = "border-brand-border bg-white text-brand-dark hover:border-brand-amber/40";
+
+                          if (practiceRevealed) {
+                            if (isCorrect) {
+                              optStyle = "border-emerald-400 bg-emerald-50 text-emerald-800";
+                            } else if (isSelected && !isCorrect) {
+                              optStyle = "border-red-400 bg-red-50 text-red-700";
+                            } else {
+                              optStyle = "border-brand-border bg-gray-50 text-brand-muted";
+                            }
+                          } else if (isSelected) {
+                            optStyle = "border-brand-amber bg-brand-amber-light text-brand-dark";
+                          }
+
+                          return (
+                            <button
+                              key={opt.key}
+                              onClick={() => { if (!practiceRevealed) setPracticeAnswer(opt.key); }}
+                              disabled={practiceRevealed}
+                              className={`w-full text-left px-4 py-3 rounded-xl border transition-all ${optStyle}`}
+                            >
+                              <div className="flex items-start gap-3">
+                                <span className={`w-6 h-6 rounded-full border flex-shrink-0 flex items-center justify-center text-xs font-700 mt-0.5 ${
+                                  practiceRevealed && isCorrect ? "border-emerald-500 bg-emerald-500 text-white" :
+                                  practiceRevealed && isSelected && !isCorrect ? "border-red-500 bg-red-500 text-white" :
+                                  isSelected ? "border-brand-amber bg-brand-amber text-white" : "border-brand-border text-brand-muted"
+                                }`}>
+                                  {opt.key}
+                                </span>
+                                <span className="text-sm leading-relaxed break-words">{opt.text}</span>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <div className="mt-6 flex justify-end">
+                        {!practiceRevealed ? (
+                          <button
+                            onClick={submitPracticeAnswer}
+                            disabled={!practiceAnswer}
+                            className="bg-brand-amber text-white text-sm font-600 px-6 py-2.5 rounded-lg hover:bg-brand-amber/90 transition-colors disabled:opacity-40"
+                          >
+                            Check Answer
+                          </button>
+                        ) : (
+                          <button
+                            onClick={nextPracticeQuestion}
+                            className="bg-brand-amber text-white text-sm font-600 px-6 py-2.5 rounded-lg hover:bg-brand-amber/90 transition-colors"
+                          >
+                            {practiceIdx + 1 >= practiceQs.length ? "See Results" : "Next Question \u2192"}
+                          </button>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
             )}
           </>

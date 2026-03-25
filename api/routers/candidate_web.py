@@ -26,9 +26,24 @@ async def candidate_profile(telegram_id: int, db: AsyncSession = Depends(get_db)
     if not link:
         raise HTTPException(404, "No account found")
 
+    # Try to get name from linked candidate or user
+    name = link.telegram_username or ""
+    if link.candidate_id:
+        cand = await db.execute(select(Candidate).where(Candidate.id == link.candidate_id))
+        c = cand.scalar_one_or_none()
+        if c:
+            name = c.full_name
+    elif link.user_id:
+        from ..models.models import User
+        user = await db.execute(select(User).where(User.id == link.user_id))
+        u = user.scalar_one_or_none()
+        if u:
+            name = u.full_name
+
     return {
         "telegram_id": telegram_id,
         "username": link.telegram_username or "",
+        "full_name": name,
         "linked": True,
     }
 
@@ -134,3 +149,23 @@ async def available_tests():
             "price_etb": t["price_etb"],
         })
     return {"tests": tests}
+
+
+@router.get("/practice/{test_key}")
+async def practice_questions(test_key: str, count: int = 5):
+    """Get random practice questions for a test (includes correct answers)."""
+    import random
+    from ..services.scoring_engine import load_test
+    try:
+        test_data = load_test(test_key)
+    except ValueError:
+        from fastapi import HTTPException
+        raise HTTPException(404, f"Unknown test: {test_key}")
+
+    questions = test_data["questions"]
+    sample = random.sample(questions, min(count, len(questions)))
+    return {
+        "test_key": test_key,
+        "label": test_data["label"],
+        "questions": sample,
+    }

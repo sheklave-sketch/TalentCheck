@@ -23,5 +23,5 @@ async def cancel_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(
         messages.CANCEL_MESSAGE,
-        reply_markup=candidate_menu_keyboard(),
+        reply_markup=candidate_menu_keyboard(update.effective_user.id if update.effective_user else None),
     )

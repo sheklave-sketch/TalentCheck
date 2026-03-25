@@ -140,5 +140,5 @@ async def practice_done_callback(update: Update, context: ContextTypes.DEFAULT_T
     context.user_data.pop("practice", None)
     await query.edit_message_text(
         "Thanks for practicing! Use /practice anytime to try again.",
-        reply_markup=candidate_menu_keyboard(),
+        reply_markup=candidate_menu_keyboard(query.from_user.id if query else None),
     )
