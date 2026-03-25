@@ -46,7 +46,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
             msg = messages.WELCOME_BACK_CANDIDATE.format(
                 name=link_data.get("full_name", "there"),
             )
-            await update.message.reply_text(msg, reply_markup=candidate_menu_keyboard())
+            await update.message.reply_text(msg, reply_markup=candidate_menu_keyboard(telegram_id))
             return
 
     # New user — show role selection
@@ -76,7 +76,7 @@ async def menu_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 messages.WELCOME_BACK_CANDIDATE.format(
                     name=link_data.get("full_name", "there"),
                 ),
-                reply_markup=candidate_menu_keyboard(),
+                reply_markup=candidate_menu_keyboard(telegram_id),
             )
     else:
         await update.message.reply_text(
@@ -155,7 +155,7 @@ async def menu_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 pass
             await query.edit_message_text(
                 messages.WELCOME_BACK_CANDIDATE.format(name=name),
-                reply_markup=candidate_menu_keyboard(),
+                reply_markup=candidate_menu_keyboard(telegram_id),
             )
 
 

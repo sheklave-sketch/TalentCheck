@@ -10,23 +10,41 @@ function HomeContent() {
 
   useEffect(() => {
     const tgId = searchParams.get("tg_id");
+    const role = searchParams.get("role");
 
     // Telegram auto-login: ?tg_id=123456
     if (tgId) {
+      // Store telegram_id for candidate dashboard
+      localStorage.setItem("tc_tg_id", tgId);
+
+      // If role=candidate, go straight to candidate dashboard
+      if (role === "candidate") {
+        router.replace("/my");
+        return;
+      }
+
+      // Try employer login
       api.post("/api/auth/telegram-login", { telegram_id: Number(tgId) })
         .then((res) => {
           localStorage.setItem("tc_token", res.data.access_token);
           router.replace("/dashboard");
         })
         .catch(() => {
-          router.replace("/login");
+          // Not an employer — send to candidate dashboard
+          router.replace("/my");
         });
       return;
     }
 
     // Normal flow
     const token = localStorage.getItem("tc_token");
-    router.replace(token ? "/dashboard" : "/login");
+    if (token) {
+      router.replace("/dashboard");
+    } else if (localStorage.getItem("tc_tg_id")) {
+      router.replace("/my");
+    } else {
+      router.replace("/login");
+    }
   }, [router, searchParams]);
 
   return (

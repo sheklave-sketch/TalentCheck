@@ -13,13 +13,19 @@ def role_selection_keyboard() -> InlineKeyboardMarkup:
 
 # ─── Candidate menu ─────────────────────────────────────────────────────────
 
-def candidate_menu_keyboard() -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup([
+def candidate_menu_keyboard(telegram_id: int | None = None) -> InlineKeyboardMarkup:
+    buttons = [
         [InlineKeyboardButton("Browse Tests", callback_data="menu|browse_tests")],
         [InlineKeyboardButton("Practice Tests (Free)", callback_data="menu|practice")],
         [InlineKeyboardButton("My Results", callback_data="menu|results")],
-        [InlineKeyboardButton("Help", callback_data="menu|help")],
-    ])
+    ]
+    if telegram_id:
+        buttons.append([InlineKeyboardButton(
+            "Open My Dashboard",
+            url=f"https://talentcheck-tau.vercel.app/?tg_id={telegram_id}&role=candidate",
+        )])
+    buttons.append([InlineKeyboardButton("Help", callback_data="menu|help")])
+    return InlineKeyboardMarkup(buttons)
 
 
 # ─── Employer menu ──────────────────────────────────────────────────────────
