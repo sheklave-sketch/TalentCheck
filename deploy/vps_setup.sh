@@ -24,17 +24,15 @@ python3 -m venv /root/talentcheck/venv
 /root/talentcheck/venv/bin/pip install -r api/requirements.txt -q
 echo "Dependencies installed."
 
-# ─── 3. Write .env ─────────────────────────────────────────────────────────
-cat > /root/talentcheck/.env << 'ENVEOF'
-DATABASE_URL=postgresql://postgres.getucjflokixtpcbpvmi:REDACTED_DB_PASSWORD@aws-0-us-west-1.pooler.supabase.com:5432/postgres
-SECRET_KEY=REDACTED_SECRET_KEY
-ALGORITHM=HS256
-SUPABASE_URL=https://getucjflokixtpcbpvmi.supabase.co
-SUPABASE_SERVICE_KEY=REDACTED_SUPABASE_SERVICE_KEY
-FRONTEND_URL=https://talentcheck.vercel.app
-DEBUG=false
-ENVEOF
-echo ".env written."
+# ─── 3. .env check ────────────────────────────────────────────────────────
+# NEVER hardcode secrets in this script. Copy .env manually to the VPS:
+#   scp .env root@31.97.47.190:/root/talentcheck/.env
+if [ ! -f /root/talentcheck/.env ]; then
+  echo "ERROR: /root/talentcheck/.env not found."
+  echo "Copy it manually:  scp .env root@<VPS_IP>:/root/talentcheck/.env"
+  exit 1
+fi
+echo ".env found."
 
 # ─── 4. systemd service ────────────────────────────────────────────────────
 cat > /etc/systemd/system/talentcheck-api.service << 'SVCEOF'
