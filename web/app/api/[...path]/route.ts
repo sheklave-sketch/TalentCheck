@@ -4,7 +4,11 @@ const API_BACKEND = process.env.API_BACKEND_URL || "http://31.97.47.190:8001";
 
 async function proxyRequest(req: NextRequest, { params }: { params: { path: string[] } }) {
   const path = params.path.join("/");
-  const url = `${API_BACKEND}/api/${path}${req.nextUrl.search}`;
+  // Add trailing slash for non-file paths to avoid FastAPI 307 redirects
+  // (redirects cause the Authorization header to be stripped by fetch)
+  const lastSegment = params.path[params.path.length - 1];
+  const needsSlash = !lastSegment.includes(".");
+  const url = `${API_BACKEND}/api/${path}${needsSlash ? "/" : ""}${req.nextUrl.search}`;
 
   const headers: Record<string, string> = {
     "Content-Type": req.headers.get("content-type") || "application/json",
