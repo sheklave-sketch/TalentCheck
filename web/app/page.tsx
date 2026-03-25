@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { api } from "@/lib/api";
 
-export default function Home() {
+function HomeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -19,7 +19,6 @@ export default function Home() {
           router.replace("/dashboard");
         })
         .catch(() => {
-          // No linked account — send to login
           router.replace("/login");
         });
       return;
@@ -34,5 +33,17 @@ export default function Home() {
     <div className="min-h-screen bg-brand-surface flex items-center justify-center">
       <div className="w-6 h-6 border-2 border-brand-amber border-t-transparent rounded-full animate-spin" />
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-brand-surface flex items-center justify-center">
+        <div className="w-6 h-6 border-2 border-brand-amber border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <HomeContent />
+    </Suspense>
   );
 }
