@@ -6,9 +6,9 @@ engine = create_async_engine(
     settings.DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://"),
     echo=settings.DEBUG,
     pool_pre_ping=True,
-    pool_size=20,
-    max_overflow=10,
-    pool_recycle=3600,
+    pool_size=5,
+    max_overflow=5,
+    pool_recycle=1800,
     # Required for Supabase pgbouncer (transaction mode)
     connect_args={"statement_cache_size": 0},
 )
