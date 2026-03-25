@@ -37,45 +37,45 @@ export default function InvitePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0E1A]">
-      <nav className="border-b border-white/10 px-8 py-4 flex items-center gap-4">
-        <Link href="/dashboard" className="text-white/40 text-sm hover:text-white/70">← Dashboard</Link>
-        <span className="text-white/20">|</span>
-        <span className="font-display text-sm font-700 text-white">Invite Candidates</span>
+    <div className="min-h-screen bg-brand-surface">
+      <nav className="bg-white border-b border-brand-border px-8 py-4 flex items-center gap-4 shadow-card">
+        <Link href="/dashboard" className="text-brand-muted text-sm hover:text-brand-dark transition-colors">&larr; Dashboard</Link>
+        <span className="text-brand-border">|</span>
+        <span className="font-display text-sm font-700 text-brand-dark">Invite Candidates</span>
       </nav>
 
       <main className="max-w-4xl mx-auto px-8 py-10">
-        <h1 className="font-display text-3xl font-800 text-white mb-2">Send Invitations</h1>
-        <p className="text-white/50 text-sm mb-8">Candidates will receive a unique link via email (and SMS if phone provided)</p>
+        <h1 className="font-display text-3xl font-800 text-brand-dark mb-2">Send Invitations</h1>
+        <p className="text-brand-muted text-sm mb-8">Candidates will receive a unique link via email (and SMS if phone provided)</p>
 
         {/* Table */}
-        <div className="border border-white/10 rounded-xl overflow-hidden mb-6">
+        <div className="bg-white border border-brand-border rounded-xl overflow-hidden mb-6 shadow-card">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-white/10">
-                <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-3">#</th>
-                <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-3">Full Name *</th>
-                <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-3">Email *</th>
-                <th className="text-left text-white/40 text-xs uppercase tracking-wider px-4 py-3">Phone (optional)</th>
+              <tr className="border-b border-brand-border bg-brand-surface/50">
+                <th className="text-left text-brand-muted text-xs uppercase tracking-wider px-4 py-3">#</th>
+                <th className="text-left text-brand-muted text-xs uppercase tracking-wider px-4 py-3">Full Name *</th>
+                <th className="text-left text-brand-muted text-xs uppercase tracking-wider px-4 py-3">Email *</th>
+                <th className="text-left text-brand-muted text-xs uppercase tracking-wider px-4 py-3">Phone (optional)</th>
                 <th className="px-4 py-3" />
               </tr>
             </thead>
             <tbody>
               {rows.map((row, i) => (
-                <tr key={i} className="border-b border-white/5">
-                  <td className="px-4 py-2 text-white/30 text-sm font-mono">{i + 1}</td>
+                <tr key={i} className="border-b border-brand-border/50">
+                  <td className="px-4 py-2 text-brand-muted text-sm font-mono">{i + 1}</td>
                   {(["full_name", "email", "phone"] as const).map((field) => (
                     <td key={field} className="px-2 py-2">
                       <input
                         value={row[field]}
                         onChange={(e) => updateRow(i, field, e.target.value)}
                         placeholder={field === "full_name" ? "Abebe Girma" : field === "email" ? "abebe@email.com" : "+251..."}
-                        className="w-full bg-white/5 border border-transparent rounded-lg px-3 py-2 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-white/20 transition-colors"
+                        className="w-full bg-brand-surface border border-transparent rounded-lg px-3 py-2 text-brand-dark text-sm placeholder:text-brand-muted/40 focus:outline-none focus:border-brand-border focus:bg-white transition-all"
                       />
                     </td>
                   ))}
                   <td className="px-4 py-2">
-                    <button onClick={() => removeRow(i)} className="text-white/20 hover:text-red-400 transition-colors text-sm">✕</button>
+                    <button onClick={() => removeRow(i)} className="text-brand-muted/40 hover:text-red-500 transition-colors text-sm">&times;</button>
                   </td>
                 </tr>
               ))}
@@ -84,11 +84,11 @@ export default function InvitePage() {
         </div>
 
         <div className="flex items-center justify-between">
-          <button onClick={addRow} className="text-[#F5A623] text-sm hover:underline">+ Add row</button>
+          <button onClick={addRow} className="text-brand-amber text-sm font-600 hover:underline">+ Add row</button>
           <button
             onClick={handleInvite}
             disabled={loading}
-            className="bg-[#F5A623] text-[#0A0E1A] font-display font-700 px-8 py-3 rounded-xl hover:bg-[#F5A623]/90 transition-colors disabled:opacity-60"
+            className="bg-brand-amber text-white font-display font-700 px-8 py-3 rounded-xl hover:bg-brand-amber/90 transition-colors disabled:opacity-60 shadow-card"
           >
             {loading ? "Sending..." : `Send ${rows.filter((r) => r.email).length} Invitation(s)`}
           </button>

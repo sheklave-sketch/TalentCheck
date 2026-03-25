@@ -31,7 +31,7 @@ export default function VerifyCertificatePage() {
   }, [number]);
 
   const formatDate = (iso: string | null) => {
-    if (!iso) return "—";
+    if (!iso) return "\u2014";
     return new Date(iso).toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
@@ -40,28 +40,28 @@ export default function VerifyCertificatePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0E1A] flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-brand-surface flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-lg">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-[#F5A623] font-bold text-2xl tracking-wider">
+          <h1 className="text-brand-amber font-bold text-2xl tracking-wider font-display">
             TALENTCHECK
           </h1>
-          <p className="text-gray-400 text-sm mt-1 tracking-widest">
+          <p className="text-brand-muted text-sm mt-1 tracking-widest">
             E T H I O P I A
           </p>
         </div>
 
         {/* Card */}
-        <div className="bg-[#1A1F2E] rounded-2xl border border-[#2A2F3E] shadow-2xl overflow-hidden">
+        <div className="bg-white rounded-2xl border border-brand-border shadow-elevated overflow-hidden">
           {/* Top accent bar */}
-          <div className="h-1 bg-gradient-to-r from-[#F5A623] via-[#FFC857] to-[#F5A623]" />
+          <div className="h-1 bg-gradient-to-r from-brand-amber via-amber-300 to-brand-amber" />
 
           <div className="p-8">
             {loading && (
               <div className="flex flex-col items-center py-12">
-                <div className="w-8 h-8 border-2 border-[#F5A623] border-t-transparent rounded-full animate-spin" />
-                <p className="text-gray-400 mt-4 text-sm">
+                <div className="w-8 h-8 border-2 border-brand-amber border-t-transparent rounded-full animate-spin" />
+                <p className="text-brand-muted mt-4 text-sm">
                   Verifying certificate...
                 </p>
               </div>
@@ -69,9 +69,9 @@ export default function VerifyCertificatePage() {
 
             {error && (
               <div className="text-center py-12">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-500/10 flex items-center justify-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-50 flex items-center justify-center">
                   <svg
-                    className="w-8 h-8 text-red-400"
+                    className="w-8 h-8 text-red-500"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -84,7 +84,7 @@ export default function VerifyCertificatePage() {
                     />
                   </svg>
                 </div>
-                <p className="text-red-400 font-medium">{error}</p>
+                <p className="text-red-600 font-medium">{error}</p>
               </div>
             )}
 
@@ -93,9 +93,9 @@ export default function VerifyCertificatePage() {
                 {/* Status badge */}
                 <div className="flex justify-center mb-6">
                   {data.valid ? (
-                    <div className="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-6 py-3">
+                    <div className="flex items-center gap-3 bg-emerald-50 border border-emerald-200 rounded-full px-6 py-3">
                       <svg
-                        className="w-6 h-6 text-emerald-400"
+                        className="w-6 h-6 text-emerald-600"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -107,14 +107,14 @@ export default function VerifyCertificatePage() {
                           d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
-                      <span className="text-emerald-400 font-semibold text-lg">
+                      <span className="text-emerald-700 font-semibold text-lg">
                         Valid Certificate
                       </span>
                     </div>
                   ) : (
-                    <div className="flex items-center gap-3 bg-red-500/10 border border-red-500/30 rounded-full px-6 py-3">
+                    <div className="flex items-center gap-3 bg-red-50 border border-red-200 rounded-full px-6 py-3">
                       <svg
-                        className="w-6 h-6 text-red-400"
+                        className="w-6 h-6 text-red-500"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -126,7 +126,7 @@ export default function VerifyCertificatePage() {
                           d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
-                      <span className="text-red-400 font-semibold text-lg">
+                      <span className="text-red-600 font-semibold text-lg">
                         Invalid Certificate
                       </span>
                     </div>
@@ -135,10 +135,10 @@ export default function VerifyCertificatePage() {
 
                 {/* Certificate number */}
                 <div className="text-center mb-6">
-                  <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">
+                  <p className="text-brand-muted text-xs uppercase tracking-wider mb-1">
                     Certificate Number
                   </p>
-                  <p className="text-white font-mono text-lg font-semibold">
+                  <p className="text-brand-dark font-mono text-lg font-semibold">
                     {data.certificate_number}
                   </p>
                 </div>
@@ -146,48 +146,42 @@ export default function VerifyCertificatePage() {
                 {data.valid && (
                   <>
                     {/* Divider */}
-                    <div className="border-t border-[#2A2F3E] my-6" />
+                    <div className="border-t border-brand-border my-6" />
 
                     {/* Details grid */}
                     <div className="space-y-4">
                       <div className="flex justify-between items-start">
-                        <span className="text-gray-500 text-sm">
-                          Candidate
-                        </span>
-                        <span className="text-white font-semibold text-right">
+                        <span className="text-brand-muted text-sm">Candidate</span>
+                        <span className="text-brand-dark font-semibold text-right">
                           {data.candidate_name}
                         </span>
                       </div>
 
                       <div className="flex justify-between items-start">
-                        <span className="text-gray-500 text-sm">
-                          Assessment
-                        </span>
-                        <span className="text-white font-medium text-right">
+                        <span className="text-brand-muted text-sm">Assessment</span>
+                        <span className="text-brand-dark font-medium text-right">
                           {data.test_label}
                         </span>
                       </div>
 
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-500 text-sm">Score</span>
-                        <span className="text-[#F5A623] font-bold text-xl">
+                        <span className="text-brand-muted text-sm">Score</span>
+                        <span className="text-brand-amber font-bold text-xl">
                           {data.score_percentage?.toFixed(0)}%
                         </span>
                       </div>
 
                       <div className="flex justify-between items-center">
-                        <span className="text-gray-500 text-sm">
-                          Performance
-                        </span>
+                        <span className="text-brand-muted text-sm">Performance</span>
                         <span
-                          className={`font-semibold px-3 py-1 rounded-full text-sm ${
+                          className={`font-semibold px-3 py-1 rounded-full text-sm border ${
                             data.performance_label === "Excellent"
-                              ? "bg-emerald-500/20 text-emerald-400"
+                              ? "bg-emerald-50 text-emerald-700 border-emerald-200"
                               : data.performance_label === "Very Good"
-                              ? "bg-blue-500/20 text-blue-400"
+                              ? "bg-blue-50 text-blue-700 border-blue-200"
                               : data.performance_label === "Good"
-                              ? "bg-amber-500/20 text-amber-400"
-                              : "bg-gray-500/20 text-gray-400"
+                              ? "bg-amber-50 text-amber-700 border-amber-200"
+                              : "bg-gray-50 text-gray-600 border-gray-200"
                           }`}
                         >
                           {data.performance_label}
@@ -195,10 +189,8 @@ export default function VerifyCertificatePage() {
                       </div>
 
                       <div className="flex justify-between items-start">
-                        <span className="text-gray-500 text-sm">
-                          Date Issued
-                        </span>
-                        <span className="text-white text-sm">
+                        <span className="text-brand-muted text-sm">Date Issued</span>
+                        <span className="text-brand-dark text-sm">
                           {formatDate(data.issued_at)}
                         </span>
                       </div>
@@ -207,7 +199,7 @@ export default function VerifyCertificatePage() {
                 )}
 
                 {!data.valid && (
-                  <p className="text-center text-gray-400 text-sm mt-4">
+                  <p className="text-center text-brand-muted text-sm mt-4">
                     This certificate number was not found in our records. Please
                     check the number and try again.
                   </p>
@@ -217,8 +209,8 @@ export default function VerifyCertificatePage() {
           </div>
 
           {/* Footer */}
-          <div className="bg-[#141824] px-8 py-4 text-center">
-            <p className="text-gray-500 text-xs">
+          <div className="bg-brand-surface px-8 py-4 text-center border-t border-brand-border">
+            <p className="text-brand-muted text-xs">
               Issued by TalentCheck Ethiopia &mdash; Verified{" "}
               {new Date().toLocaleDateString("en-US", {
                 year: "numeric",

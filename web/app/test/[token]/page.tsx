@@ -137,7 +137,7 @@ export default function CandidateTestPage() {
       await sessionApi.submit(sessionIdRef.current!, Object.values(answers));
       setState("done");
     } catch {
-      setState("done"); // still show done screen
+      setState("done");
     }
   };
 
@@ -155,10 +155,10 @@ export default function CandidateTestPage() {
 
   if (state === "loading") {
     return (
-      <div className="min-h-screen bg-[#0A0E1A] flex items-center justify-center">
+      <div className="min-h-screen bg-brand-surface flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-[#F5A623] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-white/40 text-sm">Loading your assessment...</p>
+          <div className="w-8 h-8 border-2 border-brand-amber border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-brand-muted text-sm">Loading your assessment...</p>
         </div>
       </div>
     );
@@ -166,11 +166,13 @@ export default function CandidateTestPage() {
 
   if (state === "error") {
     return (
-      <div className="min-h-screen bg-[#0A0E1A] flex items-center justify-center">
+      <div className="min-h-screen bg-brand-surface flex items-center justify-center">
         <div className="text-center max-w-md px-8">
-          <p className="text-4xl mb-4">⚠️</p>
-          <h1 className="font-display text-2xl font-800 text-white mb-3">Link Issue</h1>
-          <p className="text-white/50 text-sm">{error}</p>
+          <div className="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="text-red-500 text-2xl">!</span>
+          </div>
+          <h1 className="font-display text-2xl font-800 text-brand-dark mb-3">Link Issue</h1>
+          <p className="text-brand-muted text-sm">{error}</p>
         </div>
       </div>
     );
@@ -178,32 +180,32 @@ export default function CandidateTestPage() {
 
   if (state === "ready") {
     return (
-      <div className="min-h-screen bg-[#0A0E1A] flex items-center justify-center p-8">
+      <div className="min-h-screen bg-brand-surface flex items-center justify-center p-8">
         <div className="w-full max-w-xl text-center">
-          <span className="font-display text-lg font-800 text-white tracking-tight mb-8 block">
-            Talent<span className="text-[#F5A623]">Check</span>
+          <span className="font-display text-lg font-800 text-brand-dark tracking-tight mb-8 block">
+            Talent<span className="text-brand-amber">Check</span>
           </span>
-          <h1 className="font-display text-3xl font-800 text-white mb-3">
+          <h1 className="font-display text-3xl font-800 text-brand-dark mb-3">
             Hello, {data.candidate_name}
           </h1>
-          <p className="text-white/60 text-base mb-2">{data.assessment_title}</p>
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-8 text-left space-y-3">
+          <p className="text-brand-muted text-base mb-2">{data.assessment_title}</p>
+          <div className="bg-white border border-brand-border rounded-2xl p-6 mb-8 text-left space-y-3 shadow-card">
             <div className="flex justify-between text-sm">
-              <span className="text-white/50">Total time</span>
-              <span className="text-white font-mono font-600">{data.total_time_limit_minutes} minutes</span>
+              <span className="text-brand-muted">Total time</span>
+              <span className="text-brand-dark font-mono font-600">{data.total_time_limit_minutes} minutes</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-white/50">Sections</span>
-              <span className="text-white font-mono font-600">{data.tests.length}</span>
+              <span className="text-brand-muted">Sections</span>
+              <span className="text-brand-dark font-mono font-600">{data.tests.length}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-white/50">Questions</span>
-              <span className="text-white font-mono font-600">{totalQuestions}</span>
+              <span className="text-brand-muted">Questions</span>
+              <span className="text-brand-dark font-mono font-600">{totalQuestions}</span>
             </div>
           </div>
-          <div className="bg-[#F5A623]/10 border border-[#F5A623]/20 rounded-xl p-4 mb-8 text-left">
-            <p className="text-[#F5A623] text-sm font-600 mb-1">Before you begin</p>
-            <ul className="text-white/60 text-sm space-y-1 list-disc list-inside">
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-8 text-left">
+            <p className="text-amber-800 text-sm font-600 mb-1">Before you begin</p>
+            <ul className="text-amber-700/80 text-sm space-y-1 list-disc list-inside">
               <li>Do not switch browser tabs — it will be recorded</li>
               <li>The timer runs continuously and cannot be paused</li>
               <li>Your session will auto-submit when time expires</li>
@@ -211,7 +213,7 @@ export default function CandidateTestPage() {
           </div>
           <button
             onClick={() => setState("in_progress")}
-            className="w-full bg-[#F5A623] text-[#0A0E1A] font-display font-800 py-4 rounded-xl hover:bg-[#F5A623]/90 transition-colors text-lg"
+            className="w-full bg-brand-amber text-white font-display font-800 py-4 rounded-xl hover:bg-brand-amber/90 transition-colors text-lg shadow-card"
           >
             Begin Assessment
           </button>
@@ -222,13 +224,13 @@ export default function CandidateTestPage() {
 
   if (state === "done") {
     return (
-      <div className="min-h-screen bg-[#0A0E1A] flex items-center justify-center p-8">
+      <div className="min-h-screen bg-brand-surface flex items-center justify-center p-8">
         <div className="text-center max-w-md">
-          <div className="w-16 h-16 bg-[#4ECDC4]/20 rounded-full flex items-center justify-center mx-auto mb-6">
-            <span className="text-3xl">✓</span>
+          <div className="w-16 h-16 bg-brand-teal-light rounded-full flex items-center justify-center mx-auto mb-6">
+            <span className="text-brand-teal text-3xl font-700">&check;</span>
           </div>
-          <h1 className="font-display text-3xl font-800 text-white mb-3">Submitted!</h1>
-          <p className="text-white/60 text-base">
+          <h1 className="font-display text-3xl font-800 text-brand-dark mb-3">Submitted!</h1>
+          <p className="text-brand-muted text-base">
             Your assessment has been received. The hiring team will review your results and be in touch.
           </p>
         </div>
@@ -238,10 +240,10 @@ export default function CandidateTestPage() {
 
   if (state === "submitting") {
     return (
-      <div className="min-h-screen bg-[#0A0E1A] flex items-center justify-center">
+      <div className="min-h-screen bg-brand-surface flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-[#4ECDC4] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-white/40 text-sm">Submitting your answers...</p>
+          <div className="w-8 h-8 border-2 border-brand-teal border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-brand-muted text-sm">Submitting your answers...</p>
         </div>
       </div>
     );
@@ -252,46 +254,46 @@ export default function CandidateTestPage() {
   const timerUrgent = totalSeconds < 120;
 
   return (
-    <div className="min-h-screen bg-[#0A0E1A] flex flex-col">
+    <div className="min-h-screen bg-brand-surface flex flex-col">
       {/* Top bar */}
-      <header className="border-b border-white/10 px-6 py-3 flex items-center justify-between sticky top-0 bg-[#0A0E1A]/95 backdrop-blur z-10">
+      <header className="bg-white border-b border-brand-border px-6 py-3 flex items-center justify-between sticky top-0 shadow-card z-10">
         <div className="flex items-center gap-3">
-          <span className="font-display text-sm font-800 text-white">
-            Talent<span className="text-[#F5A623]">Check</span>
+          <span className="font-display text-sm font-800 text-brand-dark">
+            Talent<span className="text-brand-amber">Check</span>
           </span>
-          <span className="text-white/20">·</span>
-          <span className="text-white/50 text-xs">{data.assessment_title}</span>
+          <span className="text-brand-border">&middot;</span>
+          <span className="text-brand-muted text-xs">{data.assessment_title}</span>
         </div>
 
         {/* Timer */}
-        <div className={`flex items-center gap-2 font-mono font-600 text-lg ${timerUrgent ? "text-red-400" : "text-white"}`}>
+        <div className={`flex items-center gap-2 font-mono font-600 text-lg ${timerUrgent ? "text-red-500" : "text-brand-dark"}`}>
           <span>{formatTime(totalSeconds)}</span>
         </div>
 
         {/* Progress */}
-        <div className="text-white/40 text-xs font-mono">
+        <div className="text-brand-muted text-xs font-mono">
           {answeredCount}/{totalQuestions} answered
         </div>
       </header>
 
       {/* Progress bar */}
-      <div className="h-0.5 bg-white/5">
+      <div className="h-1 bg-brand-border">
         <div
-          className="h-full bg-[#F5A623] transition-all duration-1000"
+          className="h-full bg-brand-amber transition-all duration-1000"
           style={{ width: `${pct * 100}%` }}
         />
       </div>
 
       {/* Section tabs */}
-      <div className="border-b border-white/5 px-6 py-2 flex gap-4 overflow-x-auto">
+      <div className="bg-white border-b border-brand-border px-6 py-2 flex gap-3 overflow-x-auto">
         {(data.tests as TestSection[]).map((test, idx) => (
           <button
             key={test.test_key}
             onClick={() => { setCurrentTestIdx(idx); setCurrentQIdx(0); setQStartTime(Date.now()); }}
-            className={`text-xs whitespace-nowrap py-1 px-3 rounded-full transition-colors ${
+            className={`text-xs whitespace-nowrap py-1.5 px-3 rounded-full transition-colors font-600 ${
               idx === currentTestIdx
-                ? "bg-[#F5A623] text-[#0A0E1A] font-700"
-                : "text-white/40 hover:text-white/70"
+                ? "bg-brand-amber text-white"
+                : "text-brand-muted bg-brand-surface hover:bg-brand-border"
             }`}
           >
             {test.test_key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
@@ -307,14 +309,14 @@ export default function CandidateTestPage() {
       <main className="flex-1 flex items-start justify-center p-6 pt-10">
         <div className="w-full max-w-2xl">
           {/* Question number */}
-          <p className="text-white/30 text-xs font-mono mb-4">
+          <p className="text-brand-muted text-xs font-mono mb-4">
             Question {currentQIdx + 1} of {totalQInSection}
-            {" · "}
+            {" \u00B7 "}
             {currentTest?.test_key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
           </p>
 
           {/* Question text */}
-          <h2 className="font-display text-xl font-700 text-white leading-relaxed mb-8">
+          <h2 className="font-display text-xl font-700 text-brand-dark leading-relaxed mb-8">
             {currentQuestion?.text}
           </h2>
 
@@ -328,13 +330,13 @@ export default function CandidateTestPage() {
                   onClick={() => selectAnswer(opt.key)}
                   className={`w-full text-left px-5 py-4 rounded-xl border transition-all ${
                     selected
-                      ? "border-[#F5A623] bg-[#F5A623]/10 text-white"
-                      : "border-white/10 bg-white/3 text-white/70 hover:border-white/30 hover:bg-white/5"
+                      ? "border-brand-amber bg-brand-amber-light text-brand-dark shadow-card"
+                      : "border-brand-border bg-white text-brand-dark/80 hover:border-brand-amber/40 hover:shadow-card"
                   }`}
                 >
                   <div className="flex items-center gap-4">
                     <span className={`w-7 h-7 rounded-full border flex-shrink-0 flex items-center justify-center text-xs font-700 transition-colors ${
-                      selected ? "border-[#F5A623] bg-[#F5A623] text-[#0A0E1A]" : "border-white/20 text-white/40"
+                      selected ? "border-brand-amber bg-brand-amber text-white" : "border-brand-border text-brand-muted"
                     }`}>
                       {opt.key}
                     </span>
@@ -348,24 +350,24 @@ export default function CandidateTestPage() {
       </main>
 
       {/* Navigation footer */}
-      <footer className="border-t border-white/10 px-6 py-4 flex items-center justify-between">
+      <footer className="bg-white border-t border-brand-border px-6 py-4 flex items-center justify-between shadow-card">
         <button
           onClick={goPrev}
           disabled={currentTestIdx === 0 && currentQIdx === 0}
-          className="text-white/40 text-sm hover:text-white/70 transition-colors disabled:opacity-20"
+          className="text-brand-muted text-sm hover:text-brand-dark transition-colors disabled:opacity-20"
         >
-          ← Previous
+          &larr; Previous
         </button>
 
         <button
           onClick={goNext}
-          className={`font-display font-700 text-sm px-6 py-2.5 rounded-lg transition-colors ${
+          className={`font-display font-700 text-sm px-6 py-2.5 rounded-lg transition-colors shadow-card ${
             isLastQuestion
-              ? "bg-[#4ECDC4] text-[#0A0E1A] hover:opacity-90"
-              : "bg-[#F5A623] text-[#0A0E1A] hover:bg-[#F5A623]/90"
+              ? "bg-brand-teal text-white hover:opacity-90"
+              : "bg-brand-amber text-white hover:bg-brand-amber/90"
           }`}
         >
-          {isLastQuestion ? "Submit Assessment" : "Next →"}
+          {isLastQuestion ? "Submit Assessment" : "Next \u2192"}
         </button>
       </footer>
     </div>

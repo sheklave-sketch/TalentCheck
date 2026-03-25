@@ -20,13 +20,13 @@ type Result = {
 
 function ScoreBadge({ label }: { label: string }) {
   const colors: Record<string, string> = {
-    "Excellent": "bg-[#4ECDC4]/20 text-[#4ECDC4]",
-    "Good":      "bg-[#F5A623]/20 text-[#F5A623]",
-    "Fair":      "bg-white/10 text-white/60",
-    "Below Average": "bg-red-500/20 text-red-400",
+    "Excellent": "bg-emerald-50 text-emerald-700 border-emerald-200",
+    "Good":      "bg-amber-50 text-amber-700 border-amber-200",
+    "Fair":      "bg-gray-50 text-gray-600 border-gray-200",
+    "Below Average": "bg-red-50 text-red-600 border-red-200",
   };
   return (
-    <span className={`text-xs px-2 py-0.5 rounded-full font-600 ${colors[label] || "bg-white/10 text-white/40"}`}>
+    <span className={`text-xs px-2 py-0.5 rounded-full font-600 border ${colors[label] || "bg-gray-50 text-gray-400 border-gray-200"}`}>
       {label}
     </span>
   );
@@ -88,24 +88,24 @@ export default function ResultsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0E1A]">
-      <nav className="border-b border-white/10 px-8 py-4 flex items-center justify-between">
+    <div className="min-h-screen bg-brand-surface">
+      <nav className="bg-white border-b border-brand-border px-8 py-4 flex items-center justify-between shadow-card">
         <div className="flex items-center gap-4">
-          <Link href="/dashboard" className="text-white/40 text-sm hover:text-white/70">← Dashboard</Link>
-          <span className="text-white/20">|</span>
-          <span className="font-display text-sm font-700 text-white">Results</span>
+          <Link href="/dashboard" className="text-brand-muted text-sm hover:text-brand-dark transition-colors">&larr; Dashboard</Link>
+          <span className="text-brand-border">|</span>
+          <span className="font-display text-sm font-700 text-brand-dark">Results</span>
         </div>
         <div className="flex gap-3">
           <button
             onClick={runScoring}
             disabled={scoring}
-            className="border border-[#4ECDC4]/40 text-[#4ECDC4] text-sm px-4 py-2 rounded-lg hover:bg-[#4ECDC4]/10 transition-colors disabled:opacity-50"
+            className="border border-brand-teal text-brand-teal text-sm font-600 px-4 py-2 rounded-lg hover:bg-brand-teal-light transition-colors disabled:opacity-50"
           >
             {scoring ? "Scoring..." : "Run Scoring"}
           </button>
           <button
             onClick={exportExcel}
-            className="border border-white/20 text-white/70 text-sm px-4 py-2 rounded-lg hover:bg-white/5 transition-colors"
+            className="border border-brand-border text-brand-muted text-sm px-4 py-2 rounded-lg hover:bg-brand-surface transition-colors"
           >
             Export Excel
           </button>
@@ -113,17 +113,17 @@ export default function ResultsPage() {
       </nav>
 
       <main className="max-w-6xl mx-auto px-8 py-10">
-        <h1 className="font-display text-3xl font-800 text-white mb-8">Candidate Rankings</h1>
+        <h1 className="font-display text-3xl font-800 text-brand-dark mb-8">Candidate Rankings</h1>
 
         {loading ? (
-          <div className="text-white/40 text-center py-20">Loading results...</div>
+          <div className="text-brand-muted text-center py-20">Loading results...</div>
         ) : results.length === 0 ? (
-          <div className="border border-white/10 border-dashed rounded-2xl py-24 text-center">
-            <p className="text-white/30 font-display text-lg mb-2">No results yet</p>
-            <p className="text-white/20 text-sm mb-6">Once candidates complete their assessments, click "Run Scoring"</p>
+          <div className="bg-white border border-brand-border border-dashed rounded-2xl py-24 text-center shadow-card">
+            <p className="text-brand-muted font-display text-lg mb-2">No results yet</p>
+            <p className="text-brand-muted/60 text-sm mb-6">Once candidates complete their assessments, click &ldquo;Run Scoring&rdquo;</p>
             <button
               onClick={runScoring}
-              className="bg-[#4ECDC4] text-[#0A0E1A] font-display font-700 text-sm px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+              className="bg-brand-teal text-white font-display font-700 text-sm px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
             >
               Run Scoring Now
             </button>
@@ -131,63 +131,63 @@ export default function ResultsPage() {
         ) : (
           <div className="space-y-2">
             {results.map((r) => (
-              <div key={r.candidate_id} className="border border-white/10 rounded-xl overflow-hidden">
+              <div key={r.candidate_id} className="bg-white border border-brand-border rounded-xl overflow-hidden shadow-card">
                 <div
-                  className="flex items-center gap-4 px-5 py-4 cursor-pointer hover:bg-white/3 transition-colors"
+                  className="flex items-center gap-4 px-5 py-4 cursor-pointer hover:bg-brand-surface/50 transition-colors"
                   onClick={() => setExpanded(expanded === r.candidate_id ? null : r.candidate_id)}
                 >
                   {/* Rank */}
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center font-display font-800 text-sm flex-shrink-0 ${
-                    r.rank === 1 ? "bg-[#F5A623] text-[#0A0E1A]" :
-                    r.rank === 2 ? "bg-white/20 text-white" :
-                    r.rank === 3 ? "bg-white/10 text-white/70" : "bg-transparent border border-white/10 text-white/40"
+                    r.rank === 1 ? "bg-brand-amber text-white" :
+                    r.rank === 2 ? "bg-gray-200 text-gray-600" :
+                    r.rank === 3 ? "bg-amber-100 text-amber-700" : "bg-brand-surface border border-brand-border text-brand-muted"
                   }`}>
                     {r.rank}
                   </div>
 
                   {/* Name */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-white font-600 text-sm">{r.full_name}</p>
-                    <p className="text-white/40 text-xs">{r.email}</p>
+                    <p className="text-brand-dark font-600 text-sm">{r.full_name}</p>
+                    <p className="text-brand-muted text-xs">{r.email}</p>
                   </div>
 
                   {/* Score */}
                   <div className="text-right">
-                    <p className="font-mono text-white font-600 text-lg">{r.total_score?.toFixed(1)}%</p>
+                    <p className="font-mono text-brand-dark font-600 text-lg">{r.total_score?.toFixed(1)}%</p>
                     {r.percentile != null && (
-                      <p className="text-white/40 text-xs">{r.percentile}th pct.</p>
+                      <p className="text-brand-muted text-xs">{r.percentile}th pct.</p>
                     )}
                   </div>
 
                   {/* Flags */}
                   {r.has_flags && (
-                    <span className="text-xs text-orange-400 border border-orange-400/30 px-2 py-0.5 rounded-full">
-                      ⚠ Flagged
+                    <span className="text-xs text-orange-600 border border-orange-200 bg-orange-50 px-2 py-0.5 rounded-full font-600">
+                      Flagged
                     </span>
                   )}
 
                   {/* PDF */}
                   <button
                     onClick={(e) => { e.stopPropagation(); downloadPdf(r.candidate_id, r.full_name); }}
-                    className="text-white/40 text-xs hover:text-white/70 transition-colors"
+                    className="text-brand-muted text-xs hover:text-brand-dark transition-colors"
                   >
                     PDF
                   </button>
 
-                  <span className="text-white/30 text-xs">{expanded === r.candidate_id ? "▲" : "▼"}</span>
+                  <span className="text-brand-muted text-xs">{expanded === r.candidate_id ? "\u25B2" : "\u25BC"}</span>
                 </div>
 
                 {/* Expanded score breakdown */}
                 {expanded === r.candidate_id && r.scores_by_test && (
-                  <div className="border-t border-white/10 px-5 py-4 bg-white/3">
+                  <div className="border-t border-brand-border px-5 py-4 bg-brand-surface/50">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                       {Object.entries(r.scores_by_test).map(([key, data]) => (
-                        <div key={key} className="bg-white/5 rounded-lg p-3">
-                          <p className="text-white/50 text-xs mb-2">{key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}</p>
-                          <p className="font-mono text-white text-lg font-600">{data.percentage?.toFixed(0)}%</p>
+                        <div key={key} className="bg-white rounded-lg p-3 border border-brand-border">
+                          <p className="text-brand-muted text-xs mb-2">{key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}</p>
+                          <p className="font-mono text-brand-dark text-lg font-600">{data.percentage?.toFixed(0)}%</p>
                           <div className="flex items-center gap-2 mt-1">
                             <ScoreBadge label={data.label} />
-                            <span className="text-white/30 text-xs">{data.raw_score}/{data.total_questions}</span>
+                            <span className="text-brand-muted text-xs">{data.raw_score}/{data.total_questions}</span>
                           </div>
                         </div>
                       ))}
